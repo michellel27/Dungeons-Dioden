@@ -21,17 +21,25 @@ if not st.session_state.angemeldet:
     st.stop() # Stoppt den Aufbau der restlichen Website
 # 2. Die Navigation in der Seitenleiste (Sidebar) erstellen
 # 1. Das Menü-Gedächtnis initialisieren
-# --- NAVIGATION & GEDÄCHTNIS ---
+# 1. Das Menü-Gedächtnis initialisieren
 if "menue" not in st.session_state:
     st.session_state.menue = "Startseite"
 
-# Das Menü wird aus dem Session State gesteuert
+# 2. Die Navigation in der Sidebar (ohne direkten Key-Konflikt)
 st.sidebar.title("Navigation")
+menue_optionen = ["Startseite", "Grundlagen", "Verfahren", "Mathematik", "Lexikon & Abkürzungen", "Dokumente & Uploads"]
+
+# Wir holen den aktuellen Index aus dem Session State
+aktueller_index = menue_optionen.index(st.session_state.menue) if st.session_state.menue in menue_optionen else 0
+
 menue = st.sidebar.radio(
     "Wähle einen Bereich:",
-    ["Startseite", "Grundlagen", "Verfahren", "Mathematik", "Lexikon & Abkürzungen", "Dokumente & Uploads"],
-    key="menue"
+    menue_optionen,
+    index=aktueller_index
 )
+
+# Das aktuelle Menü im Session State speichern
+st.session_state.menue = menue
 
 # 3. Inhalte anzeigen, je nachdem was im Menü geklickt wurde
 # 3. Inhalte anzeigen, je nachdem was im Menü geklickt wurde
@@ -65,13 +73,14 @@ if menue == "Startseite":
     ]
 
     # Such-Logik: Direktes Springen per Button
+    # Such-Logik: Direktes Springen per Button
     if suchbegriff:
         ergebnisse = [eintrag for eintrag in suchindex if suchbegriff in eintrag["titel"].lower() or suchbegriff in eintrag["text"].lower()]
         
         if ergebnisse:
             st.success(f"**{len(ergebnisse)} Treffer gefunden:**")
             for i, e in enumerate(ergebnisse):
-                # Interaktiver Button, der den Reiter automatisch umschaltet
+                # Wenn der Button geklickt wird, setzen wir das Menü und laden neu
                 if st.button(f"🚀 Direkt zu: {e['titel']} (in '{e['ort']}')", key=f"such_btn_{i}"):
                     st.session_state.menue = e['ort']
                     st.rerun()
