@@ -1,7 +1,7 @@
 import streamlit as st
 
 # 1. Grund-Einstellungen der Seite (Muss immer ganz oben stehen)
-st.set_page_config(page_title="Elektrotechnik Wissen", layout="wide")
+st.set_page_config(page_title="Dungeons&Dioden", layout="wide")
 # --- PASSWORTSCHUTZ MIT GEDÄCHTNIS ---
 # 1. Prüfen, ob der Nutzer schon angemeldet ist
 if "angemeldet" not in st.session_state:
