@@ -20,57 +20,65 @@ if not st.session_state.angemeldet:
         
     st.stop() # Stoppt den Aufbau der restlichen Website
 # 2. Die Navigation in der Seitenleiste (Sidebar) erstellen
+# 1. Das Menü-Gedächtnis initialisieren
+# --- NAVIGATION & GEDÄCHTNIS ---
+if "menue" not in st.session_state:
+    st.session_state.menue = "Startseite"
+
+# Das Menü wird aus dem Session State gesteuert
 st.sidebar.title("Navigation")
 menue = st.sidebar.radio(
     "Wähle einen Bereich:",
-    ["Startseite", "Grundlagen", "Verfahren", "Mathematik", "Lexikon & Abkürzungen", "Dokumente & Uploads"]
+    ["Startseite", "Grundlagen", "Verfahren", "Mathematik", "Lexikon & Abkürzungen", "Dokumente & Uploads"],
+    key="menue"
 )
 
 # 3. Inhalte anzeigen, je nachdem was im Menü geklickt wurde
 # 3. Inhalte anzeigen, je nachdem was im Menü geklickt wurde
 if menue == "Startseite":
-    st.title("Wissensdatenbank: Elektrotechnik")
-    st.write("Willkommen auf deiner persönlichen Lern-Zentrale für die Werner-von-Siemens-Schule.")
+    st.title("Willkommen auf deiner persönlichen Lern-Zentrale für die Werner-von-Siemens-Schule.")
     
-    # --- GLOBALE SUCHFUNKTION ---
-    st.subheader("🔍 Globale Suche")
+    st.markdown("### 🔍 Globale Suche")
     suchbegriff = st.text_input("Was suchst du? (z. B. Widerstand, Gauß, Zweipol, Diode):").lower()
-    
-    # Unser Suchindex: Hier hinterlegen wir alle Themen der Website
+
+    # Unser Suchindex: Hier hinterlegen wir alle Themen der website
     suchindex = [
-        {"titel": "Knotenpotentialverfahren (Millman)", "ort": "Verfahren", "text": "Analyseverfahren für Netzwerke mit parallelen Strängen und zwei Hauptknoten."},
-        {"titel": "Zweipoltheorie / Ersatzspannungsquelle", "ort": "Verfahren", "text": "Netzwerk an Klemmen vereinfachen, Innenwiderstand und Leerlaufspannung berechnen."},
+        {"titel": "Knotenpotentialverfahren (Millman)", "ort": "Verfahren", "text": "Analyseverfahren für Netzwerke mit Leitwerten, Knotenpotentialen und äquivalenten Stromquellen."},
+        {"titel": "Zweipoltheorie / Ersatzspannungsquelle", "ort": "Verfahren", "text": "Reduktion komplexer Netze auf eine reale Spannungsquelle mit Innenwiderstand."},
         {"titel": "Überlagerungssatz nach Helmholtz", "ort": "Verfahren", "text": "Netzwerke mit mehreren Spannungs- oder Stromquellen durch Teilströme berechnen."},
         {"titel": "Kreisstrom- / Maschenstromverfahren", "ort": "Verfahren", "text": "Komplexe Schaltungen mit fiktiven Kreisströmen in unabhängigen Maschen berechnen."},
-        {"titel": "Kirchhoffsche Gesetze", "ort": "Verfahren", "text": "Knotenpunkt-Regel (Ströme) und Maschen-Regel (Spannungen)."},
-        {"titel": "Das Gauß-Verfahren (3x3 Matrix)", "ort": "Mathematik", "text": "Lineare Gleichungssysteme mit drei Unbekannten lösen (z.B. für Netzwerkanalysen)."},
-        {"titel": "Cramersche Regel (Determinanten)", "ort": "Mathematik", "text": "2x2 Gleichungssysteme superschnell über Kreuz berechnen."},
-        {"titel": "Komplexe Wechselstromrechnung", "ort": "Mathematik", "text": "Umrechnung zwischen Kartesischer Form (R+jX) und Polarform (Z, Winkel)."},
-        {"titel": "Trigonometrie / Leistungsdreieck", "ort": "Mathematik", "text": "Wirk-, Schein- und Blindleistung, Wirkfaktor cos(phi)."},
-        {"titel": "PQ-Formel", "ort": "Mathematik", "text": "Quadratische Gleichungen lösen (z.B. für Resonanzfrequenzen)."},
-        {"titel": "Ohmsches Gesetz", "ort": "Grundlagen", "text": "Zusammenhang zwischen Spannung (U), Strom (I) und Widerstand (R)."},
-        {"titel": "Elektrischer Leitwert", "ort": "Grundlagen", "text": "Kehrwert des Widerstands (G = 1/R) in Siemens (S)."},
-        {"titel": "Spannungsteiler (belastet & unbelastet)", "ort": "Grundlagen", "text": "Spannungsaufteilung in Reihenschaltungen, mit oder ohne angeschlossenen Verbraucher."},
-        {"titel": "Blindwiderstand (kapazitiv / induktiv)", "ort": "Grundlagen", "text": "Wechselstromwiderstand von Kondensatoren (Xc) und Spulen (Xl)."},
-        {"titel": "Elektrische Leistung und Arbeit", "ort": "Grundlagen", "text": "Leistung (P = U*I) und Energieumsatz / Arbeit (W = P*t)."},
-        {"titel": "Spannungsfall / Leitungswiderstand", "ort": "Grundlagen", "text": "Berechnung von Kabelverlusten über Länge, Querschnitt und spezifische Leitfähigkeit."}
+        {"titel": "Kirchhoffsche Gesetze", "ort": "Verfahren", "text": "Knotenpunkt-Regel (Summe aller Ströme = 0) und Maschen-Regel (Summe aller Spannungen = 0)."},
+        {"titel": "Das Gauß-Verfahren (3x3 Matrix)", "ort": "Mathematik", "text": "Lineare Gleichungssysteme schrittweise durch Zeilenumformung und Rückwärtseinsetzen lösen."},
+        {"titel": "Cramersche Regel (Determinanten)", "ort": "Mathematik", "text": "2x2 Gleichungssysteme und Determinanten direkt über Kreuz ausrechnen."},
+        {"titel": "Komplexe Wechselstromrechnung", "ort": "Mathematik", "text": "Umrechnung zwischen kartesischer Form (R + jX) und Polarform (Z und Phasenwinkel phi)."},
+        {"titel": "Trigonometrie / Leistungsdreieck", "ort": "Mathematik", "text": "Wirk-, Blindleistung und Scheinleistung über Pythagoras und den Kosinus (cos phi) verknüpfen."},
+        {"titel": "PQ-Formel", "ort": "Mathematik", "text": "Quadratische Gleichungen lösen (z.B. für Resonanzfrequenzen und Grenzfrequenzen)."},
+        {"titel": "Ohmsches Gesetz", "ort": "Grundlagen", "text": "Zusammenhang zwischen Spannung, Strom und Widerstand: U = R * I."},
+        {"titel": "Elektrischer Leitwert", "ort": "Grundlagen", "text": "Kehrwert des Widerstands: G = 1 / R in Siemens (S), wichtig für das Knotenpotentialverfahren."},
+        {"titel": "Spannungsteiler (belastet & unbelastet)", "ort": "Grundlagen", "text": "Spannungsaufteilung in Reihenschaltungen, mit und ohne Querlast."},
+        {"titel": "Blindwiderstand (kapazitiv / induktiv)", "ort": "Grundlagen", "text": "Wechselstromwiderstände von Spulen (XL) und Kondensatoren (XC)."},
+        {"titel": "Elektrische Leistung und Arbeit", "ort": "Grundlagen", "text": "Leistung P = U * I und Arbeit als umgesetzte Energie über die Zeit."},
+        {"titel": "Spannungsfall / Leitungswiderstand", "ort": "Grundlagen", "text": "Berechnung des Spannungsverlusts auf langen Kabelstrecken."},
+        {"titel": "Bipolartransistor (NPN / PNP)", "ort": "Grundlagen", "text": "Aufbau, Anschlüsse (Basis, Emitter, Kollektor), Schalterfunktion und Stromverstärkung beta."},
+        {"titel": "Transistor als Schalter & Übersteuerung", "ort": "Grundlagen", "text": "Sättigungsbereich, Sperrbereich und Dimensionierung des Basisvorwiderstands RV."},
+        {"titel": "Darlington-Schaltung", "ort": "Grundlagen", "text": "Zwei Transistoren in Reihe für extreme Stromverstärkungen bei minimalem Steuerstrom."}
     ]
-    
-    # Such-Logik: Wenn etwas eingetippt wurde, durchsuche den Index
+
+    # Such-Logik: Direktes Springen per Button
     if suchbegriff:
-        # Sucht im Titel UND in der Beschreibung nach dem Begriff
         ergebnisse = [eintrag for eintrag in suchindex if suchbegriff in eintrag["titel"].lower() or suchbegriff in eintrag["text"].lower()]
         
         if ergebnisse:
             st.success(f"**{len(ergebnisse)} Treffer gefunden:**")
-            for e in ergebnisse:
-                # Zeigt die Ergebnisse in schönen Boxen an
-                st.info(f"**{e['titel']}**\n\n👉 *Zu finden im Reiter:* **{e['ort']}**\n\n📝 *Beschreibung:* {e['text']}")
+            for i, e in enumerate(ergebnisse):
+                # Interaktiver Button, der den Reiter automatisch umschaltet
+                if st.button(f"🚀 Direkt zu: {e['titel']} (in '{e['ort']}')", key=f"such_btn_{i}"):
+                    st.session_state.menue = e['ort']
+                    st.rerun()
+                st.caption(f"📝 {e['text']}")
+                st.divider()
         else:
             st.warning("Keine direkten Treffer gefunden. Versuch es mit einem anderen Fachbegriff.")
-            
-    st.divider()
-    st.caption("Letztes Update: Umfangreiche Verfahren (Helmholtz, Zweipol, Millman, Kreisstrom) hinzugefügt.")
 
 elif menue == "Grundlagen":
     st.title("Grundlagen der Elektrotechnik")
