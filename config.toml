@@ -1,0 +1,10 @@
+[theme]
+# Das ist ein türkieß   für Buttons und Markierungen
+primaryColor = "#00e5dd" 
+# Ein angenehmes, sehr dunkles Grau als Hintergrund (Darkmode)
+backgroundColor = "#0e1117" 
+# Ein etwas helleres Dunkelgrau für Seitenleisten und Boxen
+secondaryBackgroundColor = "#262730" 
+# Helle Schriftfarbe für perfekten Kontrast
+textColor = "#fafafa" 
+font = "sans serif"
