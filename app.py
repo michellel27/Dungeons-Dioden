@@ -380,7 +380,7 @@ elif menue == "Mathematik":
     st.info("Wird z.B. beim Knotenpotentialverfahren verwendet, wenn man 3 unbekannte Knotenspannungen berechnen muss.")
 
     with st.expander("Fiktive Aufgabe & Schritt-für-Schritt Lösung"):
-        st.markdown("""
+        st.markdown(r"""
         **Fiktive Aufgabe:** 
         Wir haben ein Netzwerk analysiert und folgendes Gleichungssystem für drei Knotenspannungen ($U_1, U_2, U_3$) aufgestellt:
         *   **Gleichung I:**  $1 \cdot U_1 + 1 \cdot U_2 + 1 \cdot U_3 = 6\,V$
@@ -388,7 +388,7 @@ elif menue == "Mathematik":
         *   **Gleichung III:** $3 \cdot U_1 - 1 \cdot U_2 + 1 \cdot U_3 = 4\,V$
         """)
         
-        st.markdown("**Schritt 1: Startmatrix aufstellen**\nWir lassen die Variablen ($U_1, U_2, U_3$) weg und schreiben nur die Zahlen (Koeffizienten) in eine Tabelle.")
+        st.markdown(r"**Schritt 1: Startmatrix aufstellen**\nWir lassen die Variablen ($U_1, U_2, U_3$) weg und schreiben nur die Zahlen (Koeffizienten) in eine Tabelle.")
         st.latex(r"""
         \begin{array}{l|ccc|c}
         \text{I} & 1 & 1 & 1 & 6 \\
@@ -397,7 +397,7 @@ elif menue == "Mathematik":
         \end{array}
         """)
         
-        st.markdown("""
+        st.markdown(r"""
         **Schritt 2: Nullen in der ersten Spalte erzeugen (unter der ersten 1)**
         *Ziel:* Die 2 in Zeile II und die 3 in Zeile III sollen zu Null werden.
         *Weg:* Um die 2 verschwinden zu lassen, rechnen wir Zeile II minus (2 mal Zeile I). Um die 3 verschwinden zu lassen, rechnen wir Zeile III minus (3 mal Zeile I).
@@ -410,7 +410,7 @@ elif menue == "Mathematik":
         \end{array}
         """)
 
-        st.markdown("""
+        st.markdown(r"""
         **Schritt 3: Null in der zweiten Spalte erzeugen (unter der -1)**
         *Ziel:* Die -4 in Zeile III' soll zu Null werden, damit wir unten links unser Dreieck aus drei Nullen haben.
         *Weg:* Wir nutzen jetzt nur noch Zeile II' und III'. Wir rechnen Zeile III' minus (4 mal Zeile II').
@@ -423,7 +423,7 @@ elif menue == "Mathematik":
         \end{array}
         """)
 
-        st.markdown("""
+        st.markdown(r"""
         **Schritt 4: Rückwärtseinsetzen (von unten nach oben auflösen)**
         Wir übersetzen die Matrix zurück in Gleichungen und lösen sie auf:
         * **Aus Zeile III'':** $10 \cdot U_3 = 30 \implies \mathbf{U_3 = 3\,V}$
@@ -436,7 +436,7 @@ elif menue == "Mathematik":
     st.write("Schnelle Alternative zum Gauß-Verfahren, wenn man nur 2 Gleichungen hat.")
     
     with st.expander("Fiktive Aufgabe & Rechner"):
-        st.markdown("""
+        st.markdown(r"""
         **Fiktive Aufgabe (Maschenstromverfahren):**
         Wir haben zwei Maschenströme ($I_1, I_2$) aufgestellt:
         * Gleichung I:  $2 \cdot I_1 + 1 \cdot I_2 = 5\,V$
@@ -472,7 +472,7 @@ elif menue == "Mathematik":
     st.header("3. Komplexe Wechselstromrechnung")
     
     with st.expander("Fiktive Aufgabe & Rechner"):
-        st.markdown("""
+        st.markdown(r"""
         **Fiktive Aufgabe:**
         Eine Spule mit einem Wirkwiderstand von $R = 4\,\Omega$ und einem induktiven Blindwiderstand von $X_L = 3\,\Omega$ ist an Wechselstrom angeschlossen. Wie groß ist der Scheinwiderstand ($Z$) und der Phasenwinkel ($\varphi$)?
         
@@ -502,7 +502,7 @@ elif menue == "Mathematik":
     st.header("4. Trigonometrie (Das Leistungsdreieck)")
     
     with st.expander("Fiktive Aufgabe & Rechner"):
-        st.markdown("""
+        st.markdown(r"""
         **Fiktive Aufgabe:**
         Ein Asynchronmotor nimmt $P = 3000\,W$ Wirkleistung und $Q = 4000\,var$ Blindleistung aus dem Netz auf. Berechne die Scheinleistung ($S$) und den Wirkfaktor ($\cos\varphi$).
         
@@ -526,7 +526,7 @@ elif menue == "Mathematik":
     st.header("5. PQ-Formel (Quadratische Gleichungen)")
     
     with st.expander("Fiktive Aufgabe & Rechner"):
-        st.markdown("""
+        st.markdown(r"""
         **Fiktive Aufgabe:**
         Bei der Berechnung einer Resonanzfrequenz stoßen wir auf die Gleichung: $x^2 - 2x - 8 = 0$. Wir müssen die Nullstellen (Grenzfrequenzen) finden.
         Hier ist $p = -2$ und $q = -8$.
