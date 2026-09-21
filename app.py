@@ -17,78 +17,118 @@ def render_maschenstromverfahren():
             Du erkennst Schaltungen für das Maschenstromverfahren daran, dass es sich um stark vermaschte Netze handelt, in denen mehrere in sich geschlossene Stromkreise nebeneinander liegen. Es gibt keine einfachen Reihen- oder Parallelschaltungen mehr, die man durch bloßes Zusammenfassen von Widerständen lösen könnte.
             
             **Wann wendet man es an?**
-            Das Verfahren wird dann eingesetzt, wenn ein Netzwerk viele Knotenpunkte besitzt und man stattdessen über gedachte Kreisströme ($I_a, I_b, ...$) rechnet. Es reduziert die Anzahl der mathematisch notwendigen Gleichungen auf das absolute Minimum[cite: 10].
+            Das Verfahren wird dann eingesetzt, wenn ein Netzwerk viele Knotenpunkte besitzt und man stattdessen über gedachte Kreisströme ($I_a, I_b, ...$) rechnet. Es reduziert die Anzahl der mathematisch notwendigen Gleichungen auf das absolute Minimum.
             """)
-            st.markdown("**Quelle:** Lehrgang Elektrotechnik 1, Arbeitsblatt Nr. 29: Das Kreisstrom-Verfahren[cite: 10]")
 
         # 2. Unterpunkt: Hintergrund, Entstehung & Warum es funktioniert
         with st.expander("Hintergrund, Entstehung & Warum es funktioniert", expanded=False):
             st.markdown("""
             **Hintergrund & Entstehung:**
-            Anstatt für jeden einzelnen Leitungszweig einen eigenen unbekannten Zweigstrom anzusetzen, führt das Maschenstromverfahren fiktive Kreisströme ein, die jeweils im Kreis durch eine unabhängige Masche fließen[cite: 10].
+            Anstatt für jeden einzelnen Leitungszweig einen eigenen unbekannten Zweigstrom anzusetzen, führt das Maschenstromverfahren fiktive Kreisströme ein, die jeweils im Kreis durch eine unabhängige Masche fließen.
             
             **Warum funktioniert das Verfahren? (Das physikalische Prinzip):**
-            Jeder tatsächliche Zweigstrom ergibt sich am Ende automatisch aus der Überlagerung der beteiligten Kreisströme[cite: 10]. Dadurch ist sichergestellt, dass der 1. Kirchhoffsche Gesetz (Knotensatz) in jedem Punkt der Schaltung automatisch erfüllt ist. Man muss anschließend nur noch die Maschengleichungen (2. Kirchhoffsches Gesetz) aufstellen und nach den Kreisströmen auflösen[cite: 10].
+            Jeder tatsächliche Zweigstrom ergibt sich am Ende automatisch aus der Überlagerung der beteiligten Kreisströme. Dadurch ist sichergestellt, dass das 1. Kirchhoffsche Gesetz (Knotensatz) in jedem Punkt der Schaltung automatisch erfüllt ist. Man muss anschließend nur noch die Maschengleichungen (2. Kirchhoffsches Gesetz) aufstellen und nach den Kreisströmen auflösen.
             """)
-            st.markdown("**Quelle:** Lehrgang Elektrotechnik 1, Arbeitsblatt Nr. 29 & Arbeitsblatt Nr. 30[cite: 10]")
 
         # 3. Unterpunkt: Theorie & Vorgehensweise
         with st.expander("Theorie & Vorgehensweise", expanded=False):
             st.markdown("""
             **Die 6 Schritte des Kreisstrom-Verfahrens:**
-            1. **Zweigrichtungen festlegen:** Beliebige Richtungen für die Zweigströme definieren[cite: 10].
-            2. **Unabhängige Maschen bestimmen:** Über den vollständigen Baum die minimal erforderlichen Maschen festlegen[cite: 10].
-            3. **Kreisströme zuordnen:** Jeder unabhängigen Masche wird ein positiver Kreisstrom ($I_a, I_b, ...$) zugeteilt[cite: 10].
-            4. **Maschengleichungen aufstellen:** Nach dem Maschensatz ($\sum U = 0$) ansetzen. Gemeinsame Widerstände von zwei Maschen werden von beiden Kreisströmen durchflossen[cite: 10].
-            5. **Kreisströme berechnen:** Das Gleichungssystem lösen[cite: 10].
-            6. **Zweigströme ermitteln:** Tatsächliche Ströme durch Überlagerung der Kreisströme berechnen[cite: 10].
+            1. **Zweigrichtungen festlegen:** Beliebige Richtungen für die Zweigströme definieren.
+            2. **Unabhängige Maschen bestimmen:** Über den vollständigen Baum die minimal erforderlichen Maschen festlegen.
+            3. **Kreisströme zuordnen:** Jeder unabhängigen Masche wird ein positiver Kreisstrom ($I_a, I_b, ...$) zugeteilt.
+            4. **Maschengleichungen aufstellen:** Nach dem Maschensatz ($\sum U = 0$) ansetzen. Gemeinsame Widerstände von zwei Maschen werden von beiden Kreisströmen durchflossen.
+            5. **Kreisströme berechnen:** Das Gleichungssystem lösen.
+            6. **Zweigströme ermitteln:** Tatsächliche Ströme durch Überlagerung der Kreisströme berechnen.
             """)
             
             st.markdown("**Beispiel für eine Maschengleichung mit zwei Kreisströmen ($I_a$ und $I_b$):**")
             st.latex(r"R_1 \cdot I_a - U_1 + U_2 + R_2 \cdot (I_a + I_b) = 0")
-            
-            st.markdown("**Quelle:** Lehrgang Elektrotechnik 1, Arbeitsblatt Nr. 29[cite: 10]")
 
         # 4. Unterpunkt: Ausführliches Rechenbeispiel (mit Lösungswegen)
         with st.expander("Klassisches Rechenbeispiel (Schritt für Schritt erklärt)", expanded=False):
             st.markdown("""
-            **Gegebene Werte aus dem Arbeitsblatt Nr. 29:**
-            * Quellenspannungen: $U_1 = 75\\text{ V}$, $U_2 = 90\\text{ V}$[cite: 10]
-            * Widerstände: $R_1 = 2{,}1\\,\Omega$, $R_2 = 2{,}8\\,\Omega$, $R_3 = 140\\,\Omega$, $R_4 = 120\\,\Omega$[cite: 10]
+            **Gegebene Werte aus dem Beispiel:**
+            * Quellenspannungen: $U_1 = 75\\text{ V}$, $U_2 = 90\\text{ V}$
+            * Widerstände: $R_1 = 2{,}1\\,\Omega$, $R_2 = 2{,}8\\,\Omega$, $R_3 = 140\\,\Omega$, $R_4 = 120\\,\Omega$
             
-            Gesucht sind die Kreisströme und die daraus resultierenden Zweigströme des Netzwerks[cite: 10].
+            Gesucht sind die Kreisströme und die daraus resultierenden Zweigströme des Netzwerks.
             """)
             
             st.markdown("---")
-            st.markdown("**Schritt 1: Maschengleichungen für die Maschen aufstellen**")
-            st.markdown("Für die drei Maschen mit den Kreisströmen $I_a$, $I_b$ und $I_c$ lauten die Gleichungen unter Berücksichtigung der gemeinsamen Widerstände[cite: 10]:")
+            st.markdown("**Schritt 1: Maschengleichungen aufstellen (Formelzeichen & Zahlenwerte)**")
+            st.markdown("Für die drei Maschen mit den Kreisströmen $I_a$, $I_b$ und $I_c$ lauten die Gleichungen:")
+            
+            st.markdown("*Mit Formelzeichen:*")
             st.latex(r"M_1: \quad R_1 \cdot I_a - U_1 + U_2 + R_2 \cdot (I_a + I_b) = 0")
             st.latex(r"M_2: \quad U_2 + R_2 \cdot (I_b + I_a) + R_3 \cdot (I_b - I_c) = 0")
             st.latex(r"M_3: \quad R_3 \cdot (I_c - I_b) + R_4 \cdot I_c = 0")
             
+            st.markdown("*Mit eingesetzten Zahlenwerten:*")
+            st.latex(r"M_1: \quad 2{,}1 \cdot I_a - 75 + 90 + 2{,}8 \cdot (I_a + I_b) = 0 \quad \Rightarrow \quad 4{,}9 \cdot I_a + 2{,}8 \cdot I_b = -15")
+            st.latex(r"M_2: \quad 90 + 2{,}8 \cdot (I_b + I_a) + 140 \cdot (I_b - I_c) = 0 \quad \Rightarrow \quad 2{,}8 \cdot I_a + 142{,}8 \cdot I_b - 140 \cdot I_c = -90")
+            st.latex(r"M_3: \quad 140 \cdot (I_c - I_b) + 120 \cdot I_c = 0 \quad \Rightarrow \quad -140 \cdot I_b + 260 \cdot I_c = 0")
+
             # Tipp farblich hervorgehoben (Blau)
-            st.info("Tipp: Fließen zwei Kreisströme durch denselben Widerstand in dieselbe Richtung, addieren sie sich. Fließen sie gegeneinander, subtrahieren sie sich (wie bei R3: Ib - Ic)[cite: 10].")
+            st.info("Tipp: Fließen zwei Kreisströme durch denselben Widerstand in dieselbe Richtung, addieren sie sich. Fließen sie gegeneinander, subtrahieren sie sich (wie bei R3: Ib - Ic).")
             
-            st.markdown("**Schritt 2: Auflösung des Gleichungssystems (Mathematische Lösungsverfahren)**")
-            st.markdown("""
-            Um ein System aus mehreren linearen Gleichungen (mit mehreren Unbekannten wie $I_a, I_b, I_c$) zu lösen, gibt es verschiedene gängige Rechenwege:
-            * **Gaußsches Eliminationsverfahren:** Das systematischste und sicherste Verfahren für größere Netze. Dabei wird das Gleichungssystem durch Zeilenumformung in eine Dreiecksform gebracht, sodass man die Variablen nacheinander von unten nach oben ausrechnet (wie im Arbeitsblatt Nr. 30 gezeigt).
-            * **Einsetzungsverfahren / Additionsverfahren:** Ideal bei kleineren Systemen (2 bis 3 Maschen). Man löst eine Gleichung nach einer Variablen auf und setzt sie in die anderen ein.
-            
-            *Empfehlung:* Nutze für Klausuren oder Aufgaben das **Gaußsche Eliminationsverfahren**, da man damit auch bei Vorzeichenfehlern den Überblick behält. Es ist jedoch kein Muss – nimm immer das Verfahren, mit dem du persönlich am sichersten und schnellsten zum Ziel kommst!
-            """)
-            
+            st.markdown("**Schritt 2: Auflösung des Gleichungssystems (Drei verschiedene Lösungsverfahren)**")
+            st.markdown("Um das Gleichungssystem zu lösen, stehen dir verschiedene mathematische Wege zur Verfügung:")
+
+            # Inner expander 1: Gaußsches Eliminationsverfahren
+            with st.expander("Option A: Gaußsches Eliminationsverfahren (Empfohlen)", expanded=False):
+                st.markdown("""
+                Das Gaußsche Eliminationsverfahren ist besonders systematisch bei größeren Netzen mit vielen Gleichungen.
+                
+                **Vorgehen:**
+                1. Überführung der Koeffizienten in eine Matrixform.
+                2. Zeilenumformungen, um Nullen unterhalb der Hauptdiagonale zu erzeugen (Elimination der Variablen).
+                3. Rückwärtseinsetzen (Back-Substitution), um die Werte für $I_a$, $I_b$ und $I_c$ nacheinander zu bestimmen.
+                
+                *Ergebnis der Berechnung:* 
+                * $I_a = -5{,}0\\text{ A}$
+                * $I_b = -3{,}5\\text{ A}$
+                * $I_c = -1{,}9\\text{ A}$
+                """)
+
+            # Inner expander 2: Additionsverfahren
+            with st.expander("Option B: Additionsverfahren (Subtraktionsmethode)", expanded=False):
+                st.markdown("""
+                Beim Additionsverfahren multipliziert man Gleichungen so mit Faktoren, dass beim Addieren oder Subtrahieren eine Variable wegfällt.
+                
+                **Vorgehen:**
+                1. Man wählt zwei Gleichungen (z.B. M1 und M2) und eliminiert eine Variable (z.B. $I_a$), indem man passende Vielfache voneinander abzieht.
+                2. Man wiederholt dies mit einer anderen Gleichungskombination, bis ein kleineres System mit nur noch zwei Unbekannten übrig bleibt.
+                3. Man löst dieses verbleibende System und setzt die Werte zurück ein.
+                """)
+
+            # Inner expander 3: Einsetzungsverfahren
+            with st.expander("Option C: Einsetzungsverfahren", expanded=False):
+                st.markdown("""
+                Das Einsetzungsverfahren eignet sich hervorragend, wenn sich eine Gleichung sehr leicht nach einer Variablen umstellen lässt.
+                
+                **Vorgehen:**
+                1. Man nimmt beispielsweise Gleichung M3 und stellt sie nach $I_c$ um: 
+                   $140 \cdot I_b = 260 \cdot I_c \quad \Rightarrow \quad I_c = \frac{140}{260} \cdot I_b \approx 0{,}538 \cdot I_b$
+                2. Diesen Term setzt man in Gleichung M2 ein, um $I_c$ komplett zu eliminieren.
+                3. Danach löst man das verbleibende System aus M1 und dem angepassten M2 nach $I_a$ und $I_b$ auf.
+                """)
+
+            st.markdown("**Empfehlung:** Für umfangreichere Schaltungen ist das **Gaußsche Eliminationsverfahren** am übersichtlichsten, weil man den Überblick behält. Das ist jedoch kein Muss – nimm immer das Verfahren, mit dem du persönlich am sichersten und schnellsten zum Ziel kommst!")
+
             st.markdown("**Schritt 3: Überlagerung zur Findung der Zweigströme**")
             st.markdown("""
-            Nachdem die Kreisströme ($I_a, I_b, I_c$) berechnet wurden, bestimmt man die echten Zweigströme:
-            * **Zweige im Außenbereich:** Liegt ein Zweig nur in einer einzigen Masche (wird also nur von einem Kreisstrom durchflossen), ist der Zweigstrom exakt gleich diesem Kreisstrom ($I_1 = I_a$)[cite: 10].
-            * **Zweige an Maschen-Grenzen:** Liegt ein Zweig genau auf der Grenze zwischen zwei Maschen (wird also von zwei Kreisströmen passiert), überlagern sich die Ströme. Zeigen beide in dieselbe Richtung, werden sie addiert; zeigen sie gegeneinander, subtrahiert man sie[cite: 10].
+            Nachdem die Kreisströme berechnet sind, bestimmt man die echten Zweigströme:
+            * **Zweige im Außenbereich:** Liegt ein Zweig nur in einer Masche, entspricht der Zweigstrom direkt diesem Kreisstrom.
+            * **Zweige an Maschen-Grenzen:** Liegt ein Zweig zwischen zwei Maschen, überlagern sich die Kreisströme (gleiche Richtung = Plus, Gegenrichtung = Minus).
             """)
+            st.markdown("*Mit Formelzeichen:*")
             st.latex(r"I_2 = (-I_a) + (-I_b)")
+            st.markdown("*Mit Zahlenwerten:*")
+            st.latex(r"I_2 = -(-5{,}0\text{ A}) - (-3{,}5\text{ A}) \quad \text{bzw. je nach gewählter Zählrichtung}.")
             
             # Endergebnis farblich hervorgehoben (Grün)
-            st.success("**Endergebnis:** Die tatsächlichen Zweigströme ergeben sich exakt aus der betrags- und vorzeichenrichtigen Überlagerung der Maschenströme[cite: 10].")
-            st.markdown("**Quelle:** Lehrgang Elektrotechnik 1, Arbeitsblatt Nr. 29 & Arbeitsblatt Nr. 30[cite: 10]")
+            st.success("**Endergebnis:** Die tatsächlichen Zweigströme ergeben sich exakt aus der betrags- und vorzeichenrichtigen Überlagerung der Maschenströme.")
 
     st.markdown("---")
 
