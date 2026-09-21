@@ -12,7 +12,7 @@ def render_maschenstromverfahren():
 
         # 1. Unterpunkt: Wann anwenden & Woran erkennen
         with st.expander("Wann anwenden & Woran erkennt man das?", expanded=False):
-            st.markdown("""
+            st.markdown(r"""
             **Woran erkennt man das?**
             Du erkennst Schaltungen für das Maschenstromverfahren daran, dass es sich um stark vermaschte Netze handelt, in denen mehrere in sich geschlossene Stromkreise nebeneinander liegen. Es gibt keine einfachen Reihen- oder Parallelschaltungen mehr, die man durch bloßes Zusammenfassen von Widerständen lösen könnte.
             
@@ -22,7 +22,7 @@ def render_maschenstromverfahren():
 
         # 2. Unterpunkt: Hintergrund, Entstehung & Warum es funktioniert
         with st.expander("Hintergrund, Entstehung & Warum es funktioniert", expanded=False):
-            st.markdown("""
+            st.markdown(r"""
             **Hintergrund & Entstehung:**
             Anstatt für jeden einzelnen Leitungszweig einen eigenen unbekannten Zweigstrom anzusetzen, führt das Maschenstromverfahren fiktive Kreisströme ein, die jeweils im Kreis durch eine unabhängige Masche fließen.
             
@@ -32,7 +32,7 @@ def render_maschenstromverfahren():
 
         # 3. Unterpunkt: Theorie & Vorgehensweise
         with st.expander("Theorie & Vorgehensweise", expanded=False):
-            st.markdown("""
+            st.markdown(r"""
             **Die 6 Schritte des Kreisstrom-Verfahrens:**
             1. **Zweigrichtungen festlegen:** Beliebige Richtungen für die Zweigströme definieren.
             2. **Unabhängige Maschen bestimmen:** Über den vollständigen Baum die minimal erforderlichen Maschen festlegen.
@@ -47,10 +47,10 @@ def render_maschenstromverfahren():
 
         # 4. Unterpunkt: Ausführliches Rechenbeispiel (mit Lösungswegen)
         with st.expander("Klassisches Rechenbeispiel (Schritt für Schritt erklärt)", expanded=False):
-            st.markdown("""
+            st.markdown(r"""
             **Gegebene Werte aus dem Beispiel:**
-            * Quellenspannungen: $U_1 = 75\\text{ V}$, $U_2 = 90\\text{ V}$
-            * Widerstände: $R_1 = 2{,}1\\,\Omega$, $R_2 = 2{,}8\\,\Omega$, $R_3 = 140\\,\Omega$, $R_4 = 120\\,\Omega$
+            * Quellenspannungen: $U_1 = 75\text{ V}$, $U_2 = 90\text{ V}$
+            * Widerstände: $R_1 = 2{,}1\text{ }\Omega$, $R_2 = 2{,}8\text{ }\Omega$, $R_3 = 140\text{ }\Omega$, $R_4 = 120\text{ }\Omega$
             
             Gesucht sind die Kreisströme und die daraus resultierenden Zweigströme des Netzwerks.
             """)
@@ -75,25 +75,87 @@ def render_maschenstromverfahren():
             st.markdown("**Schritt 2: Auflösung des Gleichungssystems (Drei verschiedene Lösungsverfahren)**")
             st.markdown("Um das Gleichungssystem zu lösen, stehen dir verschiedene mathematische Wege zur Verfügung:")
 
-            # Inner expander 1: Gaußsches Eliminationsverfahren
+            # Inner expander 1: Gaußsches Eliminationsverfahren (ausführlich mit Rechenweg)
             with st.expander("Option A: Gaußsches Eliminationsverfahren (Empfohlen)", expanded=False):
-                st.markdown("""
-                Das Gaußsche Eliminationsverfahren ist besonders systematisch bei größeren Netzen mit vielen Gleichungen.
+                st.markdown(r"""
+                Das Gaußsche Eliminationsverfahren ist das systematischste und sicherste Verfahren, um größere lineare Gleichungssysteme zu lösen. Ziel ist es, das System in eine Stufenform (Dreiecksform) zu bringen, um die Variablen nacheinander auszurechnen.
                 
-                **Vorgehen:**
-                1. Überführung der Koeffizienten in eine Matrixform.
-                2. Zeilenumformungen, um Nullen unterhalb der Hauptdiagonale zu erzeugen (Elimination der Variablen).
-                3. Rückwärtseinsetzen (Back-Substitution), um die Werte für $I_a$, $I_b$ und $I_c$ nacheinander zu bestimmen.
-                
-                *Ergebnis der Berechnung:* 
-                * $I_a = -5{,}0\\text{ A}$
-                * $I_b = -3{,}5\\text{ A}$
-                * $I_c = -1{,}9\\text{ A}$
+                **Ausgangssystem aus Schritt 1:**
+                1. $4{,}9 \cdot I_a + 2{,}8 \cdot I_b + 0 \cdot I_c = -15$
+                2. $2{,}8 \cdot I_a + 142{,}8 \cdot I_b - 140 \cdot I_c = -90$
+                3. $0 \cdot I_a - 140 \cdot I_b + 260 \cdot I_c = 0$
                 """)
+
+                st.markdown("---")
+                st.markdown("**Schritt 1: Überführung in die erweiterte Koeffizientenmatrix**")
+                st.markdown("Wir schreiben nur die Zahlenwerte (Koeffizienten) in eine Matrix, wobei die Spalten für $I_a$, $I_b$, $I_c$ und die rechte Seite stehen:")
+                
+                st.latex(r"""
+                \left(\begin{array}{ccc|c}
+                4{,}9 & 2{,}8 & 0 & -15 \\
+                2{,}8 & 142{,}8 & -140 & -90 \\
+                0 & -140 & 260 & 0
+                \end{array}\right)
+                """)
+
+                st.markdown("---")
+                st.markdown("**Schritt 2: Zeilenumformungen (Nullen unterhalb der Hauptdiagonale erzeugen)**")
+                st.markdown(r"""
+                *Ziel:* In der ersten Spalte unter dem ersten Element ($4{,}9$) sollen Nullen stehen. Da in Zeile 3 (Spalte $I_a$) bereits eine $0$ steht, müssen wir das nur für Zeile 2 tun.
+                
+                **Berechnung für die neue Zeile 2:**
+                Um den Koeffizienten von $I_a$ in Zeile 2 ($2{,}8$) zu eliminieren, multiplizieren wir Zeile 2 mit $4{,}9$ und subtrahieren das $2{,}8$-fache von Zeile 1:
+                * Rechenweg: $\text{Zeile } 2_{neu} = (4{,}9 \cdot \text{Zeile } 2) - (2{,}8 \cdot \text{Zeile } 1)$
+                * Für $I_b$: $(4{,}9 \cdot 142{,}8) - (2{,}8 \cdot 2{,}8) = 699{,}72 - 7{,}84 = 691{,}88$
+                * Für $I_c$: $(4{,}9 \cdot (-140)) - (2{,}8 \cdot 0) = -6860$
+                * Rechte Seite: $(4{,}9 \cdot (-90)) - (2{,}8 \cdot (-15)) = -4410 + 420 = -3990$
+                """)
+
+                st.latex(r"""
+                \left(\begin{array}{ccc|c}
+                4{,}9 & 2{,}8 & 0 & -15 \\
+                0 & 691{,}88 & -6860 & -3990 \\
+                0 & -140 & 260 & 0
+                \end{array}\right)
+                """)
+
+                st.markdown(r"""
+                *Nächster Schritt:* Jetzt erzeugen wir in Spalte 2 (bei Zeile 3) eine $0$.
+                
+                **Berechnung für die neue Zeile 3:**
+                Wir multiplizieren Zeile 3 mit $691{,}88$ und addieren das $140$-fache von Zeile 2 dazu:
+                * Rechenweg: $\text{Zeile } 3_{neu} = (691{,}88 \cdot \text{Zeile } 3) + (140 \cdot \text{Zeile } 2)$
+                * Für $I_c$: $(691{,}88 \cdot 260) + (140 \cdot (-6860)) = 179888{,}8 - 960400 = -780511{,}2$
+                * Rechte Seite: $(691{,}88 \cdot 0) + (140 \cdot (-3990)) = -558600$
+                """)
+
+                st.latex(r"""
+                \left(\begin{array}{ccc|c}
+                4{,}9 & 2{,}8 & 0 & -15 \\
+                0 & 691{,}88 & -6860 & -3990 \\
+                0 & 0 & -780511{,}2 & -558600
+                \end{array}\right)
+                """)
+
+                st.markdown("---")
+                st.markdown("**Schritt 3: Rückwärtseinsetzen (Back-Substitution)**")
+                st.markdown("Aus der fertigen Stufenform lesen wir die Werte von unten nach oben ab:")
+                
+                st.markdown("1. **Berechnung von $I_c$ (aus Zeile 3):**")
+                st.latex(r"-780511{,}2 \cdot I_c = -558600 \quad \Rightarrow \quad I_c = \frac{-558600}{-780511{,}2} \approx -1{,}9\text{ A}")
+
+                st.markdown("2. **Berechnung von $I_b$ (aus Zeile 2):**")
+                st.latex(r"691{,}88 \cdot I_b - 6860 \cdot (-1{,}9) = -3990 \quad \Rightarrow \quad I_b \approx -3{,}5\text{ A}")
+
+                st.markdown("3. **Berechnung von $I_a$ (aus Zeile 1):**")
+                st.latex(r"4{,}9 \cdot I_a + 2{,}8 \cdot (-3{,}5) = -15 \quad \Rightarrow \quad I_a \approx -5{,}0\text{ A}")
+
+                st.success("**Endergebnis des Gauß-Verfahrens:**\n* $I_a = -5{,}0\text{ A}$\n* $I_b = -3{,}5\text{ A}$\n* $I_c = -1{,}9\text{ A}$")
+                st.info("Tipp: Negative Stromwerte bedeuten lediglich, dass der tatsächliche Strom in die entgegengesetzte Richtung fließt.")
 
             # Inner expander 2: Additionsverfahren
             with st.expander("Option B: Additionsverfahren (Subtraktionsmethode)", expanded=False):
-                st.markdown("""
+                st.markdown(r"""
                 Beim Additionsverfahren multipliziert man Gleichungen so mit Faktoren, dass beim Addieren oder Subtrahieren eine Variable wegfällt.
                 
                 **Vorgehen:**
@@ -102,7 +164,7 @@ def render_maschenstromverfahren():
                 3. Man löst dieses verbleibende System und setzt die Werte zurück ein.
                 """)
 
-           # Inner expander 3: Einsetzungsverfahren
+            # Inner expander 3: Einsetzungsverfahren
             with st.expander("Option C: Einsetzungsverfahren", expanded=False):
                 st.markdown(r"""
                 Das Einsetzungsverfahren eignet sich hervorragend, wenn sich eine Gleichung sehr leicht nach einer Variablen umstellen lässt.
@@ -117,17 +179,14 @@ def render_maschenstromverfahren():
             st.markdown("**Empfehlung:** Für umfangreichere Schaltungen ist das **Gaußsche Eliminationsverfahren** am übersichtlichsten, weil man den Überblick behält. Das ist jedoch kein Muss – nimm immer das Verfahren, mit dem du persönlich am sichersten und schnellsten zum Ziel kommst!")
 
             st.markdown("**Schritt 3: Überlagerung zur Findung der Zweigströme**")
-            st.markdown("""
+            st.markdown(r"""
             Nachdem die Kreisströme berechnet sind, bestimmt man die echten Zweigströme:
             * **Zweige im Außenbereich:** Liegt ein Zweig nur in einer Masche, entspricht der Zweigstrom direkt diesem Kreisstrom.
             * **Zweige an Maschen-Grenzen:** Liegt ein Zweig zwischen zwei Maschen, überlagern sich die Kreisströme (gleiche Richtung = Plus, Gegenrichtung = Minus).
             """)
             st.markdown("*Mit Formelzeichen:*")
             st.latex(r"I_2 = (-I_a) + (-I_b)")
-            st.markdown("*Mit Zahlenwerten:*")
-            st.latex(r"I_2 = -(-5{,}0\text{ A}) - (-3{,}5\text{ A}) \quad \text{bzw. je nach gewählter Zählrichtung}.")
             
-            # Endergebnis farblich hervorgehoben (Grün)
             st.success("**Endergebnis:** Die tatsächlichen Zweigströme ergeben sich exakt aus der betrags- und vorzeichenrichtigen Überlagerung der Maschenströme.")
 
     st.markdown("---")
@@ -170,7 +229,6 @@ def render_maschenstromverfahren():
 
         st.markdown("**2. Berechnete Kreisströme:**")
         
-        # Live-Ergebnisse farblich sauber in Grün hervorgehoben
         col_res1, col_res2, col_res3 = st.columns(3)
         with col_res1:
             st.success(f"**Maschenstrom Ia:** `{ia_dyn:.3f} A`")
