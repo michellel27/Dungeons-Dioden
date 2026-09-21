@@ -102,9 +102,9 @@ def render_maschenstromverfahren():
                 3. Man löst dieses verbleibende System und setzt die Werte zurück ein.
                 """)
 
-            # Inner expander 3: Einsetzungsverfahren
+           # Inner expander 3: Einsetzungsverfahren
             with st.expander("Option C: Einsetzungsverfahren", expanded=False):
-                st.markdown("""
+                st.markdown(r"""
                 Das Einsetzungsverfahren eignet sich hervorragend, wenn sich eine Gleichung sehr leicht nach einer Variablen umstellen lässt.
                 
                 **Vorgehen:**
