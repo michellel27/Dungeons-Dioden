@@ -1,6 +1,120 @@
 import streamlit as st
 
 import streamlit as st
+def render_mehrpoltheorie():
+    st.markdown("### **Mehrpol- und Vierpoltheorie im Detail**")
+    
+    # Haupt-Expander für das gesamte Thema
+    with st.expander("Inhalt, Theorie, Herleitung & Live-Beispiel anzeigen", expanded=False):
+        
+        st.markdown(f"*Kategorie:* <span style='color: #b19cd9; font-weight: bold; background-color: rgba(177, 156, 217, 0.15); padding: 2px 8px; border-radius: 4px;'>Analytische Netzwerksverfahren</span>", unsafe_allow_html=True)
+        st.markdown("")
+
+        # 1. Unterpunkt: Gibt es Drei- oder Vierpole und wozu?
+        with st.expander("Gibt es Drei- oder Vierpole? (Wann und wofür?)", expanded=False):
+            st.markdown(r"""
+            **Gibt es eine Dreipol- oder Vierpoltheorie?**
+            * **Zweipol (Einport):** Hat genau **2 Klemmen** (Plus und Minus / Klemme A und B). Er kann nach dem Thévenin-Theorem durch *eine* Ersatzspannungsquelle und *einen* Innenwiderstand ersetzt werden.
+            * **Dreipol (oder allgemeiner Mehrpol):** Hat **3 Klemmen** (z. B. Eingang, Ausgang und eine gemeinsame Masse). 
+            * **Vierpol (Zweitor):** Hat genau **4 Klemmen**, aufgeteilt in ein Eingangstor ($1-1'$) und ein Ausgangstor ($2-2'$). Das ist der absolute Standard für Verstärker, Filter, Leitungen und Transistoren.
+            
+            **Wann und wofür wendet man das an?**
+            Man nutzt die Vierpoltheorie immer dann, wenn Bauteile oder Schaltungsteile über zwei getrennte Stromkreise miteinander gekoppelt sind (z. B. Steuerspannung am Eingang bewirkt Ausgangsstrom). Statt im Gesamtsystem alle Maschen und Knoten des Innenlebens zu berechnen, beschreibt man das Bauteil komplett von außen über **Vierpolparameter** (z. B. Impedanzparameter $Z$, Admittanzparameter $Y$ oder Hybridparameter $H$).
+            """)
+
+        # 2. Unterpunkt: Hintergrund & Funktionsweise von Vierpolen
+        with st.expander("Hintergrund & Mathematisches Prinzip von Vierpolen", expanded=False):
+            st.markdown(r"""
+            **Hintergrund:**
+            Während der Zweipol durch eine einzige Gleichung ($U_0$ und $R_i$) beschrieben wird, benötigt ein Vierpol (Zweitor) ein gekoppeltes Gleichungssystem, da Eingangs- und Ausgangsgröße sich gegenseitig beeinflussen.
+            
+            **Wie arbeitet man damit?**
+            Ein Vierpol wird über seine Eingangsspannungen ($U_1$), Ausgangsspannungen ($U_2$), Eingangsströme ($I_1$) und Ausgangsströme ($I_2$) verknüpft. Mithilfe von Vierpol-Matrizen (z. B. der Impedanzmatrix $Z$) lässt sich das gesamte Innenleben als "Black Box" mathematisch exakt handhaben:
+            """)
+            st.latex(r"""
+            \begin{pmatrix} U_1 \\ U_2 \end{pmatrix} = \begin{pmatrix} Z_{11} & Z_{12} \\ Z_{21} & Z_{22} \end{pmatrix} \begin{pmatrix} I_1 \\ I_2 \end{pmatrix}
+            """)
+
+        # 3. Unterpunkt: Theorie & Matrizenformen
+        with st.expander("Die wichtigsten Vierpol-Parameter im Überblick", expanded=False):
+            st.markdown(r"""
+            Je nachdem, welche Größen gegeben oder gesucht sind, wählt man die passende Parameterform:
+            1. **Z-Parameter (Impedanzparameter):** Drückt Spannungen durch Ströme aus ($U_1, U_2$ als Funktion von $I_1, I_2$).
+            2. **Y-Parameter (Admittanzparameter):** Drückt Ströme durch Spannungen aus ($I_1, I_2$ als Funktion von $U_1, U_2$).
+            3. **Kettenparameter (A-B-C-D-Parameter):** Verknüpft den Eingang direkt mit dem Ausgang ($U_1, I_1$ durch $U_2, I_2$). Extrem nützlich, um mehrere Vierpole hintereinanderzuschalten (Kaskadierung), da man hier die Matrizen einfach nur multiplizieren muss!
+            """)
+
+        # 4. Unterpunkt: Klassisches Rechenbeispiel (Z-Parameter Bestimmung)
+        with st.expander("Klassisches Rechenbeispiel: Z-Parameter eines T-Glieds (Schritt für Schritt)", expanded=False):
+            st.markdown(r"""
+            **Gegebene Werte aus der Aufgabe:**
+            Wir betrachten ein passives T-Glied (Symmetrischer T-Widerstand als Vierpol):
+            * Längswiderstand oben links: $R_{11} = 40\text{ }\Omega$
+            * Längswiderstand oben rechts: $R_{22} = 40\text{ }\Omega$
+            * Querwiderstand in der Mitte zur Masse: $R_m = 20\text{ }\Omega$
+            
+            Gesucht sind die Impedanzparameter $Z_{11}$, $Z_{12}$, $Z_{21}$ und $Z_{22}$ dieses Vierpols.
+            """)
+            
+            st.markdown("---")
+            st.markdown("**Schritt 1: Bestimmung von $Z_{11}$ (Eingangsimpedanz bei leerem Ausgang)**")
+            st.markdown("Wir lassen den Ausgang offen ($I_2 = 0$). Dann speisen wir am Eingang einen Strom $I_1$ ein und messen das Verhältnis $U_1 / I_1$:")
+            st.latex(r"Z_{11} = \left. \frac{U_1}{I_1} \right|_{I_2=0} = R_{11} + R_m = 40 + 20 = 60\text{ }\Omega")
+            
+            # Tipp farblich hervorgehoben (Blau)
+            st.info("Tipp: Das Kürzel '|_{I_2=0}' bedeutet einfach, dass der Ausgang im Leerlauf betrieben wird. Es fließt dort kein Strom heraus.")
+
+            st.markdown("**Schritt 2: Bestimmung von $Z_{21}$ (Übertragungsimpedanz)**")
+            st.markdown("Wir messen bei offenem Ausgang ($I_2 = 0$) die Spannung am Ausgang $U_2$ im Verhältnis zum Eingangsstrom $I_1$:")
+            st.latex(r"Z_{21} = \left. \frac{U_2}{I_1} \right|_{I_2=0} = R_m = 20\text{ }\Omega")
+
+            st.markdown("**Schritt 3: Bestimmung von $Z_{12}$ und $Z_{22}$ (Spiegelung auf Ausgangsseite)**")
+            st.markdown("Da unser T-Glied symmetrisch aufgebaut ist, gilt für die Rückwirkung und die Ausgangsimpedanz ($I_1 = 0$):")
+            st.latex(r"Z_{12} = Z_{21} = 20\text{ }\Omega")
+            st.latex(r"Z_{22} = \left. \frac{U_2}{I_2} \right|_{I_1=0} = R_{22} + R_m = 40 + 20 = 60\text{ }\Omega")
+
+            # Endergebnis farblich hervorgehoben (Grün)
+            st.success(r"**Endergebnis (Z-Matrix):**\n$Z = \begin{pmatrix} 60\,\Omega & 20\,\Omega \\ 20\,\Omega & 60\,\Omega \end{pmatrix}$")
+
+    st.markdown("---")
+
+    # Interaktiver Live-Rechner für ein T-Glied Vierpol
+    with st.expander("Interaktiver Live-Rechner: Z-Parameter eines T-Glieds berechnen", expanded=False):
+        st.markdown("Passe hier die Widerstände des T-Glieds an ($R_a$ links, $R_b$ rechts, $R_m$ in der Mitte), um die Z-Parameter live zu berechnen:")
+
+        c1, c2, c3 = st.columns(3)
+        with c1:
+            vp_ra = st.number_input("Widerstand Ra (Ohm):", value=40.0, min_value=1.0, step=5.0, key="vp_ra")
+        with c2:
+            vp_rb = st.number_input("Widerstand Rb (Ohm):", value=40.0, min_value=1.0, step=5.0, key="vp_rb")
+        with c3:
+            vp_rm = st.number_input("Querwiderstand Rm (Ohm):", value=20.0, min_value=1.0, step=5.0, key="vp_rm")
+
+        # Live-Berechnung der Z-Parameter für ein T-Glied
+        z11_dyn = vp_ra + vp_rm
+        z12_dyn = vp_rm
+        z21_dyn = vp_rm
+        z22_dyn = vp_rb + vp_rm
+
+        st.markdown("---")
+        st.markdown("### **Live-Musterlösung der Z-Matrix:**")
+        
+        st.latex(r"Z_{11} = R_a + R_m = " + f"{vp_ra} + {vp_rm} = {z11_dyn:.1f}\\text{{ }}\Omega")
+        st.latex(r"Z_{22} = R_b + R_m = " + f"{vp_rb} + {vp_rm} = {z22_dyn:.1f}\\text{{ }}\Omega")
+        st.latex(r"Z_{12} = Z_{21} = R_m = " + f"{vp_rm:.1f}\\text{{ }}\Omega")
+
+        st.markdown("**Berechnete Z-Matrix als Ergebnis:**")
+        
+        # Live-Ergebnisse farblich sauber in Grün
+        col_res1, col_res2 = st.columns(2)
+        with col_res1:
+            st.success(f"**Z11 (Eingangsimpedanz):** `{z11_dyn:.1f} Ohm`")
+            st.success(f"**Z12 (Rückwirkung):** `{z12_dyn:.1f} Ohm`")
+        with col_res2:
+            st.success(f"**Z21 (Übertragung):** `{z21_dyn:.1f} Ohm`")
+            st.success(f"**Z22 (Ausgangsimpedanz):** `{z22_dyn:.1f} Ohm`")
+
+    st.markdown("---")
 def render_ueberlagerungssatz():
     st.markdown("### **Überlagerungssatz von Helmholtz (Superpositionsprinzip) im Detail**")
     
@@ -1439,6 +1553,7 @@ elif menue == "Verfahren":
     render_knotenpotential()
     render_maschenstromverfahren()
     render_zweipoltheorie()
+    render_mehrpoltheorie()
     render_ueberlagerungssatz()
 elif menue == "Mathematik":
     st.title("Mathematik für Elektrotechniker")
