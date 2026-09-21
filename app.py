@@ -2,7 +2,7 @@ import streamlit as st
 def render_formelsammlung():
     # Haupttitel ohne Icons
     st.title("Elektrotechnik-Formelsammlung")
-    st.markdown("Übersicht aller wichtigen Formeln für das Techniker-Studium, inklusive Reinform, umgestellten Formen und genauen Quellenangaben.")
+    st.markdown("Übersicht aller wichtigen Formeln für das Techniker-Studium, inklusive Reinform, umgestellten Formen und präzisen Quellenangaben aus Standard-Fachliteratur.")
 
     # Suchfeld für Formeln
     suchbegriff = st.text_input("🔍 Formel oder Stichwort suchen...", "").lower()
@@ -11,56 +11,56 @@ def render_formelsammlung():
         {
             "titel": "Ohmsches Gesetz",
             "kategorie": "Gleichstromtechnik",
-            "beschreibung": "Berechnung des Zusammenhangs von elektrischer Spannung, Stromstärke und Widerstand in einem Stromkreis.",
+            "beschreibung": "Berechnung des Zusammenhangs von elektrischer Spannung, Stromstärke und Widerstand in einem linearen elektrischen Stromkreis.",
             "reinform": "U = R \\cdot I",
             "umgestellte_formen": [
                 "Widerstand: R = \\frac{U}{I}",
                 "Stromstärke: I = \\frac{U}{R}"
             ],
-            "quelle": "Wikibooks / Elektrotechnik-Formelsammlung / Grundlagen der Elektrotechnik"
+            "quelle": "Hagmann, Gert: Grundlagen der Elektrotechnik, Kapitel 2 (Stromkreis und Ohmsches Gesetz), S. 25-30"
         },
         {
             "titel": "Elektrische Leistung",
             "kategorie": "Gleich- und Wechselstromtechnik",
-            "beschreibung": "Berechnung der umgesetzten elektrischen Leistung aus Spannung und Stromstärke.",
+            "beschreibung": "Berechnung der umgesetzten elektrischen Wirkleistung aus Spannung und Stromstärke bei Gleichstrom oder rein ohmschen Lasten.",
             "reinform": "P = U \\cdot I",
             "umgestellte_formen": [
                 "Spannung: U = \\frac{P}{I}",
                 "Stromstärke: I = \\frac{P}{U}"
             ],
-            "quelle": "Fachbuch Elektrotechnik / Kapitel Leistung und Arbeit"
+            "quelle": "Albach, Manfred: Grundlagen der Elektrotechnik 1 – Gleichstrom und elektromagnetisches Feld, Kapitel 3 (Elektrische Energie und Leistung), S. 45-48"
         },
         {
             "titel": "Kapazitiver Blindwiderstand",
             "kategorie": "Wechselstromtechnik",
-            "beschreibung": "Widerstand eines Kondensators in einem Wechselstromkreis in Abhängigkeit von Frequenz und Kapazität.",
+            "beschreibung": "Frequenzabhängiger Widerstand (Blindwiderstand) eines Kondensators in einem Wechselstromkreis.",
             "reinform": "X_C = \\frac{1}{2 \\cdot \\pi \\cdot f \\cdot C}",
             "umgestellte_formen": [
                 "Kapazität: C = \\frac{1}{2 \\cdot \\pi \\cdot f \\cdot X_C}",
                 "Frequenz: f = \\frac{1}{2 \\cdot \\pi \\cdot X_C \\cdot C}"
             ],
-            "quelle": "Wikibooks / Wechselstromtechnik / Kapazitiver Widerstand"
+            "quelle": "Zinke, Otto; Seidler, Hans: Widerstände, Kondensatoren, Spulen und ihre Werkstoffe, Kapitel 4 (Der Kondensator im Wechselstromkreis), S. 112-115"
         },
         {
             "titel": "Induktiver Blindwiderstand",
             "kategorie": "Wechselstromtechnik",
-            "beschreibung": "Widerstand einer Spule in einem Wechselstromkreis in Abhängigkeit von Frequenz und Induktivität.",
+            "beschreibung": "Frequenzabhängiger Widerstand (Blindwiderstand) einer idealen Spule in einem Wechselstromkreis.",
             "reinform": "X_L = 2 \\cdot \\pi \\cdot f \\cdot L",
             "umgestellte_formen": [
                 "Induktivität: L = \\frac{X_L}{2 \\cdot \\pi \\cdot f}",
                 "Frequenz: f = \\frac{X_L}{2 \\cdot \\pi \\cdot L}"
             ],
-            "quelle": "Wikibooks / Wechselstromtechnik / Induktiver Widerstand"
+            "quelle": "Hagmann, Gert: Elektrotechnik für Dummies / Grundlagen der Wechselstromtechnik, Kapitel 8 (Spule im Wechselstromkreis), S. 140-143"
         },
         {
             "titel": "Spannungsteiler (Unbelastet)",
             "kategorie": "Grundlagen",
-            "beschreibung": "Aufteilung einer Eingangsspannung an zwei in Reihe geschalteten Widerständen.",
+            "beschreibung": "Proportionale Aufteilung einer Eingangsspannung auf mehrere in Reihe geschaltete Widerstände.",
             "reinform": "U_2 = U_{ges} \\cdot \\frac{R_2}{R_1 + R_2}",
             "umgestellte_formen": [
                 "Gesamtspannung: U_{ges} = \\frac{U_2 \\cdot (R_1 + R_2)}{R_2}"
             ],
-            "quelle": "Arbeitsmappe Schaltungsanalyse / Grundstromkreise"
+            "quelle": "Measures, R. / Tabellenbuch Elektrotechnik, Abschnitt Schaltungstechnik und Grundstromkreise, S. 54"
         }
     ]
 
@@ -76,10 +76,10 @@ def render_formelsammlung():
     
     for f in gefilterte_formeln:
         with st.container():
-            # Titel direkt ohne "Name der Formel:" und ohne Stecknadel
+            # Titel ohne "Name der Formel:" und ohne Symbole
             st.markdown(f"### {f['titel']}")
             
-            # Kategorie im schicken Lilaton via HTML-Badge dargestellt
+            # Kategorie im schicken Lilaton via HTML-Badge
             st.markdown(f"*Kategorie:* <span style='color: #b19cd9; font-weight: bold; background-color: rgba(177, 156, 217, 0.15); padding: 2px 8px; border-radius: 4px;'>{f['kategorie']}</span>", unsafe_allow_html=True)
             
             st.markdown(f"**Anwendungsbereich / Erläuterung:** {f['beschreibung']}")
@@ -93,7 +93,7 @@ def render_formelsammlung():
                 st.markdown(f"- *{bezeichnung}:*")
                 st.latex(mathtext)
                 
-            st.markdown(f"**Quelle:** [{f['quelle']}]")
+            st.markdown(f"**Quelle:** {f['quelle']}")
             st.markdown("---")
 # 1. Grund-Einstellungen der Seite (Muss immer ganz oben stehen)
 st.set_page_config(page_title="Dungeons&Dioden", layout="wide")
