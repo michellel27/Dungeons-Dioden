@@ -1,45 +1,87 @@
 import streamlit as st
+
 import streamlit as st
 
 def render_kirchhoff():
     st.title("Die Kirchhoffschen Gesetze")
-    st.markdown("Grundlegende Werkzeuge zur Analyse und Berechnung verzweigter und vermaschter elektrischer Netzwerke.")
+    st.markdown("Grundlegende Werkzeuge zur Analyse und Berechnung verzweigter elektrischer Netzwerke.")
     st.markdown("---")
 
-    # 1. Hauptbereich als ausklappbarer Expander
-    with st.expander("📖 Theorie, Herkunft & Anwendung (Knoten- und Maschensatz)", expanded=False):
+    # Haupt-Expander für das gesamte Thema
+    with st.expander("Kirchhoffsche Gesetze (Knoten- und Maschensatz) im Detail", expanded=False):
         
-        # Kategorie Badge im schicken Lilaton
         st.markdown(f"*Kategorie:* <span style='color: #b19cd9; font-weight: bold; background-color: rgba(177, 156, 217, 0.15); padding: 2px 8px; border-radius: 4px;'>Grundlagen der Netzwerksanalyse</span>", unsafe_allow_html=True)
-        
-        st.markdown("### 1. Knotenpunkt-Regel (1. Kirchhoffsche Regel / Knotensatz)")
-        st.markdown("**Erläuterung:** In jedem Stromverzweigungspunkt (Knoten) ist die Summe aller Ströme gleich Null[cite: 12]. Anders gesagt: Die Summe aller zufließenden Ströme ist exakt gleich der Summe aller abfließenden Ströme[cite: 12].")
-        st.markdown("**Reinform:**")
-        st.latex(r"\sum_{k=1}^{n} I_k = 0 \quad \text{bzw.} \quad \sum I_{\text{zu}} = \sum I_{\text{ab}}")
-        st.markdown("**Umgestellte Form:**")
-        st.latex(r"I_1 + I_2 - I_3 - I_4 - I_5 = 0")
-        
+        st.markdown("")
+
+        # 1. Unterpunkt: Hintergrund & Entstehung (ausklappbar)
+        with st.expander("Hintergrund & Entstehung", expanded=False):
+            st.markdown("""
+            Die beiden grundlegenden Gesetze wurden im Jahr **1854** von dem deutschen Physiker **Gustav Robert Kirchhoff** veröffentlicht. 
+            Damals gab es zwar schon das Ohmsche Gesetz, aber sobald Schaltungen komplizierter wurden und sich der Strom in verschiedene Richtungen 
+            verzweigte, reichte das einfache Gesetz nicht mehr aus. Kirchhoff knüpfte an die Forschungen von Georg Simon Ohm an und schuf ein 
+            mathematisches Fundament, mit dem man auch die verzweigtesten Netze glasklar berechnen kann.
+            
+            **Warum funktionieren sie? (Die Physik dahinter):**
+            * **Knotensatz (1. Regel):** Basiert auf dem Naturgesetz der **Erhhaltung der elektrischen Ladung**. Elektronen sind winzige Teilchen; sie können in einem Kabel weder magisch verschwinden noch aus dem Nichts auftauchen. Was an einer Weggabelung hineinfließt, muss zwingend auch wieder herausfließen.
+            * **Maschensatz (2. Regel):** Basiert auf dem **Energieerhaltungssatz**. Stell dir vor, du läufst in einem geschlossenen Kreis (einer Masche) einmal komplett herum. Du zählst alle Spannungsquellen (die dir Energie geben) als Plus und alle Spannungsabfälle an den Widerständen (die dir Energie verbrauchen) als Minus zusammen. Wenn du wieder am Startpunkt ankommst, muss die Bilanz exakt bei Null liegen. Energie geht im System nicht verloren.
+            
+            **Wann und wo braucht man das?**
+            In der Praxis nutzt man diese Gesetze immer dann, wenn man komplexe Schaltungen (wie Steuerungen im Schaltschrank, Industrieanlagen oder elektronische Platinen) berechnen muss, bei denen klassische Reihen- und Parallelschaltungen nicht ausreichen.
+            
+            **Reales Praxisbeispiel:**
+            Stell dir eine Hauptwasserleitung vor, die sich an einer Kreuzung auf drei kleinere Schläuche aufteilt. Es kann logischerweise niemals mehr Wasser aus den drei Schläuchen herauskommen, als vorne an der Kreuzung hineingeflossen ist – das ist genau die Logik des Knotensatzes. 
+            """)
+            st.markdown("**Quelle:** Lehrgang Elektrotechnik 1, Arbeitsblatt Nr. 26: Knotenpunkt- und Maschen-Regel nach Kirchhoff")
+
+        # 2. Unterpunkt: Knotenpunktregel (ausklappbar)
+        with st.expander("1. Knotenpunkt-Regel (Knotensatz)", expanded=False):
+            st.markdown("""
+            **Was ist ein Knoten?** 
+            Ein Knoten ist schlicht und einfach jede Stelle in einem Stromkreis, an der sich drei oder mehr Leitungen treffen (eine Weggabelung oder Verzweigung).
+            
+            **Was besagt die Regel?**
+            Die Summe aller Ströme, die in diesen Knoten hineinfließen, ist zu jedem Zeitpunkt exakt so groß wie die Summe aller Ströme, die wieder herausfließen. Anders ausgedrückt: Wenn man alle Ströme an einem Knoten mit ihrem Vorzeichen addiert (Hineinfließend = positiv, Hinausfließend = negativ), ist das Ergebnis immer genau Null.
+            """)
+            
+            st.markdown("**Reinform:**")
+            st.latex(r"\sum_{k=1}^{n} I_k = 0 \quad \text{bzw.} \quad \sum I_{\text{zu}} = \sum I_{\text{ab}}")
+            
+            st.markdown("**Umgestellte Formen:**")
+            st.markdown("- *Summe der zufließenden Ströme:*")
+            st.latex(r"I_{\text{zu}} = I_1 + I_2")
+            st.markdown("- *Summe der abfließenden Ströme:*")
+            st.latex(r"I_{\text{ab}} = I_3 + I_4 + I_5")
+            
+            st.markdown("**Quelle:** Lehrgang Elektrotechnik 1, Arbeitsblatt Nr. 26: Knotenpunkt- und Maschen-Regel nach Kirchhoff")
+
+        # 3. Unterpunkt: Maschenregel (ausklappbar)
+        with st.expander("2. Maschen-Regel (Maschensatz)", expanded=False):
+            st.markdown("""
+            **Was ist eine Masche?** 
+            Eine Masche ist jeder geschlossene Weg in einem Schaltplan, den man mit dem Finger abfahren kann, ohne den Stift abzusetzen, und der am Ende wieder zum Startpunkt zurückführt.
+            
+            **Was besagt die Regel?**
+            In jedem geschlossenen Stromkreis ist die Summe aller Teilspannungen gleich Null. Du legst eine beliebige Umlaufrichtung fest (z. B. im Uhrzeigersinn). Jede Spannungsquelle oder jeder Spannungsabfall, die in diese Richtung zeigen, bekommen ein positives Vorzeichen; alles, was entgegen der Richtung zeigt, bekommt ein negatives Vorzeichen.
+            """)
+            
+            st.markdown("**Reinform:**")
+            st.latex(r"\sum_{k=1}^{n} U_k = 0")
+            
+            st.markdown("**Umgestellte Formen:**")
+            st.markdown("- *Quellenspannung als Summe der Teilspannungen (Spannungsabfälle):*")
+            st.latex(r"U_q = U_{R1} + U_{R2} + U_{R3}")
+            st.markdown("- *Auflösung nach einem bestimmten Spannungsabfall:*")
+            st.latex(r"U_{R1} = U_q - U_{R2} - U_{R3}")
+            
+            st.markdown("**Quelle:** Lehrgang Elektrotechnik 1, Arbeitsblatt Nr. 26: Knotenpunkt- und Maschen-Regel nach Kirchhoff")
+
         st.markdown("---")
-        
-        st.markdown("### 2. Maschen-Regel (2. Kirchhoffsche Regel / Maschensatz)")
-        st.markdown("**Erläuterung:** In jedem geschlossenen Stromkreis (Masche) ist die Summe aller Spannungen unter Beachtung der Vorzeichen gleich Null[cite: 12]. Die Umlaufrichtung ist frei wählbar; Spannungen in Umlaufrichtung zählen positiv, entgegenkommende negativ[cite: 12].")
-        st.markdown("**Reinform:**")
-        st.latex(r"\sum_{k=1}^{n} U_k = 0")
-        
-        st.markdown("---")
-        
-        st.markdown("### 🧠 Hintergrund & Entstehung")
-        st.markdown("Die Gesetze wurden **1854 von Gustav Robert Kirchhoff** veröffentlicht[cite: 12]. Sie basieren auf fundamentalen Naturgesetzen: Der Knotensatz sichert die Erhaltung der elektrischen Ladung, während der Maschensatz die Energieerhaltung in elektrischen Systemen beschreibt.")
-        
-        st.markdown("### 🚂 Reales Praxisbeispiel")
-        st.markdown("Betrachte eine elektrische Anlage in der Bahntechnik: Fließt ein Hauptstrom von einer Versorgungsschiene in einen Knotenpunkt, der sich auf drei Signalrelais aufteilt, garantiert der Knotensatz, dass kein Strom verloren geht[cite: 12]. Der Maschensatz hilft im Anschluss zu berechnen, wie sich die Spannungen über die Zuleitungen und Relais verteilen, damit an jedem Bauteil die korrekte Betriebsspannung ankommt.")
-        
-        st.markdown("**Quelle:** [Lehrgang Elektrotechnik 1, Arbeitsblatt Nr. 26: Knotenpunkt- und Maschen-Regel nach Kirchhoff / Gustav Robert Kirchhoff[cite: 12]]")
+        st.markdown("**Hinweis zu weiteren Regeln:** In der klassischen Elektrotechnik gibt es physikalisch und historisch **genau diese zwei** Kirchhoffschen Gesetze (Knotensatz und Maschensatz). Es existieren keine weiteren eigenständigen Kirchhoff-Regeln; diese beiden bilden zusammen das vollständige Fundament für die gesamte Netzwerksanalyse.")
 
     st.markdown("---")
 
-    # 2. Getrennter interaktiver Rechner
-    st.subheader("⚡ Interaktiver Rechner: Einfacher Knoten-Check")
+    # Getrennter interaktiver Rechner
+    st.subheader("Interaktiver Rechner: Knoten-Check")
     st.markdown("Teste hier die Summenbildung von zufließenden und abfließenden Strömen an einem Knotenpunkt:")
 
     col1, col2 = st.columns(2)
@@ -56,9 +98,9 @@ def render_kirchhoff():
     st.markdown(f"**Summe zufließend:** `{summe_zu} A` | **Summe abfließend:** `{summe_ab} A`")
     
     if summe_zu == summe_ab:
-        st.success("✅ Knotenregel erfüllt: Die Summe der zufließenden Ströme ist exakt gleich der Summe der abfließenden Ströme[cite: 12]!")
+        st.success("Knotenregel erfüllt: Die Summe der zufließenden Ströme ist exakt gleich der Summe der abfließenden Ströme.")
     else:
-        st.error("❌ Abweichung! Nach dem 1. Kirchhoffschen Gesetz müssen zufließende und abfließende Ströme im Gleichgewicht sein[cite: 12].")
+        st.error("Abweichung! Nach dem 1. Kirchhoffschen Gesetz müssen zufließende und abfließende Ströme im Gleichgewicht sein.")
 def render_formelsammlung():
     # Haupttitel ohne Icons
     st.title("Elektrotechnik-Formelsammlung")
