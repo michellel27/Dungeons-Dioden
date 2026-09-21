@@ -158,25 +158,40 @@ def render_kirchhoff():
 
     # Interaktiver Rechner nun ebenfalls als ausklappbarer Expander
     with st.expander("Interaktiver Rechner: Knoten-Check öffnen", expanded=False):
-        st.markdown("Teste hier die Summenbildung von zufließenden und abfließenden Strömen an einem Knotenpunkt[cite: 12]:")
+        st.markdown("Teste hier die Summenbildung von zufließenden und abfließenden Strömen an einem Knotenpunkt:")
 
         col1, col2 = st.columns(2)
         with col1:
-            i_zu_1 = st.number_input("Zufließender Strom I1 (A):", value=5.0, step=0.5)
-            i_zu_2 = st.number_input("Zufließender Strom I2 (A):", value=3.0, step=0.5)
+            i_zu_1 = st.slider("Zufließender Strom I1 (A):", min_value=0.0, max_value=10.0, value=5.0, step=0.5)
+            i_zu_2 = st.slider("Zufließender Strom I2 (A):", min_value=0.0, max_value=10.0, value=3.0, step=0.5)
         with col2:
-            i_ab_1 = st.number_input("Abfließender Strom I3 (A):", value=4.0, step=0.5)
-            i_ab_2 = st.number_input("Abfließender Strom I4 (A):", value=4.0, step=0.5)
+            i_ab_1 = st.slider("Abfließender Strom I3 (A):", min_value=0.0, max_value=10.0, value=4.0, step=0.5)
+            i_ab_2 = st.slider("Abfließender Strom I4 (A):", min_value=0.0, max_value=10.0, value=4.0, step=0.5)
 
         summe_zu = i_zu_1 + i_zu_2
         summe_ab = i_ab_1 + i_ab_2
 
-        st.markdown(f"**Summe zufließend:** `{summe_zu} A` | **Summe abfließend:** `{summe_ab} A`")
+        # Visuelle Darstellung über dynamische Fortschrittsbalken
+        st.markdown("---")
+        st.markdown("**Visueller Strom-Vergleich:**")
+        
+        max_wert = 20.0  # Maximaler Skalenwert für die Balken
+        p_zu = min(summe_zu / max_wert, 1.0)
+        p_ab = min(summe_ab / max_wert, 1.0)
+
+        st.markdown(f"Gesamt zufließend: `{summe_zu} A`")
+        st.progress(p_zu)
+
+        st.markdown(f"Gesamt abfließend: `{summe_ab} A`")
+        st.progress(p_ab)
+
+        st.markdown("---")
         
         if summe_zu == summe_ab:
-            st.success("Knotenregel erfüllt: Die Summe der zufließenden Ströme ist exakt gleich der Summe der abfließenden Ströme[cite: 12].")
+            st.success("Knotenregel erfüllt: Die Summe der zufließenden Ströme ist exakt gleich der Summe der abfließenden Ströme.")
         else:
-            st.error("Abweichung! Nach dem 1. Kirchhoffschen Gesetz müssen zufließende und abfließende Ströme im Gleichgewicht sein[cite: 12].")
+            differenz = abs(summe_zu - summe_ab)
+            st.error(f"Abweichung von {differenz} A! Nach dem 1. Kirchhoffschen Gesetz müssen zufließende und abfließende Ströme im Gleichgewicht sein.")
 
     st.markdown("---")
 def render_formelsammlung():
