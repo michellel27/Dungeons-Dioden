@@ -2,7 +2,7 @@ import streamlit as st
 def render_formelsammlung():
     # Haupttitel ohne Icons
     st.title("Elektrotechnik-Formelsammlung")
-    st.markdown("Übersicht aller wichtigen Formeln für das Techniker-Studium, inklusive Reinform, umgestellten Formen und präzisen Quellenangaben aus Standard-Fachliteratur.")
+    st.markdown("Umfassende Übersicht aller relevanten Formeln für das Techniker-Studium, inklusive Reinform, umgestellten Formen und präzisen Quellenangaben aus Standard-Fachliteratur.")
 
     # Suchfeld für Formeln
     suchbegriff = st.text_input("🔍 Formel oder Stichwort suchen...", "").lower()
@@ -31,6 +31,50 @@ def render_formelsammlung():
             "quelle": "Albach, Manfred: Grundlagen der Elektrotechnik 1 – Gleichstrom und elektromagnetisches Feld, Kapitel 3 (Elektrische Energie und Leistung), S. 45-48"
         },
         {
+            "titel": "Elektrische Arbeit / Energie",
+            "kategorie": "Gleich- und Wechselstromtechnik",
+            "beschreibung": "Berechnung der umgesetzten elektrischen Energie über einen bestimmten Zeitraum.",
+            "reinform": "W = P \\cdot t",
+            "umgestellte_formen": [
+                "Leistung: P = \\frac{W}{t}",
+                "Zeit: t = \\frac{W}{P}"
+            ],
+            "quelle": "Hagmann, Gert: Grundlagen der Elektrotechnik, Kapitel 3 (Elektrische Arbeit und Leistung), S. 52-54"
+        },
+        {
+            "titel": "Spezifischer Widerstand",
+            "kategorie": "Gleichstromtechnik",
+            "beschreibung": "Berechnung des elektrischen Widerstands eines Leiters in Abhängigkeit von Material (spezifischer Widerstand), Länge und Querschnittsfläche.",
+            "reinform": "R = \\rho \\cdot \\frac{l}{A}",
+            "umgestellte_formen": [
+                "Spezifischer Widerstand: \\rho = \\frac{R \\cdot A}{l}",
+                "Leiterlänge: l = \\frac{R \\cdot A}{\\rho}",
+                "Querschnittsfläche: A = \\frac{\\rho \\cdot l}{R}"
+            ],
+            "quelle": "Albach, Manfred: Grundlagen der Elektrotechnik 1, Kapitel 2 (Der elektrische Stromkreis), S. 31-35"
+        },
+        {
+            "titel": "Temperaturabhängigkeit des Widerstandes",
+            "kategorie": "Gleichstromtechnik",
+            "beschreibung": "Berechnung der Widerstandsänderung eines Leiters bei Temperaturänderung (Kupfer, Aluminium etc.).",
+            "reinform": "R(\\vartheta) = R_0 \\cdot (1 + \\alpha \\cdot \\Delta\\vartheta)",
+            "umgestellte_formen": [
+                "Widerstand bei Basistemperatur: R_0 = \\frac{R(\\vartheta)}{1 + \\alpha \\cdot \\Delta\\vartheta}",
+                "Temperaturkoeffizient: \\alpha = \\frac{\\frac{R(\\vartheta)}{R_0} - 1}{\\Delta\\vartheta}"
+            ],
+            "quelle": "Hagmann, Gert: Grundlagen der Elektrotechnik, Kapitel 2.4 (Temperaturabhängigkeit des Widerstandes), S. 38-41"
+        },
+        {
+            "titel": "Spannungsteiler (Unbelastet)",
+            "kategorie": "Grundlagen / Schaltungstechnik",
+            "beschreibung": "Proportionale Aufteilung einer Eingangsspannung auf zwei in Reihe geschaltete Widerstände.",
+            "reinform": "U_2 = U_{ges} \\cdot \\frac{R_2}{R_1 + R_2}",
+            "umgestellte_formen": [
+                "Gesamtspannung: U_{ges} = \\frac{U_2 \\cdot (R_1 + R_2)}{R_2}"
+            ],
+            "quelle": "Measures, R. / Tabellenbuch Elektrotechnik, Abschnitt Schaltungstechnik und Grundstromkreise, S. 54"
+        },
+        {
             "titel": "Kapazitiver Blindwiderstand",
             "kategorie": "Wechselstromtechnik",
             "beschreibung": "Frequenzabhängiger Widerstand (Blindwiderstand) eines Kondensators in einem Wechselstromkreis.",
@@ -53,14 +97,68 @@ def render_formelsammlung():
             "quelle": "Hagmann, Gert: Elektrotechnik für Dummies / Grundlagen der Wechselstromtechnik, Kapitel 8 (Spule im Wechselstromkreis), S. 140-143"
         },
         {
-            "titel": "Spannungsteiler (Unbelastet)",
-            "kategorie": "Grundlagen",
-            "beschreibung": "Proportionale Aufteilung einer Eingangsspannung auf mehrere in Reihe geschaltete Widerstände.",
-            "reinform": "U_2 = U_{ges} \\cdot \\frac{R_2}{R_1 + R_2}",
+            "titel": "Impedanz (Scheinwiderstand) im RLC-Reihenkreis",
+            "kategorie": "Wechselstromtechnik",
+            "beschreibung": "Gesamtwiderstand einer Reihenschaltung aus Ohmschem Widerstand, Induktivität und Kapazität im Wechselstromkreis.",
+            "reinform": "Z = \\sqrt{R^2 + (X_L - X_C)^2}",
             "umgestellte_formen": [
-                "Gesamtspannung: U_{ges} = \\frac{U_2 \\cdot (R_1 + R_2)}{R_2}"
+                "Ohmscher Widerstand: R = \\sqrt{Z^2 - (X_L - X_C)^2}"
             ],
-            "quelle": "Measures, R. / Tabellenbuch Elektrotechnik, Abschnitt Schaltungstechnik und Grundstromkreise, S. 54"
+            "quelle": "Albach, Manfred: Grundlagen der Elektrotechnik 2 – Wechselströme und Netze, Kapitel 5 (Komplexe Rechnung und Schwingungskreise), S. 88-92"
+        },
+        {
+            "titel": "Wirkleistung im Wechselstromkreis",
+            "kategorie": "Wechselstromtechnik",
+            "beschreibung": "Tatsächlich umgesetzte Leistung unter Berücksichtigung der Phasenverschiebung zwischen Spannung und Strom.",
+            "reinform": "P = U \\cdot I \\cdot \\cos(\\varphi)",
+            "umgestellte_formen": [
+                "Spannung: U = \\frac{P}{I \\cdot \\cos(\\varphi)}",
+                "Stromstärke: I = \\frac{P}{U \\cdot \\cos(\\varphi)}"
+            ],
+            "quelle": "Albach, Manfred: Grundlagen der Elektrotechnik 2 – Wechselströme und Netze, Kapitel 3 (Leistung im Wechselstromkreis), S. 60-65"
+        },
+        {
+            "titel": "Blindleistung im Wechselstromkreis",
+            "kategorie": "Wechselstromtechnik",
+            "beschreibung": "Zwischen Quelle und Verbraucher hin- und herpendelnde Leistung an Blindelementen (Spulen und Kondensatoren).",
+            "reinform": "Q = U \\cdot I \\cdot \\sin(\\varphi)",
+            "umgestellte_formen": [
+                "Stromstärke: I = \\frac{Q}{U \\cdot \\sin(\\varphi)}"
+            ],
+            "quelle": "Albach, Manfred: Grundlagen der Elektrotechnik 2 – Wechselströme und Netze, Kapitel 3 (Leistung im Wechselstromkreis), S. 66-68"
+        },
+        {
+            "titel": "Scheinleistung im Wechselstromkreis",
+            "kategorie": "Wechselstromtechnik",
+            "beschreibung": "Geometrische Summe aus Wirk- und Blindleistung, maßgeblich für die Dimensionierung von Leitungen und Transformatoren.",
+            "reinform": "S = U \\cdot I",
+            "umgestellte_formen": [
+                "Aus Leistungssatz: S = \\sqrt{P^2 + Q^2}",
+                "Spannung: U = \\frac{S}{I}"
+            ],
+            "quelle": "Albach, Manfred: Grundlagen der Elektrotechnik 2 – Wechselströme und Netze, Kapitel 3 (Leistung im Wechselstromkreis), S. 69-72"
+        },
+        {
+            "titel": "Transformator-Übersetzungsverhältnis",
+            "kategorie": "Antriebs- und Energietechnik",
+            "beschreibung": "Verhältnis der Spannungen, Windungszahlen und Ströme an einem idealen Transformator.",
+            "reinform": "\\frac{U_1}{U_2} = \\frac{N_1}{N_2} = \\frac{I_2}{I_1}",
+            "umgestellte_formen": [
+                "Sekundärspannung: U_2 = U_1 \\cdot \\frac{N_2}{N_1}",
+                "Sekundärstrom: I_2 = I_1 \\cdot \\frac{N_1}{N_2}"
+            ],
+            "quelle": "Fischer, Heinz: Elektrische Maschinen, Kapitel 4 (Der Transformator), S. 105-110"
+        },
+        {
+            "titel": "Synchrone Drehzahl (Drehstrommotor)",
+            "kategorie": "Antriebstechnik",
+            "beschreibung": "Berechnung der Drehfeld-Drehzahl eines Drehstrommotors in Abhängigkeit von Netzfrequenz und Polpaarzahl.",
+            "reinform": "n_s = \\frac{f \\cdot 60}{p}",
+            "umgestellte_formen": [
+                "Frequenz: f = \\frac{n_s \\cdot p}{60}",
+                "Polpaarzahl: p = \\frac{f \\cdot 60}{n_s}"
+            ],
+            "quelle": "Fischer, Heinz: Elektrische Maschinen, Kapitel 6 (Asynchronmaschine), S. 150-154"
         }
     ]
 
