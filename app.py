@@ -1,5 +1,94 @@
 import streamlit as st
+def render_formelsammlung():
+    st.title("🧮 Elektrotechnik-Formelsammlung")
+    st.markdown("Übersicht aller wichtigen Formeln für das Techniker-Studium, inklusive Reinform, umgestellten Formen und genauen Quellenangaben.")
 
+    suchbegriff = st.text_input("🔍 Formel oder Stichwort suchen...", "").lower()
+
+    formeln = [
+        {
+            "titel": "Ohmsches Gesetz",
+            "kategorie": "Gleichstromtechnik",
+            "beschreibung": "Berechnung des Zusammenhangs von elektrischer Spannung, Stromstärke und Widerstand in einem Stromkreis.",
+            "reinform": "U = R \\cdot I",
+            "umgestellte_formen": [
+                "Widerstand: R = \\frac{U}{I}",
+                "Stromstärke: I = \\frac{U}{R}"
+            ],
+            "quelle": "Wikibooks / Elektrotechnik-Formelsammlung / Grundlagen der Elektrotechnik"
+        },
+        {
+            "titel": "Elektrische Leistung",
+            "kategorie": "Gleich- und Wechselstromtechnik",
+            "beschreibung": "Berechnung der umgesetzten elektrischen Leistung aus Spannung und Stromstärke.",
+            "reinform": "P = U \\cdot I",
+            "umgestellte_formen": [
+                "Spannung: U = \\frac{P}{I}",
+                "Stromstärke: I = \\frac{P}{U}"
+            ],
+            "quelle": "Fachbuch Elektrotechnik / Kapitel Leistung und Arbeit"
+        },
+        {
+            "titel": "Kapazitiver Blindwiderstand",
+            "kategorie": "Wechselstromtechnik",
+            "beschreibung": "Widerstand eines Kondensators in einem Wechselstromkreis in Abhängigkeit von Frequenz und Kapazität.",
+            "reinform": "X_C = \\frac{1}{2 \\cdot \\pi \\cdot f \\cdot C}",
+            "umgestellte_formen": [
+                "Kapazität: C = \\frac{1}{2 \\cdot \\pi \\cdot f \\cdot X_C}",
+                "Frequenz: f = \\frac{1}{2 \\cdot \\pi \\cdot X_C \\cdot C}"
+            ],
+            "quelle": "Wikibooks / Wechselstromtechnik / Kapazitiver Widerstand"
+        },
+        {
+            "titel": "Induktiver Blindwiderstand",
+            "kategorie": "Wechselstromtechnik",
+            "beschreibung": "Widerstand einer Spule in einem Wechselstromkreis in Abhängigkeit von Frequenz und Induktivität.",
+            "reinform": "X_L = 2 \\cdot \\pi \\cdot f \\cdot L",
+            "umgestellte_formen": [
+                "Induktivität: L = \\frac{X_L}{2 \\cdot \\pi \\cdot f}",
+                "Frequenz: f = \\frac{X_L}{2 \\cdot \\pi \\cdot L}"
+            ],
+            "quelle": "Wikibooks / Wechselstromtechnik / Induktiver Widerstand"
+        },
+        {
+            "titel": "Spannungsteiler (Unbelastet)",
+            "kategorie": "Grundlagen",
+            "beschreibung": "Aufteilung einer Eingangsspannung an zwei in Reihe geschalteten Widerständen.",
+            "reinform": "U_2 = U_{ges} \\cdot \\frac{R_2}{R_1 + R_2}",
+            "umgestellte_formen": [
+                "Gesamtspannung: U_{ges} = \\frac{U_2 \\cdot (R_1 + R_2)}{R_2}"
+            ],
+            "quelle": "Arbeitsmappe Schaltungsanalyse / Grundstromkreise"
+        }
+    ]
+
+    gefilterte_formeln = [
+        f for f in formeln 
+        if suchbegriff in f["titel"].lower() or suchbegriff in f["beschreibung"].lower() or suchbegriff in f["kategorie"].lower()
+    ]
+
+    st.markdown("---")
+
+    if not gefilterte_formeln:
+        st.warning("Keine passenden Formeln gefunden.")
+    
+    for f in gefilterte_formeln:
+        with st.container():
+            st.markdown(f"### 📌 **Name der Formel:** {f['titel']}")
+            st.markdown(f"*Kategorie:* `{f['kategorie']}`")
+            st.markdown(f"**Anwendungsbereich / Erläuterung:** {f['beschreibung']}")
+            
+            st.markdown("**Reinform:**")
+            st.latex(f["reinform"])
+            
+            st.markdown("**Umgestellte Formen:**")
+            for form in f["umgestellte_formen"]:
+                bezeichnung, mathtext = form.split(": ")
+                st.markdown(f"- *{bezeichnung}:*")
+                st.latex(mathtext)
+                
+            st.markdown(f"**Quelle:** [{f['quelle']}]")
+            st.markdown("---")
 # 1. Grund-Einstellungen der Seite (Muss immer ganz oben stehen)
 st.set_page_config(page_title="Dungeons&Dioden", layout="wide")
 # --- PASSWORTSCHUTZ MIT GEDÄCHTNIS ---
@@ -655,103 +744,9 @@ elif menue == "Lexikon & Abkürzungen":
         
     st.divider()
     st.caption("Quellen: [^1] Wikibooks: Formelsammlung Elektrotechnik | [^2] VDE-Normen | [^3] Formelsammlung Elektrotechnik, Werner-von-Siemens-Schule.")
-import streamlit as st
-
-def render_formelsammlung():
-    st.title("🧮 Elektrotechnik-Formelsammlung")
-    st.markdown("Übersicht aller wichtigen Formeln für das Techniker-Studium, inklusive Reinform, umgestellten Formen und genauen Quellenangaben.")
-
-    # Suchfeld für Formeln
-    suchbegriff = st.text_input("🔍 Formel oder Stichwort suchen...", "").lower()
-
-    # Liste der Formeln mit Kategorien, Erläuterungen, Formen und Quellen
-    formeln = [
-        {
-            "titel": "Ohmsches Gesetz",
-            "kategorie": "Gleichstromtechnik",
-            "beschreibung": "Berechnung des Zusammenhangs von elektrischer Spannung, Stromstärke und Widerstand in einem Stromkreis.",
-            "reinform": "U = R \\cdot I",
-            "umgestellte_formen": [
-                "Widerstand: R = \\frac{U}{I}",
-                "Stromstärke: I = \\frac{U}{R}"
-            ],
-            "quelle": "Wikibooks / Elektrotechnik-Formelsammlung / Grundlagen der Elektrotechnik"
-        },
-        {
-            "titel": "Elektrische Leistung",
-            "kategorie": "Gleich- und Wechselstromtechnik",
-            "beschreibung": "Berechnung der umgesetzten elektrischen Leistung aus Spannung und Stromstärke.",
-            "reinform": "P = U \\cdot I",
-            "umgestellte_formen": [
-                "Spannung: U = \\frac{P}{I}",
-                "Stromstärke: I = \\frac{P}{U}"
-            ],
-            "quelle": "Fachbuch Elektrotechnik / Kapitel Leistung und Arbeit"
-        },
-        {
-            "titel": "Kapazitiver Blindwiderstand",
-            "kategorie": "Wechselstromtechnik",
-            "beschreibung": "Widerstand eines Kondensators in einem Wechselstromkreis in Abhängigkeit von Frequenz und Kapazität.",
-            "reinform": "X_C = \\frac{1}{2 \\cdot \\pi \\cdot f \\cdot C}",
-            "umgestellte_formen": [
-                "Kapazität: C = \\frac{1}{2 \\cdot \\pi \\cdot f \\cdot X_C}",
-                "Frequenz: f = \\frac{1}{2 \\cdot \\pi \\cdot X_C \\cdot C}"
-            ],
-            "quelle": "Wikibooks / Wechselstromtechnik / Kapazitiver Widerstand"
-        },
-        {
-            "titel": "Induktiver Blindwiderstand",
-            "kategorie": "Wechselstromtechnik",
-            "beschreibung": "Widerstand einer Spule in einem Wechselstromkreis in Abhängigkeit von Frequenz und Induktivität.",
-            "reinform": "X_L = 2 \\cdot \\pi \\cdot f \\cdot L",
-            "umgestellte_formen": [
-                "Induktivität: L = \\frac{X_L}{2 \\cdot \\pi \\cdot f}",
-                "Frequenz: f = \\frac{X_L}{2 \\cdot \\pi \\cdot L}"
-            ],
-            "quelle": "Wikibooks / Wechselstromtechnik / Induktiver Widerstand"
-        },
-        {
-            "titel": "Spannungsteiler (Unbelastet)",
-            "kategorie": "Grundlagen",
-            "beschreibung": "Aufteilung einer Eingangsspannung an zwei in Reihe geschalteten Widerständen.",
-            "reinform": "U_2 = U_{ges} \\cdot \\frac{R_2}{R_1 + R_2}",
-            "umgestellte_formen": [
-                "Gesamtspannung: U_{ges} = \\frac{U_2 \\cdot (R_1 + R_2)}{R_2}"
-            ],
-            "quelle": "Arbeitsmappe Schaltungsanalyse / Grundstromkreise"
-        }
-    ]
-
-    # Filtern basierend auf Suchanfrage
-    gefilterte_formeln = [
-        f for f in formeln 
-        if suchbegriff in f["titel"].lower() or suchbegriff in f["beschreibung"].lower() or suchbegriff in f["kategorie"].lower()
-    ]
-
-    st.markdown("---")
-
-    if not gefilterte_formeln:
-        st.warning("Keine passenden Formeln gefunden.")
-    
-    for f in gefilterte_formeln:
-        with st.container():
-            st.markdown(f"### 📌 **Name der Formel:** {f['titel']}")
-            st.markdown(f"*Kategorie:* `{f['kategorie']}`")
-            st.markdown(f"**Anwendungsbereich / Erläuterung:** {f['beschreibung']}")
-            
-            st.markdown("**Reinform:**")
-            st.latex(f["reinform"])
-            
-            st.markdown("**Umgestellte Formen:**")
-            for form in f["umgestellte_formen"]:
-                # Trennung von Beschreibung und Formel für saubere LaTeX-Darstellung
-                bezeichnung, mathtext = form.split(": ")
-                st.markdown(f"- *{bezeichnung}:*")
-                st.latex(mathtext)
-                
-            st.markdown(f"**Quelle:** [{f['quelle']}]")
-            st.markdown("---")
-if menue == "Dokumente & Uploads":
+elif menue == "Formelsammlung":
+    render_formelsammlung()
+elif menue == "Dokumente & Uploads":
     st.title("Dokumente & Uploads")
     st.write("Lade hier deine Schaltpläne, PDFs oder Bilder für die Weiterbildung hoch.")
     
