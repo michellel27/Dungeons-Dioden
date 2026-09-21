@@ -12,24 +12,26 @@ def render_knotenpotential():
         st.markdown(f"*Kategorie:* <span style='color: #b19cd9; font-weight: bold; background-color: rgba(177, 156, 217, 0.15); padding: 2px 8px; border-radius: 4px;'>Analytische Netzwerksverfahren</span>", unsafe_allow_html=True)
         st.markdown("")
 
-        # 1. Unterpunkt: Wann und Woran anwenden (neu hinzugefügt)
+        # 1. Unterpunkt: Wann anwenden & Woran erkennen
         with st.expander("Wann anwenden & Woran erkennt man das?", expanded=False):
             st.markdown("""
             **Woran erkennt man das?**
-            Du erkennst solche Schaltungen daran, dass sie aus mehreren parallelen Zweigen (Strängen) bestehen, die alle oben und unten an exakt denselben **zwei Hauptknoten** (Verbindungspunkten) zusammenlaufen[cite: 9, 10]. In fast jedem dieser parallelen Zweige befindet sich mindestens eine Spannungsquelle in Reihe mit einem Widerstand[cite: 9, 10].
+            Du erkennst solche Schaltungen daran, dass sie aus mehreren parallelen Zweigen (Strängen) bestehen, die alle oben und unten an exakt denselben **zwei Hauptknoten** zusammenlaufen[cite: 9, 10]. In fast jedem dieser parallelen Zweige befindet sich eine Spannungsquelle in Reihe mit einem Widerstand[cite: 9, 10].
             
             **Wann wendet man es an?**
-            Das Verfahren wird dann eingesetzt, wenn man die Gesamtspannung zwischen diesen beiden Hauptknoten (oder die Leerlaufspannung für eine Ersatzschaltung) extrem schnell und ohne umständliche Maschengleichungen berechnen möchte[cite: 9, 10]. Besonders nützlich ist es als Vorbereitung, wenn ein nicht-lineares Bauteil (wie eine Diode) an eine komplexe Quelle angeschlossen wird[cite: 9, 10].
+            Das Verfahren wird dann eingesetzt, wenn man die Gesamtspannung zwischen diesen beiden Hauptknoten extrem schnell und ohne umständliche Maschengleichungen berechnen möchte[cite: 9, 10]. Es dient perfekt als Vorbereitung, wenn ein nicht-lineares Bauteil (wie eine Diode) an eine komplexe Quelle angeschlossen wird[cite: 9, 10].
             """)
+            st.markdown("**Quelle:** Werner-von-Siemens-Schule, Arbeitsmappe Elektrotechnik – Arbeitsblatt Diode 1 & 2 (Schaltungsanalyse mit Diode)[cite: 9, 10]")
 
         # 2. Unterpunkt: Hintergrund & Entstehung
         with st.expander("Hintergrund & Entstehung", expanded=False):
             st.markdown("""
-            Das Knotenpotentialverfahren – oft auch in direkter Form als **Satz von Millman** bekannt – fasst die Kirchhoffschen Gesetze für rein parallele Strukturen zu einer einzigen, eleganten Formel zusammen[cite: 9, 10]. 
+            Das Knotenpotentialverfahren – auch als **Satz von Millman** bekannt – fasst die Kirchhoffschen Gesetze für rein parallele Strukturen in einer direkten Formel zusammen[cite: 9, 10]. 
             
             **Warum funktioniert es? (Die Physik dahinter):**
-            Anstatt jede Schleife einzeln zu berechnen, wandelt man gedanklich jeden Zweig in eine äquivalente Stromquelle um[cite: 9]. Wenn man die Summe aller Ströme durch die Summe aller Leitwerte ($G = \\frac{1}{R}$) teilt, erhält man sofort das exakte elektrische Potential zwischen den Hauptknoten[cite: 9].
+            Anstatt jede Schleife einzeln zu berechnen, wandelt man gedanklich jeden Zweig in eine äquivalente Stromquelle um[cite: 9]. Teilt man die Summe aller Teilströme durch die Summe aller Leitwerte ($G = \\frac{1}{R}$), erhält man direkt das elektrische Potential zwischen den Hauptknoten[cite: 9].
             """)
+            st.markdown("**Quelle:** Fachbuch Grundlagen der Elektrotechnik / Werner-von-Siemens-Schule Arbeitsblätter[cite: 9, 10]")
 
         # 3. Unterpunkt: Theorie & Formeln
         with st.expander("Theorie, Reinform & Umstellungen", expanded=False):
@@ -46,11 +48,13 @@ def render_knotenpotential():
             st.latex(r"I_n = \frac{U_n}{R_n}")
             st.markdown("- *Darstellung mit Leitwerten ($G = \\frac{1}{R}$):*")
             st.latex(r"U_q = \frac{U_1 \cdot G_1 + U_2 \cdot G_2}{G_1 + G_2 + G_3}")
+            
+            st.markdown("**Quelle:** Werner-von-Siemens-Schule, Arbeitsmappe Elektrotechnik – Leitfaden zur Verfahrenswahl[cite: 9, 10]")
 
         # 4. Unterpunkt: Schritt-für-Schritt Beispielaufgabe & Rechnung
         with st.expander("Beispielaufgabe mit Schritt-für-Schritt-Lösung", expanded=False):
             st.markdown("""
-            **Aufgabenstellung:**
+            **Aufgabenstellung (nach Arbeitsblatt Diode 1 & 2):**
             Gegeben ist eine Parallelschaltung aus zwei Quellen und drei Widerständen[cite: 9, 10]:
             * $U_1 = 4{,}5\\text{ V}$, $R_1 = 100\\,\Omega$[cite: 9, 10]
             * $U_2 = 3{,}0\\text{ V}$, $R_2 = 100\\,\Omega$[cite: 9, 10]
@@ -74,6 +78,7 @@ def render_knotenpotential():
             st.latex(r"U_q = \frac{0{,}045\text{ A} + 0{,}030\text{ A}}{0{,}04\text{ S}} = \frac{0{,}075\text{ A}}{0{,}04\text{ S}} = 1{,}875\text{ V}")
             
             st.markdown("**Ergebnis:** Die gesuchte Ersatzspannung beträgt **$1{,}875\\text{ V}$**[cite: 9, 10].")
+            st.markdown("**Quelle:** Werner-von-Siemens-Schule, Arbeitsmappe Elektrotechnik – Arbeitsblätter Diode 1 und Diode 2[cite: 9, 10]")
 
     st.markdown("---")
 def render_kirchhoff():
