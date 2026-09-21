@@ -174,12 +174,23 @@ def render_kirchhoff():
         st.markdown("---")
         st.markdown("**Live-Ergebnis am Knoten:**")
 
-        # Getrennte Anzeigefelder für Ergebnisse, die sich live mitverändern
+        # Getrennte Anzeigefelder für die exakten Werte
         m_col1, m_col2 = st.columns(2)
         with m_col1:
             st.metric(label="Summe zufließende Ströme", value=f"{summe_zu:.2f} A")
         with m_col2:
             st.metric(label="Summe abfließende Ströme", value=f"{summe_ab:.2f} A")
+
+        # Visuelle Balken für den direkten optischen Vergleich
+        st.markdown("**Optischer Vergleich (Skala bis 20 A):**")
+        max_wert = 20.0
+        p_zu = min(summe_zu / max_wert, 1.0)
+        p_ab = min(summe_ab / max_wert, 1.0)
+
+        st.markdown("Zufließend:")
+        st.progress(p_zu)
+        st.markdown("Abfließend:")
+        st.progress(p_ab)
 
         st.markdown("---")
         
