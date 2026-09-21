@@ -134,28 +134,131 @@ def render_maschenstromverfahren():
                 st.success("**Endergebnis des Gauß-Verfahrens:**\n* $I_a = -5{,}0\text{ A}$\n* $I_b = -3{,}5\text{ A}$\n* $I_c = -1{,}9\text{ A}$")
                 st.info("Tipp: Negative Stromwerte bedeuten lediglich, dass der tatsächliche Strom in die entgegengesetzte Richtung fließt als ursprünglich angenommen.")
 
-            # Inner expander 2: Additionsverfahren
+            # # Inner expander 2: Additionsverfahren
             with st.expander("Option B: Additionsverfahren (Subtraktionsmethode)", expanded=False):
                 st.markdown(r"""
-                Beim Additionsverfahren multipliziert man Gleichungen so mit Faktoren, dass beim Addieren oder Subtrahieren eine Variable wegfällt.
+                Das Additionsverfahren (oder Subtraktionsverfahren) ist ideal, um Gleichungen so miteinander zu kombinieren, dass gezielt eine Variable nach der anderen eliminiert wird.
                 
-                **Vorgehen:**
-                1. Man wählt zwei Gleichungen (z.B. M1 und M2) und eliminiert eine Variable (z.B. $I_a$), indem man passende Vielfache voneinander abzieht.
-                2. Man wiederholt dies mit einer anderen Gleichungskombination, bis ein kleineres System mit nur noch zwei Unbekannten übrig bleibt.
-                3. Man löst dieses verbleibende System und setzt die Werte zurück ein.
+                **Schritt 1: Ausgangsgleichungen bereitlegen**  
+                Unsere drei Gleichungen aus dem Maschenstromverfahren:
+                * **(M1)** $4{,}9 \cdot I_a + 2{,}8 \cdot I_b + 0 \cdot I_c = -15$
+                * **(M2)** $2{,}8 \cdot I_a + 142{,}8 \cdot I_b - 140 \cdot I_c = -90$
+                * **(M3)** $0 \cdot I_a - 140 \cdot I_b + 260 \cdot I_c = 0$
                 """)
 
-            # Inner expander 3: Einsetzungsverfahren
+                st.markdown(r"""
+                **Schritt 2: Erste Variable ($I_a$) eliminieren**  
+                *Ziel:* Wir kombinieren zwei Gleichungen so, dass die Variable $I_a$ wegfällt. Da in Gleichung M3 bereits der Koeffizient $0$ für $I_a$ steht, bietet sich an, M1 und M2 zu nutzen.  
+                *Weg:* Wir multiplizieren Gleichung M1 mit $2{,}8$ und Gleichung M2 mit $4{,}9$, damit beide denselben Vorfaktor vor $I_a$ erhalten ($4{,}9 \cdot 2{,}8 = 13{,}72$):
+                """)
+
+                st.latex(r"""
+                \begin{align*}
+                \text{Neu (M1)}: &\quad 13{,}72 \cdot I_a + 7{,}84 \cdot I_b + 0 \cdot I_c = -42 \\
+                \text{Neu (M2)}: &\quad 13{,}72 \cdot I_a + 699{,}72 \cdot I_b - 6860 \cdot I_c = -4410
+                \end{align*}
+                """)
+
+                st.markdown(r"""
+                Jetzt subtrahieren wir die neue Gleichung M1 von der neuen Gleichung M2 ($\text{M2}_{neu} - \text{M1}_{neu}$), um $I_a$ zu eliminieren:
+                * Für $I_b$: $699{,}72 - 7{,}84 = 691{,}88 \cdot I_b$
+                * Für $I_c$: $-6860 - 0 = -6860 \cdot I_c$
+                * Rechte Seite: $-4410 - (-42) = -3990$
+                
+                **Erste reduzierte Gleichung (R1):**
+                """)
+
+                st.latex(r"691{,}88 \cdot I_b - 6860 \cdot I_c = -3990")
+
+                st.markdown(r"""
+                **Schritt 3: Das reduzierte System mit M3 zusammenführen**  
+                Da unsere Gleichung M3 ohnehin kein $I_a$ enthält (Koeffizient ist $0$), haben wir jetzt ein perfektes Zweier-System aus **(R1)** und **(M3)** mit nur noch zwei Unbekannten ($I_b$ und $I_c$):
+                * **(R1)** $691{,}88 \cdot I_b - 6860 \cdot I_c = -3990$
+                * **(M3)** $-140 \cdot I_b + 260 \cdot I_c = 0 \implies 140 \cdot I_b = 260 \cdot I_c \implies I_c = \frac{140}{260} \cdot I_b \approx 0{,}5384 \cdot I_b$
+                
+                Setzen wir diesen Ausdruck für $I_c$ in Gleichung R1 ein:
+                """)
+
+                st.latex(r"691{,}88 \cdot I_b - 6860 \cdot (0{,}5384 \cdot I_b) = -3990")
+                st.latex(r"691{,}88 \cdot I_b - 3693{,}42 \cdot I_b = -3990")
+                st.latex(r"-3001{,}54 \cdot I_b = -3990 \implies \mathbf{I_b \approx -3{,}5\text{ A}}")
+
+                st.markdown(r"""
+                **Schritt 4: Verbleibende Variablen berechnen (Rückwärts einsetzen)**  
+                1. **Berechnung von $I_c$:**  
+                   $I_c = 0{,}5384 \cdot (-3{,}5) \implies \mathbf{I_c \approx -1{,}9\text{ A}}$
+                2. **Berechnung von $I_a$ (durch Einsetzen in M1):**  
+                   $4{,}9 \cdot I_a + 2{,}8 \cdot (-3{,}5) = -15 \implies 4{,}9 \cdot I_a - 9{,}8 = -15 \implies 4{,}9 \cdot I_a = -5{,}2 \implies \mathbf{I_a \approx -5{,}0\text{ A}}$
+                """)
+
+                st.success("**Endergebnis des Additionsverfahrens:**\n* $I_a = -5{,}0\text{ A}$\n* $I_b = -3{,}5\text{ A}$\n* $I_c = -1{,}9\text{ A}$")
+                
+                # Tipp farblich hervorgehoben (Blau)
+                st.info("Tipp: Das Additionsverfahren funktioniert am besten, wenn man sich vorab die Spalten anschaut und die Gleichung auswählt, bei der sich durch kleinste Multiplikatoren sofort eine Variable eliminieren lässt (wie hier M3, wo I_a ohnehin 0 ist).")
+
+            ## Inner expander 3: Einsetzungsverfahren
             with st.expander("Option C: Einsetzungsverfahren", expanded=False):
                 st.markdown(r"""
-                Das Einsetzungsverfahren eignet sich hervorragend, wenn sich eine Gleichung sehr leicht nach einer Variablen umstellen lässt.
+                Das Einsetzungsverfahren eignet sich hervorragend, wenn sich eine Gleichung in unserem System sehr leicht nach einer Variablen umstellen lässt.
                 
-                **Vorgehen:**
-                1. Man nimmt beispielsweise Gleichung M3 und stellt sie nach $I_c$ um: 
-                   $140 \cdot I_b = 260 \cdot I_c \quad \Rightarrow \quad I_c = \frac{140}{260} \cdot I_b \approx 0{,}538 \cdot I_b$
-                2. Diesen Term setzt man in Gleichung M2 ein, um $I_c$ komplett zu eliminieren.
-                3. Danach löst man das verbleibende System aus M1 und dem angepassten M2 nach $I_a$ und $I_b$ auf.
+                **Schritt 1: Ausgangsgleichungen bereitlegen**  
+                Unsere drei Gleichungen aus dem Maschenstromverfahren:
+                * **(M1)** $4{,}9 \cdot I_a + 2{,}8 \cdot I_b + 0 \cdot I_c = -15$
+                * **(M2)** $2{,}8 \cdot I_a + 142{,}8 \cdot I_b - 140 \cdot I_c = -90$
+                * **(M3)** $0 \cdot I_a - 140 \cdot I_b + 260 \cdot I_c = 0$
                 """)
+
+                st.markdown(r"""
+                **Schritt 2: Eine Gleichung nach einer Variablen umstellen**  
+                *Ziel:* Wir nutzen die übersichtlichste Gleichung (hier M3, da $I_a$ wegfällt) und stellen sie nach einer Variablen um.  
+                *Weg:* Wir nehmen Gleichung M3 und lösen sie nach $I_c$ auf:
+                """)
+
+                st.latex(r"-140 \cdot I_b + 260 \cdot I_c = 0 \quad \Rightarrow \quad 140 \cdot I_b = 260 \cdot I_c")
+                st.latex(r"I_c = \frac{140}{260} \cdot I_b \approx 0{,}5384 \cdot I_b")
+
+                st.markdown(r"""
+                **Schritt 3: Den Term in die anderen Gleichungen einsetzen**  
+                *Weg:* Da Gleichung M1 ohnehin kein $I_c$ enthält (Koeffizient ist $0$), müssen wir unseren Ausdruck für $I_c$ nur in **Gleichung M2** einsetzen, um $I_c$ komplett zu eliminieren:
+                * M2 lautet: $2{,}8 \cdot I_a + 142{,}8 \cdot I_b - 140 \cdot I_c = -90$
+                * Einsetzen von $I_c = 0{,}5384 \cdot I_b$:
+                """)
+
+                st.latex(r"2{,}8 \cdot I_a + 142{,}8 \cdot I_b - 140 \cdot (0{,}5384 \cdot I_b) = -90")
+                st.latex(r"2{,}8 \cdot I_a + 142{,}8 \cdot I_b - 75{,}376 \cdot I_b = -90")
+                st.latex(r"2{,}8 \cdot I_a + 67{,}424 \cdot I_b = -90 \quad \text{(Das ist unsere neue Gleichung M2')}")
+
+                st.markdown(r"""
+                **Schritt 4: Das verbleibende Zweier-System lösen**  
+                Jetzt haben wir ein einfaches System aus zwei Gleichungen mit nur noch zwei Unbekannten ($I_a$ und $I_b$):
+                * **(M1)** $4{,}9 \cdot I_a + 2{,}8 \cdot I_b = -15$
+                * **(M2')** $2{,}8 \cdot I_a + 67{,}424 \cdot I_b = -90$
+                
+                Stellen wir M1 nach $I_a$ um:
+                """)
+
+                st.latex(r"4{,}9 \cdot I_a = -15 - 2{,}8 \cdot I_b \quad \Rightarrow \quad I_a = \frac{-15 - 2{,}8 \cdot I_b}{4{,}9}")
+
+                st.markdown(r"""
+                Diesen Term für $I_a$ setzen wir nun in M2' ein:
+                """)
+
+                st.latex(r"2{,}8 \cdot \left(\frac{-15 - 2{,}8 \cdot I_b}{4{,}9}\right) + 67{,}424 \cdot I_b = -90")
+                st.latex(r"-8{,}571 - 1{,}6 \cdot I_b + 67{,}424 \cdot I_b = -90")
+                st.latex(r"65{,}824 \cdot I_b = -81{,}429 \quad \Rightarrow \quad \mathbf{I_b \approx -3{,}5\text{ A}}")
+
+                st.markdown(r"""
+                **Schritt 5: Letzte Variablen berechnen (Rückwärts einsetzen)**  
+                1. **Berechnung von $I_a$:**  
+                   $I_a = \frac{-15 - 2{,}8 \cdot (-3{,}5)}{4{,}9} = \frac{-15 + 9{,}8}{4{,}9} = \frac{-5{,}2}{4{,}9} \implies \mathbf{I_a \approx -5{,}0\text{ A}}$
+                2. **Berechnung von $I_c$:**  
+                   $I_c = 0{,}5384 \cdot (-3{,}5) \implies \mathbf{I_c \approx -1{,}9\text{ A}}$
+                """)
+
+                st.success("**Endergebnis des Einsetzungsverfahrens:**\n* $I_a = -5{,}0\text{ A}$\n* $I_b = -3{,}5\text{ A}$\n* $I_c = -1{,}9\text{ A}$")
+                
+                # Tipp farblich hervorgehoben (Blau)
+                st.info("Tipp: Das Einsetzungsverfahren ist genial, wenn eine Gleichung direkt eine Variable isoliert (wie hier M3, wo sich I_c direkt durch I_b ausdrücken lässt). Bei großen Matrizen wird es allerdings schnell unübersichtlich.")
 
             st.markdown("**Empfehlung:** Für umfangreichere Schaltungen ist das **Gaußsche Eliminationsverfahren** am übersichtlichsten, weil man den Überblick behält. Das ist jedoch kein Muss – nimm immer das Verfahren, mit dem du persönlich am sichersten und schnellsten zum Ziel kommst!")
 
