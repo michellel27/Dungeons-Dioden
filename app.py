@@ -217,6 +217,98 @@ def render_formelsammlung():
                 "Ankerstrom: I_a = \\frac{U - U_i}{R_a}"
             ],
             "quelle": "Fischer, Heinz: Elektrische Maschinen, Kapitel 5 (Die Gleichstrommaschine), S. 120-125"
+        },
+        # --- Pneumatik & Fluidtechnik ---
+        {
+            "titel": "Zylinderkraft (Pneumatik)",
+            "kategorie": "Pneumatik / Fluidtechnik",
+            "beschreibung": "Berechnung der theoretischen Schubkraft eines pneumatischen Zylinders beim Ausfahren aus Betriebsdruck und Kolbenfläche.",
+            "reinform": "F = p \\cdot A",
+            "umgestellte_formen": [
+                "Betriebsdruck: p = \\frac{F}{A}",
+                "Kolbenfläche: A = \\frac{F}{p}"
+            ],
+            "quelle": "Wächter, Heinrich: Pneumatik – Grundlagen, Komponenten, Anwendungen, Kapitel 3 (Arbeitselemente und Kraftberechnung), S. 45-48"
+        },
+        {
+            "titel": "Volumenstrom in Rohrleitungen",
+            "kategorie": "Pneumatik / Fluidtechnik",
+            "beschreibung": "Zusammenhang zwischen Strömungsgeschwindigkeit, Rohrquerschnitt und Volumenstrom in fluidtechnischen Systemen.",
+            "reinform": "q_v = v \\cdot A",
+            "umgestellte_formen": [
+                "Strömungsgeschwindigkeit: v = \\frac{q_v}{A}",
+                "Querschnittsfläche: A = \\frac{q_v}{v}"
+            ],
+            "quelle": "Wächter, Heinrich: Pneumatik – Grundlagen, Komponenten, Anwendungen, Kapitel 2 (Strömungslehre in der Pneumatik), S. 22-25"
+        },
+        # --- Elektrostatik & Kondensator ---
+        {
+            "titel": "Elektrische Ladung",
+            "kategorie": "Elektrostatik",
+            "beschreibung": "Berechnung der gespeicherten elektrischen Ladungsmenge auf den Platten eines Kondensators.",
+            "reinform": "Q = C \\cdot U",
+            "umgestellte_formen": [
+                "Kapazität: C = \\frac{Q}{U}",
+                "Spannung: U = \\frac{Q}{C}"
+            ],
+            "quelle": "Hagmann, Gert: Grundlagen der Elektrotechnik, Kapitel 6 (Das elektrische Feld und der Kondensator), S. 135-138"
+        },
+        {
+            "titel": "Elektrische Energie im Kondensator",
+            "kategorie": "Elektrostatik",
+            "beschreibung": "Berechnung der im elektrischen Feld eines geladenen Kondensators gespeicherten Energie.",
+            "reinform": "W_{el} = \\frac{1}{2} \\cdot C \\cdot U^2",
+            "umgestellte_formen": [
+                "Kapazität: C = \\frac{2 \\cdot W_{el}}{U^2}",
+                "Spannung: U = \\sqrt{\\frac{2 \\cdot W_{el}}{C}}"
+            ],
+            "quelle": "Albach, Manfred: Grundlagen der Elektrotechnik 1, Kapitel 7 (Das elektrische Feld), S. 180-184"
+        },
+        # --- Elektromagnetismus & Spulen ---
+        {
+            "titel": "Magnetischer Fluss",
+            "kategorie": "Elektromagnetismus",
+            "beschreibung": "Berechnung des magnetischen Flusses durch eine gegebene Fläche bei konstanter magnetischer Flussdichte.",
+            "reinform": "\\Phi = B \\cdot A",
+            "umgestellte_formen": [
+                "Magnetische Flussdichte: B = \\frac{\\Phi}{A}",
+                "Fläche: A = \\frac{\\Phi}{B}"
+            ],
+            "quelle": "Hagmann, Gert: Grundlagen der Elektrotechnik, Kapitel 7 (Das magnetische Feld), S. 165-168"
+        },
+        {
+            "titel": "Magnetische Energie in der Spule",
+            "kategorie": "Elektromagnetismus",
+            "beschreibung": "Berechnung der im Magnetfeld einer stromdurchflossenen Spule gespeicherten Energie.",
+            "reinform": "W_{mag} = \\frac{1}{2} \\cdot L \\cdot I^2",
+            "umgestellte_formen": [
+                "Induktivität: L = \\frac{2 \\cdot W_{mag}}{I^2}",
+                "Stromstärke: I = \\sqrt{\\frac{2 \\cdot W_{mag}}{L}}"
+            ],
+            "quelle": "Albach, Manfred: Grundlagen der Elektrotechnik 1, Kapitel 8 (Das elektromagnetische Feld), S. 210-214"
+        },
+        # --- Netz- und Leitungstechnik ---
+        {
+            "titel": "Spannungsfall auf einer elektrischen Leitung",
+            "kategorie": "Leitungstechnik / Anlagenbau",
+            "beschreibung": "Berechnung des Spannungsverlusts auf einer einfachen Hin- und Rückleitung bei ohmscher Belastung.",
+            "reinform": "\\Delta U = 2 \\cdot I \\cdot l \\cdot \\frac{1}{\\kappa \\cdot A}",
+            "umgestellte_formen": [
+                "Leiterquerschnitt: A = \\frac{2 \\cdot I \\cdot l}{\\kappa \\cdot \\Delta U}"
+            ],
+            "quelle": "Measures, R. / Tabellenbuch Elektrotechnik, Abschnitt Kabel und Leitungen / Spannungsfall, S. 98-100"
+        },
+        # --- Regelungstechnik ---
+        {
+            "titel": "Zeitkonstante des RC-Gliedes",
+            "kategorie": "Regelungs- und Systemtechnik",
+            "beschreibung": "Maß für die Trägheit des Lade- und Entladevorgangs einer Reihenschaltung aus Widerstand und Kondensator.",
+            "reinform": "\\tau = R \\cdot C",
+            "umgestellte_formen": [
+                "Widerstand: R = \\frac{\\tau}{C}",
+                "Kapazität: C = \\frac{\\tau}{R}"
+            ],
+            "quelle": "Föllinger, Otto: Regelungstechnik – Einführung in die Methoden und ihre Anwendung, Kapitel 4 (Zeitverhalten von Gliedern), S. 65-68"
         }
     ]
 
