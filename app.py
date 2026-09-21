@@ -157,33 +157,34 @@ def render_kirchhoff():
     st.markdown("---")
 
     # Interaktiver Rechner nun ebenfalls als ausklappbarer Expander
-    with st.expander("Interaktiver Rechner: Knoten-Check öffnen", expanded=False):
-        st.markdown("Teste hier die Summenbildung von zufließenden und abfließenden Strömen an einem Knotenpunkt:")
+    with st.expander("Interaktiver Rechner: Visuelles Balkendiagramm öffnen", expanded=False):
+        st.markdown("Teste hier die Ströme im direkten grafischen Vergleich:")
 
         col1, col2 = st.columns(2)
         with col1:
-            i_zu_1 = st.slider("Zufließender Strom I1 (A):", min_value=0.0, max_value=10.0, value=5.0, step=0.5)
-            i_zu_2 = st.slider("Zufließender Strom I2 (A):", min_value=0.0, max_value=10.0, value=3.0, step=0.5)
+            i_zu_1 = st.slider("Zufließender Strom I1 (A):", min_value=0.0, max_value=10.0, value=5.0, step=0.5, key="b1")
+            i_zu_2 = st.slider("Zufließender Strom I2 (A):", min_value=0.0, max_value=10.0, value=3.0, step=0.5, key="b2")
         with col2:
-            i_ab_1 = st.slider("Abfließender Strom I3 (A):", min_value=0.0, max_value=10.0, value=4.0, step=0.5)
-            i_ab_2 = st.slider("Abfließender Strom I4 (A):", min_value=0.0, max_value=10.0, value=4.0, step=0.5)
+            i_ab_1 = st.slider("Abfließender Strom I3 (A):", min_value=0.0, max_value=10.0, value=4.0, step=0.5, key="b3")
+            i_ab_2 = st.slider("Abfließender Strom I4 (A):", min_value=0.0, max_value=10.0, value=4.0, step=0.5, key="b4")
 
         summe_zu = i_zu_1 + i_zu_2
         summe_ab = i_ab_1 + i_ab_2
 
-        # Visuelle Darstellung über dynamische Fortschrittsbalken
         st.markdown("---")
-        st.markdown("**Visueller Strom-Vergleich:**")
-        
-        max_wert = 20.0  # Maximaler Skalenwert für die Balken
-        p_zu = min(summe_zu / max_wert, 1.0)
-        p_ab = min(summe_ab / max_wert, 1.0)
+        st.markdown("**Grafische Gegenüberstellung:**")
 
-        st.markdown(f"Gesamt zufließend: `{summe_zu} A`")
-        st.progress(p_zu)
+        # Daten für ein kleines Diagramm aufbereiten
+        import pandas as pd
+        chart_data = pd.DataFrame(
+            {
+                "Stromrichtung": ["Zufließend", "Abfließend"],
+                "Ampere (A)": [summe_zu, summe_ab]
+            }
+        )
 
-        st.markdown(f"Gesamt abfließend: `{summe_ab} A`")
-        st.progress(p_ab)
+        # Ein integriertes Streamlit-Balkendiagramm anzeigen
+        st.bar_chart(chart_data.set_index("Stromrichtung"))
 
         st.markdown("---")
         
