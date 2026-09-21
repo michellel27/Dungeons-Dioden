@@ -1,7 +1,135 @@
 import streamlit as st
 
 import streamlit as st
+def render_zweipoltheorie():
+    st.markdown("### **Zweipoltheorie und Thévenin-Theorem im Detail**")
+    
+    # Haupt-Expander für das gesamte Thema
+    with st.expander("Inhalt, Theorie, Herleitung & Live-Beispiel anzeigen", expanded=False):
+        
+        st.markdown(f"*Kategorie:* <span style='color: #b19cd9; font-weight: bold; background-color: rgba(177, 156, 217, 0.15); padding: 2px 8px; border-radius: 4px;'>Analytische Netzwerksverfahren</span>", unsafe_allow_html=True)
+        st.markdown("")
 
+        # 1. Unterpunkt: Wann anwenden & Woran erkennen
+        with st.expander("Wann anwenden & Woran erkennt man das?", expanded=False):
+            st.markdown("""
+            **Woran erkennt man das?**
+            Du erkennst Aufgaben zur Zweipoltheorie daran, dass eine komplexe Schaltung über zwei Anschelsklemmen (meistens als Klemmen $A$ und $B$ bezeichnet) mit einem externen Lastwiderstand oder einem nicht-linearen Bauteil (wie einer Diode oder einem VDR-Widerstand) verbunden ist. Das restliche Netzwerk wird dabei als aktiver Zweipol betrachtet.
+            
+            **Wann wendet man es an?**
+            Das Theorem wird dann eingesetzt, wenn man den Einfluss eines veränderlichen Lastwiderstands untersuchen will oder wenn ein einzelner „Störenfried“ (wie ein nicht-lineares Bauteil) an eine komplizierte Schaltung angeschlossen ist. Statt das Gesamtsystem für jeden Lastwechsel komplett neu zu berechnen, vereinfacht man den aktiven Teil einmalig in eine einzige Ersatzspannungsquelle.
+            """)
+            st.markdown("**Quelle:** Lehrgang Elektrotechnik 1, Arbeitsblatt Nr. 31: Netzwerksberechnung mit der Ersatzspannungsquelle[cite: 5, 10]")
+
+        # 2. Unterpunkt: Hintergrund, Entstehung & Warum es funktioniert
+        with st.expander("Hintergrund, Entstehung & Warum es funktioniert", expanded=False):
+            st.markdown("""
+            **Hintergrund & Entstehung:**
+            Das Theorem wurde 1883 von dem französischen Telegraphen-Ingenieur Léon Charles Thévenin veröffentlicht. Es gehört zu den wichtigsten Vereinfachungssätzen der Elektrotechnik.
+            
+            **Warum funktioniert das Verfahren? (Das physikalische Prinzip):**
+            Jedes noch so komplizierte, lineare Netzwerk aus Widerständen und Spannungsquellen verhält sich von außen betrachtet – wenn man es nur über zwei Klemmen ($A$ und $B$) berührt – exakt genauso wie eine einzige ideale Spannungsquelle ($U_0$) mit einem in Reihe geschalteten Innenwiderstand ($R_i$). Man trennt das komplexe Netz gedanklich auf, berechnet einmal die Leerlaufspannung und den Innenwiderstand und kann danach jede beliebige Last in Sekundenschnelle berechnen.
+            """)
+            st.markdown("**Quelle:** Albach, Manfred: Grundlagen der Elektrotechnik 1 & Arbeitsblatt Nr. 31[cite: 5, 10]")
+
+        # 3. Unterpunkt: Theorie, Reinform & Umstellungen
+        with st.expander("Theorie, Reinform & Umstellungen", expanded=False):
+            st.markdown("""
+            **Die mathematischen Grundlagen des Thévenin-Theorems:**
+            Ein aktiver Zweipol wird durch seine zwei Kernparameter ersetzt:
+            1. **Quellenspannung / Leerlaufspannung ($U_0$):** Die Spannung, die an den offenen Klemmen $A$ und $B$ gemessen wird, wenn kein Laststrom fließt ($I = 0$).
+            2. **Innenwiderstand ($R_i$):** Der Ersatzwiderstand, den man zwischen den Klemmen $A$ und $B$ misst, wenn man alle internen Spannungsquellen zu Null (Spannungsquelle = Kurzschluss) setzt.
+            """)
+            
+            st.markdown("**Reinform (Laststrom an der Ersatzschaltung):**")
+            st.latex(r"I_a = \frac{U_0}{R_i + R_a}")
+            
+            st.markdown("**Umgestellte Formen:**")
+            st.markdown("- *Spannungsabfall über dem Lastwiderstand ($U_{AB}$):*")
+            st.latex(r"U_{AB} = I_a \cdot R_a = U_0 \cdot \frac{R_a}{R_i + R_a}")
+            st.markdown("- *Auflösung nach dem Innenwiderstand ($R_i$):*")
+            st.latex(r"R_i = \frac{U_0 - U_{AB}}{I_a}")
+            
+            st.markdown("**Quelle:** Fischer, Heinz: Elektrische Maschinen und Netzwerksberechnung / Arbeitsblatt Nr. 31[cite: 5, 10]")
+
+        # 4. Unterpunkt: Statisches Rechenbeispiel
+        with st.expander("Klassisches Rechenbeispiel (Schritt für Schritt erklärt)", expanded=False):
+            st.markdown("""
+            **Gegebene Werte aus der Musteraufgabe:**
+            Ein aktiver Zweipol bestehend aus einer Quellenspannung $U = 15\\text{ V}$ und einer Brückenschaltung mit den Widerständen $R_1 = 10\\,\Omega$, $R_2 = 270\\,\Omega$, $R_3 = 90\\,\Omega$ und $R_4 = 30\\,\Omega$ speist einen Lastwiderstand[cite: 5, 10].
+            
+            Gesucht sind die Leerlaufspannung $U_0$ und der Innenwiderstand $R_i$ für das Ersatzschaltbild[cite: 5, 10].
+            """)
+            
+            st.markdown("---")
+            st.markdown("**Schritt 1: Bestimmung der Leerlaufspannung ($U_0$ / $U_{AB0}$)**")
+            st.markdown("Wir trennen den Lastzweig an den Klemmen $A$ und $B$ auf (Leerlaufbetrieb, $I = 0$). Nun berechnen wir die Potentialdifferenz zwischen den Punkten $A$ und $B$ über die unbelasteten Spannungsteiler[cite: 5, 10]:")
+            st.latex(r"U_{AB0} = R_2 \cdot \frac{U}{R_2 + R_4} - R_1 \cdot \frac{U}{R_1 + R_3}")
+            st.latex(r"U_{AB0} = 270\text{ }\Omega \cdot \frac{15\text{ V}}{270\text{ }\Omega + 30\text{ }\Omega} - 10\text{ }\Omega \cdot \frac{15\text{ V}}{10\text{ }\Omega + 90\text{ }\Omega} = 13{,}5\text{ V} - 1{,}5\text{ V} = 12\text{ V}")
+            
+            # Tipp farblich hervorgehoben (Blau)
+            st.info("Tipp: Im Leerlauf fließt über die Klemmen A und B kein Strom nach außen. Daher bestimmen rein die internen Spannungsteilerverhältnisse die Leerlaufspannung U0.")
+            
+            st.markdown("**Schritt 2: Bestimmung des Innenwiderstandes ($R_i$ / $R_{AB}$)**")
+            st.markdown("Wir schalten alle internen Spannungsquellen kurz ($U = 0$) und blicken von den Klemmen $A$ und $B$ in die Schaltung hinein. Die Widerstände $R_1$ und $R_3$ sowie $R_2$ und $R_4$ bilden jeweils Parallelschaltungen, die zueinander in Reihe liegen[cite: 5, 10]:")
+            st.latex(r"R_i = \frac{R_1 \cdot R_3}{R_1 + R_3} + \frac{R_2 \cdot R_4}{R_2 + R_4}")
+            st.latex(r"R_i = \frac{10\text{ }\Omega \cdot 90\text{ }\Omega}{10\text{ }\Omega + 90\text{ }\Omega} + \frac{270\text{ }\Omega \cdot 30\text{ }\Omega}{270\text{ }\Omega + 30\text{ }\Omega} = 9\text{ }\Omega + 27\text{ }\Omega = 36\text{ }\Omega")
+            
+            st.markdown("**Schritt 3: Das finale Ersatzschaltbild aufstellen**")
+            st.markdown("Der komplexe aktive Zweipol ist damit auf eine einfache Reihenschaltung aus $U_0 = 12\\text{ V}$ und $R_i = 36\\,\Omega$ reduziert[cite: 5, 10].")
+            
+            # Endergebnis farblich hervorgehoben (Grün)
+            st.success("**Endergebnis:** Quellenspannung **$U_0 = 12\\text{ V}$** und Innenwiderstand **$R_i = 36\\,\Omega$**[cite: 5, 10].")
+            st.markdown("**Quelle:** Lehrgang Elektrotechnik 1, Arbeitsblatt Nr. 31: Netzwerksberechnung mit der Ersatzspannungsquelle[cite: 5, 10]")
+
+    st.markdown("---")
+
+    # Interaktiver Live-Rechner für das Thévenin-Theorem
+    with st.expander("Interaktiver Live-Rechner: Thévenin-Ersatzschaltung berechnen", expanded=False):
+        st.markdown("Simuliere hier einen einfachen aktiven Zweipol (Quellenspannung $U$, Vorwiderstand $R_1$, Querwiderstand $R_2$) und einen angeschlossenen Lastwiderstand $R_a$:")
+
+        c1, c2 = st.columns(2)
+        with c1:
+            u_quelle = st.number_input("Quellenspannung U (V):", value=20.0, step=1.0, key="th_u")
+            r1_val = st.number_input("Innen- / Vorwiderstand R1 (Ohm):", value=10.0, min_value=1.0, step=5.0, key="th_r1")
+        with c2:
+            r2_val = st.number_input("Querwiderstand R2 (Ohm):", value=30.0, min_value=1.0, step=5.0, key="th_r2")
+            ra_val = st.number_input("Lastwiderstand Ra (Ohm):", value=20.0, min_value=1.0, step=5.0, key="th_ra")
+
+        # Dynamische Berechnung der Thévenin-Parameter
+        # Leerlaufspannung U0 an R2 im Leerlauf: U0 = U * (R2 / (R1 + R2))
+        u0_dyn = u_quelle * (r2_val / (r1_val + r2_val))
+        
+        # Innenwiderstand Ri: R1 parallel zu R2 von den Klemmen aus gesehen
+        ri_dyn = (r1_val * r2_val) / (r1_val + r2_val)
+        
+        # Laststrom und Lastspannung
+        ia_dyn = u0_dyn / (ri_dyn + ra_val) if (ri_dyn + ra_val) > 0 else 0.0
+        uab_dyn = ia_dyn * ra_val
+        leistung_dyn = ia_dyn**2 * ra_val
+
+        st.markdown("---")
+        st.markdown("### **Live-Musterlösung & Ersatzparameter:**")
+        
+        st.markdown("**1. Leerlaufspannung (U0):**")
+        st.latex(f"U_0 = {u_quelle}\\text{{ V}} \\cdot \\frac{{{r2_val}}}{{{r1_val} + {r2_val}}} = {u0_dyn:.3f}\\text{{ V}}")
+
+        st.markdown("**2. Innenwiderstand (Ri):**")
+        st.latex(f"R_i = \\frac{{{r1_val} \\cdot {r2_val}}}{{{r1_val} + {r2_val}}} = {ri_dyn:.3f}\\text{{ }}\\Omega")
+
+        st.markdown("**3. Verhalten bei angeschlossener Last (Ra):**")
+        st.latex(r"I_a = \frac{" + f"{u0_dyn:.3f}" + r"\text{ V}}{" + f"{ri_dyn:.3f}" + r" + " + f"{ra_val}" + r"\text{ }\Omega} = " + f"{ia_dyn:.4f}" + r"\text{ A}")
+
+        # Live-Ergebnisse farblich sauber in Grün hervorgehoben
+        col_res1, col_res2 = st.columns(2)
+        with col_res1:
+            st.success(f"**Ersatzspannung U0:** `{u0_dyn:.2f} V`")
+            st.success(f"**Innenwiderstand Ri:** `{ri_dyn:.2f} Ohm`")
+        with col_res2:
+            st.success(f"**Lastspannung U_AB:** `{uab_dyn:.2f} V`")
+            st.success(f"**Umgesetzte Leistung Pa:** `{leistung_dyn:.2f} W`")
+
+    st.markdown("---")
 def render_knotenpotential():
     st.markdown("### **Knotenpotentialverfahren (Satz von Millman) im Detail**")
     
@@ -858,6 +986,7 @@ elif menue == "Verfahren":
     # Hier rufen wir jetzt unsere neue, saubere Funktion für die Kirchhoffschen Gesetze auf:
     render_kirchhoff()
     render_knotenpotential()
+    render_zweipoltheorie()
 elif menue == "Mathematik":
     st.title("Mathematik für Elektrotechniker")
     st.write("Alle wichtigen mathematischen Lösungswege. Zu jedem Thema gibt es eine fiktive Beispielaufgabe aus der Elektrotechnik.")
