@@ -131,7 +131,7 @@ def render_maschenstromverfahren():
                 * Einsetzen in Zeile I: $4{,}9 \cdot I_a + 2{,}8 \cdot (-3{,}5) = -15 \implies 4{,}9 \cdot I_a - 9{,}8 = -15 \implies \mathbf{I_a \approx -5{,}0\text{ A}}$
                 """)
 
-                st.success("**Endergebnis des Gauß-Verfahrens:**\n* $I_a = -5{,}0\text{ A}$\n* $I_b = -3{,}5\text{ A}$\n* $I_c = -1{,}9\text{ A}$")
+                st.success(r"**Endergebnis des Gauß-Verfahrens:**\n* $I_a = -5{,}0\text{ A}$\n* $I_b = -3{,}5\text{ A}$\n* $I_c = -1{,}9\text{ A}$")
                 st.info("Tipp: Negative Stromwerte bedeuten lediglich, dass der tatsächliche Strom in die entgegengesetzte Richtung fließt als ursprünglich angenommen.")
 
             # # Inner expander 2: Additionsverfahren
@@ -191,7 +191,7 @@ def render_maschenstromverfahren():
                    $4{,}9 \cdot I_a + 2{,}8 \cdot (-3{,}5) = -15 \implies 4{,}9 \cdot I_a - 9{,}8 = -15 \implies 4{,}9 \cdot I_a = -5{,}2 \implies \mathbf{I_a \approx -5{,}0\text{ A}}$
                 """)
 
-                st.success("**Endergebnis des Additionsverfahrens:**\n* $I_a = -5{,}0\text{ A}$\n* $I_b = -3{,}5\text{ A}$\n* $I_c = -1{,}9\text{ A}$")
+                st.success(r"**Endergebnis des Additionsverfahrens:**\n* $I_a = -5{,}0\text{ A}$\n* $I_b = -3{,}5\text{ A}$\n* $I_c = -1{,}9\text{ A}$")
                 
                 # Tipp farblich hervorgehoben (Blau)
                 st.info("Tipp: Das Additionsverfahren funktioniert am besten, wenn man sich vorab die Spalten anschaut und die Gleichung auswählt, bei der sich durch kleinste Multiplikatoren sofort eine Variable eliminieren lässt (wie hier M3, wo I_a ohnehin 0 ist).")
@@ -255,7 +255,7 @@ def render_maschenstromverfahren():
                    $I_c = 0{,}5384 \cdot (-3{,}5) \implies \mathbf{I_c \approx -1{,}9\text{ A}}$
                 """)
 
-                st.success("**Endergebnis des Einsetzungsverfahrens:**\n* $I_a = -5{,}0\text{ A}$\n* $I_b = -3{,}5\text{ A}$\n* $I_c = -1{,}9\text{ A}$")
+                st.success(r"**Endergebnis des Einsetzungsverfahrens:**\n* $I_a = -5{,}0\text{ A}$\n* $I_b = -3{,}5\text{ A}$\n* $I_c = -1{,}9\text{ A}$")
                 
                 # Tipp farblich hervorgehoben (Blau)
                 st.info("Tipp: Das Einsetzungsverfahren ist genial, wenn eine Gleichung direkt eine Variable isoliert (wie hier M3, wo sich I_c direkt durch I_b ausdrücken lässt). Bei großen Matrizen wird es allerdings schnell unübersichtlich.")
