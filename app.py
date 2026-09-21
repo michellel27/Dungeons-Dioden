@@ -157,34 +157,29 @@ def render_kirchhoff():
     st.markdown("---")
 
     # Interaktiver Rechner nun ebenfalls als ausklappbarer Expander
-    with st.expander("Interaktiver Rechner: Visuelles Balkendiagramm öffnen", expanded=False):
-        st.markdown("Teste hier die Ströme im direkten grafischen Vergleich:")
+    with st.expander("Interaktiver Rechner: Knoten-Check öffnen", expanded=False):
+        st.markdown("Teste hier die Summenbildung von zufließenden und abfließenden Strömen an einem Knotenpunkt:")
 
         col1, col2 = st.columns(2)
         with col1:
-            i_zu_1 = st.slider("Zufließender Strom I1 (A):", min_value=0.0, max_value=10.0, value=5.0, step=0.5, key="b1")
-            i_zu_2 = st.slider("Zufließender Strom I2 (A):", min_value=0.0, max_value=10.0, value=3.0, step=0.5, key="b2")
+            i_zu_1 = st.slider("Zufließender Strom I1 (A):", min_value=0.0, max_value=10.0, value=5.0, step=0.5, key="k_zu_1")
+            i_zu_2 = st.slider("Zufließender Strom I2 (A):", min_value=0.0, max_value=10.0, value=3.0, step=0.5, key="k_zu_2")
         with col2:
-            i_ab_1 = st.slider("Abfließender Strom I3 (A):", min_value=0.0, max_value=10.0, value=4.0, step=0.5, key="b3")
-            i_ab_2 = st.slider("Abfließender Strom I4 (A):", min_value=0.0, max_value=10.0, value=4.0, step=0.5, key="b4")
+            i_ab_1 = st.slider("Abfließender Strom I3 (A):", min_value=0.0, max_value=10.0, value=4.0, step=0.5, key="k_ab_1")
+            i_ab_2 = st.slider("Abfließender Strom I4 (A):", min_value=0.0, max_value=10.0, value=4.0, step=0.5, key="k_ab_2")
 
         summe_zu = i_zu_1 + i_zu_2
         summe_ab = i_ab_1 + i_ab_2
 
         st.markdown("---")
-        st.markdown("**Grafische Gegenüberstellung:**")
+        st.markdown("**Live-Ergebnis am Knoten:**")
 
-        # Daten für ein kleines Diagramm aufbereiten
-        import pandas as pd
-        chart_data = pd.DataFrame(
-            {
-                "Stromrichtung": ["Zufließend", "Abfließend"],
-                "Ampere (A)": [summe_zu, summe_ab]
-            }
-        )
-
-        # Ein integriertes Streamlit-Balkendiagramm anzeigen
-        st.bar_chart(chart_data.set_index("Stromrichtung"))
+        # Getrennte Anzeigefelder für Ergebnisse, die sich live mitverändern
+        m_col1, m_col2 = st.columns(2)
+        with m_col1:
+            st.metric(label="Summe zufließende Ströme", value=f"{summe_zu:.2f} A")
+        with m_col2:
+            st.metric(label="Summe abfließende Ströme", value=f"{summe_ab:.2f} A")
 
         st.markdown("---")
         
@@ -192,7 +187,7 @@ def render_kirchhoff():
             st.success("Knotenregel erfüllt: Die Summe der zufließenden Ströme ist exakt gleich der Summe der abfließenden Ströme.")
         else:
             differenz = abs(summe_zu - summe_ab)
-            st.error(f"Abweichung von {differenz} A! Nach dem 1. Kirchhoffschen Gesetz müssen zufließende und abfließende Ströme im Gleichgewicht sein.")
+            st.error(f"Abweichung von {differenz:.2f} A! Nach dem 1. Kirchhoffschen Gesetz müssen zufließende und abfließende Ströme im Gleichgewicht sein.")
 
     st.markdown("---")
 def render_formelsammlung():
