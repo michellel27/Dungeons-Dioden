@@ -1,8 +1,10 @@
 import streamlit as st
 def render_formelsammlung():
-    st.title("🧮 Elektrotechnik-Formelsammlung")
+    # Haupttitel ohne Icons
+    st.title("Elektrotechnik-Formelsammlung")
     st.markdown("Übersicht aller wichtigen Formeln für das Techniker-Studium, inklusive Reinform, umgestellten Formen und genauen Quellenangaben.")
 
+    # Suchfeld für Formeln
     suchbegriff = st.text_input("🔍 Formel oder Stichwort suchen...", "").lower()
 
     formeln = [
@@ -74,8 +76,12 @@ def render_formelsammlung():
     
     for f in gefilterte_formeln:
         with st.container():
-            st.markdown(f"### 📌 **Name der Formel:** {f['titel']}")
-            st.markdown(f"*Kategorie:* `{f['kategorie']}`")
+            # Titel direkt ohne "Name der Formel:" und ohne Stecknadel
+            st.markdown(f"### {f['titel']}")
+            
+            # Kategorie im schicken Lilaton via HTML-Badge dargestellt
+            st.markdown(f"*Kategorie:* <span style='color: #b19cd9; font-weight: bold; background-color: rgba(177, 156, 217, 0.15); padding: 2px 8px; border-radius: 4px;'>{f['kategorie']}</span>", unsafe_allow_html=True)
+            
             st.markdown(f"**Anwendungsbereich / Erläuterung:** {f['beschreibung']}")
             
             st.markdown("**Reinform:**")
