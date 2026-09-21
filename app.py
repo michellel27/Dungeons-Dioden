@@ -20,7 +20,7 @@ def render_knotenpotential():
             **Wann wendet man es an?**
             Das Verfahren wird immer dann verwendet, wenn man die elektrische Spannung zwischen zwei Hauptknoten in einer Parallelschaltung extrem schnell und elegant berechnen will, ohne sich durch ein riesiges System aus mehreren Maschengleichungen quälen zu müssen. Es ist besonders mächtig, wenn mehrere Spannungsquellen parallel arbeiten.
             """)
-            st.markdown("**Quelle:** Lehrgang Elektrotechnik, Grundlagen der Netzwerksanalyse und Ersatzquellen-Berechnung[cite: 1, 5]")
+            st.markdown("**Quelle:** Lehrgang Elektrotechnik, Grundlagen der Netzwerksanalyse und Ersatzquellen-Berechnung")
 
         # 2. Unterpunkt: Hintergrund, Entstehung & Warum es funktioniert
         with st.expander("Hintergrund, Entstehung & Warum es funktioniert", expanded=False):
@@ -32,7 +32,7 @@ def render_knotenpotential():
             Jede reale Spannungsquelle (bestehend aus einer idealen Quelle und einem Innenwiderstand) kann physikalisch in eine equivalente Stromquelle umgerechnet werden (Norton-Äquivalent). Wenn man mehrere solcher Zweige parallel schaltet, addieren sich die Ströme im Zähler, während sich die Leitwerte ($G = \\frac{1}{R}$) im Nenner ebenfalls aufaddieren. 
             Nach dem Ohmschen Gesetz ist Spannung gleich Strom geteilt durch den Gesamtleitwert ($U = \\frac{I_{\\text{gesamt}}}{G_{\\text{gesamt}}}$). Genau das macht die Millman-Formel: Sie fasst alle parallelen Zweige zu einer einzigen Ersatzspannungsquelle zusammen.
             """)
-            st.markdown("**Quelle:** Aufgabensammlung Grundlagen der Elektrotechnik & Lehrgang Netzwerke[cite: 1, 5]")
+            st.markdown("**Quelle:** Aufgabensammlung Grundlagen der Elektrotechnik & Lehrgang Netzwerke")
 
         # 3. Unterpunkt: Theorie, Reinform & Umstellungen
         with st.expander("Theorie, Reinform & Umstellungen", expanded=False):
@@ -50,7 +50,7 @@ def render_knotenpotential():
             st.markdown("- *Darstellung unter Verwendung von Leitwerten ($G = \\frac{1}{R}$):*")
             st.latex(r"U_q = \frac{U_1 \cdot G_1 + U_2 \cdot G_2 + U_3 \cdot G_3}{G_1 + G_2 + G_3}")
             
-            st.markdown("**Quelle:** Lehrgang Elektrotechnik, Berechnungsverfahren für lineare Netzwerke[cite: 1, 5]")
+            st.markdown("**Quelle:** Lehrgang Elektrotechnik, Berechnungsverfahren für lineare Netzwerke")
 
         # 4. Unterpunkt: Statisches Rechenbeispiel
         with st.expander("Klassisches Rechenbeispiel (Schritt für Schritt erklärt)", expanded=False):
@@ -65,33 +65,36 @@ def render_knotenpotential():
             
             st.markdown("---")
             st.markdown("**Schritt 1: Ströme in den Quellzweigen ermitteln**")
-            st.markdown("Wir betrachten jeden aktiven Zweig einzeln als Kurzschlussstrom ($I = \\frac{U}{R}$), um zu sehen, wie viel Strom jede Quelle in das System einspeist[cite: 1]:")
+            st.markdown("Wir betrachten jeden aktiven Zweig einzeln als Kurzschlussstrom ($I = \\frac{U}{R}$), um zu sehen, wie viel Strom jede Quelle in das System einspeist:")
             st.latex(r"I_1 = \frac{U_1}{R_1} = \frac{4{,}5\text{ V}}{100\text{ }\Omega} = 0{,}045\text{ A} \quad (45\text{ mA})")
             st.latex(r"I_2 = \frac{U_2}{R_2} = \frac{3{,}0\text{ V}}{100\text{ }\Omega} = 0{,}030\text{ A} \quad (30\text{ mA})")
-            st.markdown("*Tipp:* Der dritte Zweig hat keine eigene Spannungsquelle ($U_3 = 0\\text{ V}$), trägt also zum Zähler keinen Strom bei, wirkt aber über seinen Widerstand im Nenner mit[cite: 1].")
+            
+            # Tipp farblich hervorgehoben (Blau)
+            st.info("Tipp: Der dritte Zweig hat keine eigene Spannungsquelle (U3 = 0 V), trägt also zum Zähler keinen Strom bei, wirkt aber über seinen Widerstand im Nenner voll mit.")
             
             st.markdown("**Schritt 2: Leitwerte aller parallelen Zweige berechnen und addieren**")
-            st.markdown("Der Nenner der Millman-Formel entspricht der Parallelschaltung aller Leitwerte ($G = \\frac{1}{R}$)[cite: 1]:")
+            st.markdown("Der Nenner der Millman-Formel entspricht der Parallelschaltung aller Leitwerte ($G = \\frac{1}{R}$):")
             st.latex(r"G_1 = \frac{1}{100\text{ }\Omega} = 0{,}01\text{ S}, \quad G_2 = \frac{1}{100\text{ }\Omega} = 0{,}01\text{ S}, \quad G_3 = \frac{1}{50\text{ }\Omega} = 0{,}02\text{ S}")
             st.latex(r"G_{\text{gesamt}} = 0{,}01\text{ S} + 0{,}01\text{ S} + 0{,}02\text{ S} = 0{,}04\text{ S}")
             
             st.markdown("**Schritt 3: Zähler durch Nenner teilen**")
-            st.markdown("Zum Schluss teilen wir die Summe aller Teilströme durch den Gesamtleitwert[cite: 1]:")
+            st.markdown("Zum Schluss teilen wir die Summe aller Teilströme durch den Gesamtleitwert:")
             st.latex(r"U_q = \frac{0{,}045\text{ A} + 0{,}030\text{ A}}{0{,}04\text{ S}} = \frac{0{,}075\text{ A}}{0{,}04\text{ S}} = 1{,}875\text{ V}")
             
-            st.markdown("**Endergebnis:** Zwischen den Hauptknoten liegt exakt eine Spannung von **$1{,}875\\text{ V}$** an[cite: 1].")
-            st.markdown("**Quelle:** Aufgabensammlung Grundlagen der Elektrotechnik[cite: 1]")
+            # Endergebnis farblich hervorgehoben (Grün)
+            st.success("**Endergebnis:** Zwischen den Hauptknoten liegt exakt eine Spannung von **1,875 V** an.")
+            st.markdown("**Quelle:** Aufgabensammlung Grundlagen der Elektrotechnik")
 
     st.markdown("---")
 
     # Interaktiver Live-Rechner mit dynamischer Neuberechnung
     with st.expander("Interaktiver Live-Rechner: Eigene Werte eingeben & berechnen", expanded=False):
-        st.markdown("Verändere hier die Werte für Spannungen und Widerstände. **Die Musterlösung und alle Rechenschritte passen sich unten automatisch in Echtzeit an!**")
+        st.markdown("Verändere hier die Werte für Spannungen und Widerstände. Die Musterlösung und alle Rechenschritte passen sich unten automatisch in Echtzeit an!")
 
         c1, c2, c3 = st.columns(3)
         with c1:
             u1_in = st.number_input("Spannung U1 (V):", value=4.5, step=0.5, key="kp_u1")
-            r1_in = st.number_input ("Widerstand R1 (Ohm):", value=100.0, min_value=1.0, step=10.0, key="kp_r1")
+            r1_in = st.number_input("Widerstand R1 (Ohm):", value=100.0, min_value=1.0, step=10.0, key="kp_r1")
         with c2:
             u2_in = st.number_input("Spannung U2 (V):", value=3.0, step=0.5, key="kp_u2")
             r2_in = st.number_input("Widerstand R2 (Ohm):", value=100.0, min_value=1.0, step=10.0, key="kp_r2")
@@ -127,6 +130,7 @@ def render_knotenpotential():
         st.markdown("**Schritt 3: Endergebnis berechnen**")
         st.latex(r"U_q = \frac{" + f"{zaehler_dyn:.4f}" + r"\text{ A}}{" + f"{nenner_dyn:.4f}" + r"\text{ S}} = " + f"{ergebnis_dyn:.3f}" + r"\text{ V}")
 
+        # Endergebnis im Live-Rechner ebenfalls sauber in Grün
         st.success(f"**Berechnetes Knotenpotential / Ersatzspannung:** `{ergebnis_dyn:.3f} V`")
 
     st.markdown("---")
