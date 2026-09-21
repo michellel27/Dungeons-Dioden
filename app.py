@@ -2,12 +2,13 @@ import streamlit as st
 def render_formelsammlung():
     # Haupttitel ohne Icons
     st.title("Elektrotechnik-Formelsammlung")
-    st.markdown("Umfassende Übersicht aller relevanten Formeln für das Techniker-Studium, inklusive Reinform, umgestellten Formen und präzisen Quellenangaben aus Standard-Fachliteratur.")
+    st.markdown("Umfassende Übersicht aller relevanten Formeln für das Techniker-Studium, inklusive Motorentechnik, Reinformen, umgestellten Formen und präzisen Quellenangaben.")
 
     # Suchfeld für Formeln
     suchbegriff = st.text_input("🔍 Formel oder Stichwort suchen...", "").lower()
 
     formeln = [
+        # --- Gleichstromtechnik ---
         {
             "titel": "Ohmsches Gesetz",
             "kategorie": "Gleichstromtechnik",
@@ -74,6 +75,7 @@ def render_formelsammlung():
             ],
             "quelle": "Measures, R. / Tabellenbuch Elektrotechnik, Abschnitt Schaltungstechnik und Grundstromkreise, S. 54"
         },
+        # --- Wechselstromtechnik ---
         {
             "titel": "Kapazitiver Blindwiderstand",
             "kategorie": "Wechselstromtechnik",
@@ -138,6 +140,17 @@ def render_formelsammlung():
             ],
             "quelle": "Albach, Manfred: Grundlagen der Elektrotechnik 2 – Wechselströme und Netze, Kapitel 3 (Leistung im Wechselstromkreis), S. 69-72"
         },
+        # --- Antriebs- und Motorentechnik ---
+        {
+            "titel": "Wirkleistung im Drehstromnetz (Symmetrische Last)",
+            "kategorie": "Antriebs- und Energietechnik",
+            "beschreibung": "Berechnung der elektrischen Wirkleistung eines Dreiphasen-Drehstrommotors (Stern- oder Dreieckschaltung).",
+            "reinform": "P = \\sqrt{3} \\cdot U_L \\cdot I_L \\cdot \\cos(\\varphi)",
+            "umgestellte_formen": [
+                "Leiterstrom: I_L = \\frac{P}{\\sqrt{3} \\cdot U_L \\cdot \\cos(\\varphi)}"
+            ],
+            "quelle": "Fischer, Heinz: Elektrische Maschinen, Kapitel 2 (Grundlagen der Drehstromtechnik), S. 40-44"
+        },
         {
             "titel": "Transformator-Übersetzungsverhältnis",
             "kategorie": "Antriebs- und Energietechnik",
@@ -159,6 +172,51 @@ def render_formelsammlung():
                 "Polpaarzahl: p = \\frac{f \\cdot 60}{n_s}"
             ],
             "quelle": "Fischer, Heinz: Elektrische Maschinen, Kapitel 6 (Asynchronmaschine), S. 150-154"
+        },
+        {
+            "titel": "Schlupf (Asynchronmaschine)",
+            "kategorie": "Antriebstechnik",
+            "beschreibung": "Relative Abweichung der Rotor-Drehzahl von der synchronen Drehfeld-Drehzahl beim Asynchronmotor.",
+            "reinform": "s = \\frac{n_s - n}{n_s}",
+            "umgestellte_formen": [
+                "Rotordrehzahl: n = n_s \\cdot (1 - s)",
+                "Synchrone Drehzahl: n_s = \\frac{n}{1 - s}"
+            ],
+            "quelle": "Fischer, Heinz: Elektrische Maschinen, Kapitel 6.2 (Der Schlupf des Asynchronmotors), S. 155-158"
+        },
+        {
+            "titel": "Mechanisches Drehmoment eines Motors",
+            "kategorie": "Antriebstechnik",
+            "beschreibung": "Zusammenhang zwischen abgegebener mechanischer Leistung (P_mech) und Drehzahl (n).",
+            "reinform": "M = \\frac{P_{mech}}{2 \\cdot \\pi \\cdot n}",
+            "umgestellte_formen": [
+                "Mechanische Leistung: P_{mech} = M \\cdot 2 \\cdot \\pi \\cdot n",
+                "Praxisformel mit Drehzahl in min^-1: M \\approx 9{,}55 \\cdot \\frac{P_{mech}}{n}"
+            ],
+            "quelle": "Fischer, Heinz: Elektrische Maschinen, Kapitel 3 (Drehmoment und Leistung im Antrieb), S. 75-78"
+        },
+        {
+            "titel": "Wirkungsgrad einer elektrischen Maschine",
+            "kategorie": "Antriebs- und Energietechnik",
+            "beschreibung": "Verhältnis von abgegebener mechanischer (oder elektrischer) Leistung zur zugeführten Leistung.",
+            "reinform": "\\eta = \\frac{P_{ab}}{P_{zu}}",
+            "umgestellte_formen": [
+                "Zugeführte Leistung: P_{zu} = \\frac{P_{ab}}{\\eta}",
+                "Abgegebene Leistung: P_{ab} = P_{zu} \\cdot \\eta",
+                "Verlustleistung: P_V = P_{zu} - P_{ab}"
+            ],
+            "quelle": "Fischer, Heinz: Elektrische Maschinen, Kapitel 3.4 (Verluste und Wirkungsgrad), S. 82-85"
+        },
+        {
+            "titel": "Ankerspannung / Induzierte Spannung (Gleichstrommaschine)",
+            "kategorie": "Antriebstechnik",
+            "beschreibung": "Spannungsgleichgewicht am Ankerkreis einer Gleichstrommaschine (Motorbetrieb).",
+            "reinform": "U = U_i + I_a \\cdot R_a",
+            "umgestellte_formen": [
+                "Induzierte Spannung: U_i = U - I_a \\cdot R_a",
+                "Ankerstrom: I_a = \\frac{U - U_i}{R_a}"
+            ],
+            "quelle": "Fischer, Heinz: Elektrische Maschinen, Kapitel 5 (Die Gleichstrommaschine), S. 120-125"
         }
     ]
 
@@ -172,10 +230,9 @@ def render_formelsammlung():
     if not gefilterte_formeln:
         st.warning("Keine passenden Formeln gefunden.")
     
+    # Jede Formel wird nun in einem sauberen Expander (Ein-/Ausklappen) dargestellt
     for f in gefilterte_formeln:
-        with st.container():
-            # Titel ohne "Name der Formel:" und ohne Symbole
-            st.markdown(f"### {f['titel']}")
+        with st.expander(f"{f['titel']} — [{f['kategorie']}]"):
             
             # Kategorie im schicken Lilaton via HTML-Badge
             st.markdown(f"*Kategorie:* <span style='color: #b19cd9; font-weight: bold; background-color: rgba(177, 156, 217, 0.15); padding: 2px 8px; border-radius: 4px;'>{f['kategorie']}</span>", unsafe_allow_html=True)
@@ -187,12 +244,13 @@ def render_formelsammlung():
             
             st.markdown("**Umgestellte Formen:**")
             for form in f["umgestellte_formen"]:
-                bezeichnung, mathtext = form.split(": ")
+                parts = form.split(": ")
+                bezeichnung = parts[0]
+                mathtext = parts[1]
                 st.markdown(f"- *{bezeichnung}:*")
                 st.latex(mathtext)
                 
             st.markdown(f"**Quelle:** {f['quelle']}")
-            st.markdown("---")
 # 1. Grund-Einstellungen der Seite (Muss immer ganz oben stehen)
 st.set_page_config(page_title="Dungeons&Dioden", layout="wide")
 # --- PASSWORTSCHUTZ MIT GEDÄCHTNIS ---
