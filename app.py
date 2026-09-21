@@ -1,4 +1,64 @@
 import streamlit as st
+import streamlit as st
+
+def render_kirchhoff():
+    st.title("Die Kirchhoffschen Gesetze")
+    st.markdown("Grundlegende Werkzeuge zur Analyse und Berechnung verzweigter und vermaschter elektrischer Netzwerke.")
+    st.markdown("---")
+
+    # 1. Hauptbereich als ausklappbarer Expander
+    with st.expander("📖 Theorie, Herkunft & Anwendung (Knoten- und Maschensatz)", expanded=False):
+        
+        # Kategorie Badge im schicken Lilaton
+        st.markdown(f"*Kategorie:* <span style='color: #b19cd9; font-weight: bold; background-color: rgba(177, 156, 217, 0.15); padding: 2px 8px; border-radius: 4px;'>Grundlagen der Netzwerksanalyse</span>", unsafe_allow_html=True)
+        
+        st.markdown("### 1. Knotenpunkt-Regel (1. Kirchhoffsche Regel / Knotensatz)")
+        st.markdown("**Erläuterung:** In jedem Stromverzweigungspunkt (Knoten) ist die Summe aller Ströme gleich Null[cite: 12]. Anders gesagt: Die Summe aller zufließenden Ströme ist exakt gleich der Summe aller abfließenden Ströme[cite: 12].")
+        st.markdown("**Reinform:**")
+        st.latex(r"\sum_{k=1}^{n} I_k = 0 \quad \text{bzw.} \quad \sum I_{\text{zu}} = \sum I_{\text{ab}}")
+        st.markdown("**Umgestellte Form:**")
+        st.latex(r"I_1 + I_2 - I_3 - I_4 - I_5 = 0")
+        
+        st.markdown("---")
+        
+        st.markdown("### 2. Maschen-Regel (2. Kirchhoffsche Regel / Maschensatz)")
+        st.markdown("**Erläuterung:** In jedem geschlossenen Stromkreis (Masche) ist die Summe aller Spannungen unter Beachtung der Vorzeichen gleich Null[cite: 12]. Die Umlaufrichtung ist frei wählbar; Spannungen in Umlaufrichtung zählen positiv, entgegenkommende negativ[cite: 12].")
+        st.markdown("**Reinform:**")
+        st.latex(r"\sum_{k=1}^{n} U_k = 0")
+        
+        st.markdown("---")
+        
+        st.markdown("### 🧠 Hintergrund & Entstehung")
+        st.markdown("Die Gesetze wurden **1854 von Gustav Robert Kirchhoff** veröffentlicht[cite: 12]. Sie basieren auf fundamentalen Naturgesetzen: Der Knotensatz sichert die Erhaltung der elektrischen Ladung, während der Maschensatz die Energieerhaltung in elektrischen Systemen beschreibt.")
+        
+        st.markdown("### 🚂 Reales Praxisbeispiel")
+        st.markdown("Betrachte eine elektrische Anlage in der Bahntechnik: Fließt ein Hauptstrom von einer Versorgungsschiene in einen Knotenpunkt, der sich auf drei Signalrelais aufteilt, garantiert der Knotensatz, dass kein Strom verloren geht[cite: 12]. Der Maschensatz hilft im Anschluss zu berechnen, wie sich die Spannungen über die Zuleitungen und Relais verteilen, damit an jedem Bauteil die korrekte Betriebsspannung ankommt.")
+        
+        st.markdown("**Quelle:** [Lehrgang Elektrotechnik 1, Arbeitsblatt Nr. 26: Knotenpunkt- und Maschen-Regel nach Kirchhoff / Gustav Robert Kirchhoff[cite: 12]]")
+
+    st.markdown("---")
+
+    # 2. Getrennter interaktiver Rechner
+    st.subheader("⚡ Interaktiver Rechner: Einfacher Knoten-Check")
+    st.markdown("Teste hier die Summenbildung von zufließenden und abfließenden Strömen an einem Knotenpunkt:")
+
+    col1, col2 = st.columns(2)
+    with col1:
+        i_zu_1 = st.number_input("Zufließender Strom I1 (A):", value=5.0, step=0.5)
+        i_zu_2 = st.number_input("Zufließender Strom I2 (A):", value=3.0, step=0.5)
+    with col2:
+        i_ab_1 = st.number_input("Abfließender Strom I3 (A):", value=4.0, step=0.5)
+        i_ab_2 = st.number_input("Abfließender Strom I4 (A):", value=4.0, step=0.5)
+
+    summe_zu = i_zu_1 + i_zu_2
+    summe_ab = i_ab_1 + i_ab_2
+
+    st.markdown(f"**Summe zufließend:** `{summe_zu} A` | **Summe abfließend:** `{summe_ab} A`")
+    
+    if summe_zu == summe_ab:
+        st.success("✅ Knotenregel erfüllt: Die Summe der zufließenden Ströme ist exakt gleich der Summe der abfließenden Ströme[cite: 12]!")
+    else:
+        st.error("❌ Abweichung! Nach dem 1. Kirchhoffschen Gesetz müssen zufließende und abfließende Ströme im Gleichgewicht sein[cite: 12].")
 def render_formelsammlung():
     # Haupttitel ohne Icons
     st.title("Elektrotechnik-Formelsammlung")
@@ -598,137 +658,10 @@ elif menue == "Grundlagen":
 
 elif menue == "Verfahren":
     st.title("Analyseverfahren der Elektrotechnik")
-    st.write("Hier findest du alle wichtigen Verfahren zur Berechnung komplexer Netzwerke. Zu jedem Verfahren gibt es eine Erklärung, den Lösungsweg und einen Praxis-Rechner.")
-
-    # --- 1. KIRCHHOFFSCHE GESETZE ---
-    st.header("1. Kirchhoffsche Gesetze (Knoten- und Maschensatz)")
-    st.info("Wann anwenden? Das absolute Basiswerkzeug für jedes Netzwerk. Wird genutzt, um Ströme an Verzweigungen oder Spannungen in geschlossenen Ringen zu berechnen.")
-
-    with st.expander("Schritt-für-Schritt & Interaktiver Rechner"):
-        st.markdown("""
-        **1. Knotenpunkt-Regel (Knotensatz)**
-        In jedem Stromverzweigungspunkt ist die Summe aller Ströme gleich Null[cite: 15].
-        *Es gilt:* Die Summe der zufließenden Ströme ist stets gleich der Summe der abfließenden Ströme[cite: 15].
-        """)
-        st.latex(r"\sum_{k=1}^{n} I_k = 0 \quad \text{bzw.} \quad I_{zu} = I_{ab}")
-        
-        st.markdown("""
-        **2. Maschen-Regel (Maschensatz)**
-        In jedem geschlossenen Stromkreis (Masche) ist die Summe der Spannungen unter Beachtung der Vorzeichen stets gleich Null[cite: 15]. Die Umlaufrichtung in der Masche ist dabei frei wählbar[cite: 15].
-        """)
-        st.latex(r"\sum_{k=1}^{n} U_k = 0")
-        
-        st.divider()
-        st.write("**Rechner: Knotenpunkt mit 3 Strömen**")
-        k_i1 = st.number_input("Zufließender Strom I1 (in A)", value=5.0)
-        k_i2 = st.number_input("Zufließender Strom I2 (in A)", value=2.5)
-        st.success(f"Der abfließende Strom I3 muss betragen: **{k_i1 + k_i2:.2f} A**")
-
-    # --- 2. KNOTENPOTENTIALVERFAHREN (MILLMAN) ---
-    st.header("2. Knotenpotentialverfahren (Satz von Millman)")
-    st.info("Wann anwenden? Wenn die Schaltung aus mehreren parallelen Strängen besteht, die alle oben und unten an denselben durchgehenden Knotenpunkten zusammenlaufen.")
-
-    with st.expander("Schritt-für-Schritt & Interaktiver Rechner"):
-        st.markdown("""
-        **Das Prinzip:**
-        Das Verfahren fasst Schaltungen mit nur zwei Hauptknoten in einer direkten Formel zusammen[cite: 12]. Man wandelt jeden Zweig gedanklich in eine Stromquelle um ($I = U / R$) und teilt die Summe der Ströme durch den Gesamtleitwert ($G = 1 / R$) der Parallelschaltung[cite: 12].
-        """)
-        st.latex(r"U_{q} = \frac{\sum (U_n \cdot G_n)}{\sum G_n} = \frac{\frac{U_1}{R_1} + \frac{U_2}{R_2} + \dots}{\frac{1}{R_1} + \frac{1}{R_2} + \dots}")
-        
-        st.divider()
-        st.write("**Rechner: 2 parallele aktive Zweige & 1 passiver Zweig**")
-        m_u1 = st.number_input("Spannung U1 (Zweig 1, in V)", value=4.5)
-        m_r1 = st.number_input("Widerstand R1 (Zweig 1, in Ω)", value=100.0)
-        m_u2 = st.number_input("Spannung U2 (Zweig 2, in V)", value=3.0)
-        m_r2 = st.number_input("Widerstand R2 (Zweig 2, in Ω)", value=100.0)
-        m_r3 = st.number_input("Widerstand R3 (Zweig 3 ohne Quelle, in Ω)", value=50.0)
-        
-        if m_r1 != 0 and m_r2 != 0 and m_r3 != 0:
-            zaehler = (m_u1 / m_r1) + (m_u2 / m_r2)
-            nenner = (1 / m_r1) + (1 / m_r2) + (1 / m_r3)
-            st.success(f"Die Spannung zwischen den Hauptknoten (Ersatzspannung U_q) beträgt: **{zaehler / nenner:.3f} V**")
-            st.caption("Vergleiche ET_Arbeitsmappe_1[cite: 12].")
-
-    # --- 3. ZWEIPOLTHEORIE / ERSATZSPANNUNGSQUELLE ---
-    st.header("3. Zweipoltheorie (Ersatzspannungsquelle / Thévenin)")
-    st.info("Wann anwenden? Wenn ein nicht-lineares Bauteil (z.B. Diode, Transistor) vorhanden ist oder man einen Lastwiderstand variieren möchte. Man trennt das Bauteil ab und vereinfacht den Rest der Schaltung[cite: 12].")
-
-    with st.expander("Schritt-für-Schritt & Interaktiver Rechner"):
-        st.markdown("""
-        **Schritt 1: Den 'Störenfried' isolieren (Auftrennen)**
-        Das Bauteil (z.B. Diode oder Lastwiderstand) an den Klemmen A und B heraustrennen[cite: 12]. Der aktive Zweipol wird nun im Leerlauf betrieben[cite: 15].
-        
-        **Schritt 2: Ersatzspannungsquelle ($U_0$ bzw. $U_q$) berechnen**
-        Die Leerlaufspannung $U_{AB0}$ an den Klemmen berechnen. Das ist unsere neue Quellenspannung $U_0$[cite: 15].
-        
-        **Schritt 3: Innenwiderstand ($R_i$) berechnen**
-        Alle Spannungsquellen im Netzwerk kurzschließen ($U = 0$) und den Ersatzwiderstand von den Klemmen A und B aus berechnen[cite: 15]. Dieser Wert ist der Innenwiderstand $R_i$[cite: 15].
-        
-        **Schritt 4: Bauteil wieder anschließen (Maschengleichung)**
-        Die komplexe Schaltung ist nun zu einer Reihenschaltung aus $U_0$, $R_i$ und dem Lastwiderstand $R_L$ (oder der Diode) geschrumpft[cite: 12, 15].
-        """)
-        st.latex(r"I_L = \frac{U_0}{R_i + R_L} \quad ; \quad U_L = I_L \cdot R_L")
-        
-        st.divider()
-        st.write("**Rechner: Aktiver Zweipol unter Last**")
-        z_u0 = st.number_input("Ermittelte Leerlaufspannung U_0 (in V)", value=12.0)
-        z_ri = st.number_input("Ermittelter Innenwiderstand R_i (in Ω)", value=36.0)
-        z_rl = st.number_input("Angeschlossener Lastwiderstand R_L (in Ω)", value=100.0)
-        
-        if (z_ri + z_rl) != 0:
-            z_il = z_u0 / (z_ri + z_rl)
-            st.success(f"Laststrom $I_L$ = **{z_il * 1000:.1f} mA** | Spannung an der Last $U_L$ = **{z_il * z_rl:.2f} V**")
-
-    # --- 4. ÜBERLAGERUNGSSATZ NACH HELMHOLTZ ---
-    st.header("4. Überlagerungssatz nach Helmholtz (Superposition)")
-    st.info("Wann anwenden? Bei Netzwerken mit mehreren unabhängigen Spannungs- oder Stromquellen[cite: 15].")
-
-    with st.expander("Schritt-für-Schritt & Interaktiver Rechner"):
-        st.markdown("""
-        **Das Prinzip:**
-        Der Strom in jedem Zweig setzt sich aus fiktiven Teilströmen zusammen, wobei jede Quelle für sich allein einen Teilstrom erzeugt[cite: 15].
-        
-        **Schritt 1: Alle Quellen bis auf eine 'ausschalten'**
-        *   **Spannungsquellen** werden kurzgeschlossen ($U = 0\,V$)[cite: 15].
-        *   **Stromquellen** werden durchtrennt (Leerlauf, $I = 0\,A$)[cite: 13].
-        
-        **Schritt 2: Fiktive Teilströme berechnen**
-        Die Schaltung mit nur noch einer aktiven Quelle berechnen (z.B. $I_1', I_2'$). Dies für jede Quelle wiederholen[cite: 15].
-        
-        **Schritt 3: Überlagerung (Addition)**
-        Die berechneten Teilströme richtungsrichtig addieren. Ströme in die gleiche Richtung bekommen ein Plus, Ströme in die entgegengesetzte Richtung ein Minus[cite: 15].
-        """)
-        st.latex(r"I_{ges} = I' + I'' + I'''")
-        
-        st.divider()
-        st.write("**Rechner: Überlagerung von zwei Quellen**")
-        h_i1 = st.number_input("Teilstrom aus Quelle 1 (in A, z.B. 1.5)", value=1.5)
-        h_i2 = st.number_input("Teilstrom aus Quelle 2 (in A, negativ wenn Gegenrichtung, z.B. -1.0)", value=-1.0)
-        st.success(f"Der resultierende Gesamtstrom beträgt: **{h_i1 + h_i2:.2f} A**")
-
-    # --- 5. KREISSTROMVERFAHREN ---
-    st.header("5. Kreisstrom-Verfahren (Maschenstrom-Verfahren)")
-    st.info("Wann anwenden? Bei komplexen Schaltungen mit vielen Knoten und Maschen, um die Anzahl der benötigten Gleichungen drastisch zu reduzieren[cite: 15].")
-
-    with st.expander("Schritt-für-Schritt Erklärung"):
-        st.markdown("""
-        **Schritt 1: Unabhängige Maschen festlegen**
-        Sämtliche Knotenpunkte werden über den sogenannten 'vollständigen Baum' miteinander verbunden (ohne dass sich geschlossene Maschen bilden)[cite: 15]. Die verbleibenden Verbindungen bilden die unabhängigen Zweige[cite: 15]. Nie zweimal über einen unabhängigen Zweig gehen[cite: 15]!
-        
-        **Schritt 2: Kreisströme einzeichnen**
-        Jeder Masche wird ein fiktiver Kreisstrom (z.B. $I_a, I_b$) zugeordnet[cite: 15]. Die Richtung (im Uhrzeigersinn) wird als positiv definiert[cite: 15].
-        
-        **Schritt 3: Maschengleichungen aufstellen**
-        Die Spannungsabfälle werden als Produkt aus Widerstand und Kreisstrom angegeben[cite: 15]. Fließen zwei Kreisströme durch denselben Widerstand (gemeinsamer Zweig), müssen beide berücksichtigt werden (z.B. $R_2 \cdot (I_a - I_b)$)[cite: 15].
-        
-        **Schritt 4: Gleichungssystem lösen & Überlagern**
-        Das System (z.B. mit dem Gauß-Verfahren) nach den Kreisströmen auflösen[cite: 15]. Liegt ein Bauteil in einem Zweig mit mehreren Kreisströmen, wird der tatsächliche Zweigstrom durch Überlagerung (z.B. $I_2 = I_a - I_b$) ermittelt[cite: 15].
-        """)
-        st.caption("Ausführliche Beispiele für Matrizen (Gauß) findest du im Bereich 'Mathematik'.")
-        
-    st.divider()
-    st.caption("Quellen: [^1] Aufgabensammlung Grundlagen ET[cite: 11] | [^2] Arbeitsmappen Diode & Schaltungsanalyse[cite: 12, 13, 14] | [^3] Kirchhoff, Helmholtz & Maschenstromverfahren[cite: 15].")
-
+    st.markdown("Wähle hier die verschiedenen Berechnungsmethoden für elektrische Netzwerke aus.")
+    
+    # Hier rufen wir jetzt unsere neue, saubere Funktion für die Kirchhoffschen Gesetze auf:
+    render_kirchhoff()
 elif menue == "Mathematik":
     st.title("Mathematik für Elektrotechniker")
     st.write("Alle wichtigen mathematischen Lösungswege. Zu jedem Thema gibt es eine fiktive Beispielaufgabe aus der Elektrotechnik.")
