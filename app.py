@@ -75,83 +75,64 @@ def render_maschenstromverfahren():
             st.markdown("**Schritt 2: Auflösung des Gleichungssystems (Drei verschiedene Lösungsverfahren)**")
             st.markdown("Um das Gleichungssystem zu lösen, stehen dir verschiedene mathematische Wege zur Verfügung:")
 
-            # Inner expander 1: Gaußsches Eliminationsverfahren (ausführlich mit Rechenweg)
+            # Inner expander 1: Gaußsches Eliminationsverfahren
             with st.expander("Option A: Gaußsches Eliminationsverfahren (Empfohlen)", expanded=False):
                 st.markdown(r"""
-                Das Gaußsche Eliminationsverfahren ist das systematischste und sicherste Verfahren, um größere lineare Gleichungssysteme zu lösen. Ziel ist es, das System in eine Stufenform (Dreiecksform) zu bringen, um die Variablen nacheinander auszurechnen.
+                Das Gaußsche Eliminationsverfahren ist das systematischste und sicherste Verfahren, um größere lineare Gleichungssysteme zu lösen. Ziel ist es, das System in eine Stufenform (Dreiecksform) zu bringen.
                 
-                **Ausgangssystem aus Schritt 1:**
-                1. $4{,}9 \cdot I_a + 2{,}8 \cdot I_b + 0 \cdot I_c = -15$
-                2. $2{,}8 \cdot I_a + 142{,}8 \cdot I_b - 140 \cdot I_c = -90$
-                3. $0 \cdot I_a - 140 \cdot I_b + 260 \cdot I_c = 0$
-                """)
-
-                st.markdown("---")
-                st.markdown("**Schritt 1: Überführung in die erweiterte Koeffizientenmatrix**")
-                st.markdown("Wir schreiben nur die Zahlenwerte (Koeffizienten) in eine Matrix, wobei die Spalten für $I_a$, $I_b$, $I_c$ und die rechte Seite stehen:")
-                
-                st.latex(r"""
-                \left(\begin{array}{ccc|c}
-                4{,}9 & 2{,}8 & 0 & -15 \\
-                2{,}8 & 142{,}8 & -140 & -90 \\
-                0 & -140 & 260 & 0
-                \end{array}\right)
-                """)
-
-                st.markdown("---")
-                st.markdown("**Schritt 2: Zeilenumformungen (Nullen unterhalb der Hauptdiagonale erzeugen)**")
-                st.markdown(r"""
-                *Ziel:* In der ersten Spalte unter dem ersten Element ($4{,}9$) sollen Nullen stehen. Da in Zeile 3 (Spalte $I_a$) bereits eine $0$ steht, müssen wir das nur für Zeile 2 tun.
-                
-                **Berechnung für die neue Zeile 2:**
-                Um den Koeffizienten von $I_a$ in Zeile 2 ($2{,}8$) zu eliminieren, multiplizieren wir Zeile 2 mit $4{,}9$ und subtrahieren das $2{,}8$-fache von Zeile 1:
-                * Rechenweg: $\text{Zeile } 2_{neu} = (4{,}9 \cdot \text{Zeile } 2) - (2{,}8 \cdot \text{Zeile } 1)$
-                * Für $I_b$: $(4{,}9 \cdot 142{,}8) - (2{,}8 \cdot 2{,}8) = 699{,}72 - 7{,}84 = 691{,}88$
-                * Für $I_c$: $(4{,}9 \cdot (-140)) - (2{,}8 \cdot 0) = -6860$
-                * Rechte Seite: $(4{,}9 \cdot (-90)) - (2{,}8 \cdot (-15)) = -4410 + 420 = -3990$
+                **Schritt 1: Startmatrix aufstellen**  
+                *Weg:* Wir lassen die Variablen ($I_a, I_b, I_c$) weg und schreiben nur die Zahlen (Koeffizienten) sowie die rechte Seite in eine strukturierte Tabelle:
                 """)
 
                 st.latex(r"""
-                \left(\begin{array}{ccc|c}
-                4{,}9 & 2{,}8 & 0 & -15 \\
-                0 & 691{,}88 & -6860 & -3990 \\
-                0 & -140 & 260 & 0
-                \end{array}\right)
+                \begin{array}{ccc|c|l}
+                \text{I} & 4{,}9 & 2{,}8 & 0 & -15 & \text{Bleibt unberührt} \\
+                \text{II} & 2{,}8 & 142{,}8 & -140 & -90 & \text{Bleibt unberührt} \\
+                \text{III} & 0 & -140 & 260 & 0 & \text{Bleibt unberührt}
+                \end{array}
                 """)
 
                 st.markdown(r"""
-                *Nächster Schritt:* Jetzt erzeugen wir in Spalte 2 (bei Zeile 3) eine $0$.
-                
-                **Berechnung für die neue Zeile 3:**
-                Wir multiplizieren Zeile 3 mit $691{,}88$ und addieren das $140$-fache von Zeile 2 dazu:
-                * Rechenweg: $\text{Zeile } 3_{neu} = (691{,}88 \cdot \text{Zeile } 3) + (140 \cdot \text{Zeile } 2)$
-                * Für $I_c$: $(691{,}88 \cdot 260) + (140 \cdot (-6860)) = 179888{,}8 - 960400 = -780511{,}2$
-                * Rechte Seite: $(691{,}88 \cdot 0) + (140 \cdot (-3990)) = -558600$
+                **Schritt 2: Nullen in der ersten Spalte erzeugen (unter der 4,9)**  
+                *Ziel:* Die $2{,}8$ in Zeile II soll zu Null werden (Zeile III hat in der ersten Spalte bereits eine $0$).  
+                *Weg:* Um die $2{,}8$ verschwinden zu lassen, multiplizieren wir Zeile II mit $4{,}9$ und subtrahieren das $2{,}8$-fache von Zeile I ($\text{II}' = (4{,}9 \cdot \text{II}) - (2{,}8 \cdot \text{I})$):
                 """)
 
                 st.latex(r"""
-                \left(\begin{array}{ccc|c}
-                4{,}9 & 2{,}8 & 0 & -15 \\
-                0 & 691{,}88 & -6860 & -3990 \\
-                0 & 0 & -780511{,}2 & -558600
-                \end{array}\right)
+                \begin{array}{ccc|c|l}
+                \text{I} & 4{,}9 & 2{,}8 & 0 & -15 & \text{Bleibt unberührt} \\
+                \text{II}' & 0 & 691{,}88 & -6860 & -3990 & \text{Rechnung: } (4{,}9 \cdot \text{II}) - (2{,}8 \cdot \text{I}) \\
+                \text{III} & 0 & -140 & 260 & 0 & \text{Bleibt unberührt}
+                \end{array}
                 """)
 
-                st.markdown("---")
-                st.markdown("**Schritt 3: Rückwärtseinsetzen (Back-Substitution)**")
-                st.markdown("Aus der fertigen Stufenform lesen wir die Werte von unten nach oben ab:")
-                
-                st.markdown("1. **Berechnung von $I_c$ (aus Zeile 3):**")
-                st.latex(r"-780511{,}2 \cdot I_c = -558600 \quad \Rightarrow \quad I_c = \frac{-558600}{-780511{,}2} \approx -1{,}9\text{ A}")
+                st.markdown(r"""
+                **Schritt 3: Null in der zweiten Spalte erzeugen (unter dem Wert aus Zeile II')**  
+                *Ziel:* Die $-140$ in Zeile III soll zu Null werden, damit wir unten links unsere Dreiecksform aus Nullen haben.  
+                *Weg:* Wir nutzen Zeile II' und Zeile III. Wir rechnen $\text{III}' = (691{,}88 \cdot \text{III}) + (140 \cdot \text{II}')$:
+                """)
 
-                st.markdown("2. **Berechnung von $I_b$ (aus Zeile 2):**")
-                st.latex(r"691{,}88 \cdot I_b - 6860 \cdot (-1{,}9) = -3990 \quad \Rightarrow \quad I_b \approx -3{,}5\text{ A}")
+                st.latex(r"""
+                \begin{array}{ccc|c|l}
+                \text{I} & 4{,}9 & 2{,}8 & 0 & -15 & \text{Bleibt unberührt} \\
+                \text{II}' & 0 & 691{,}88 & -6860 & -3990 & \text{Bleibt unberührt} \\
+                \text{III}'' & 0 & 0 & -780511{,}2 & -558600 & \text{Rechnung: } (691{,}88 \cdot \text{III}) + (140 \cdot \text{II}')
+                \end{array}
+                """)
 
-                st.markdown("3. **Berechnung von $I_a$ (aus Zeile 1):**")
-                st.latex(r"4{,}9 \cdot I_a + 2{,}8 \cdot (-3{,}5) = -15 \quad \Rightarrow \quad I_a \approx -5{,}0\text{ A}")
+                st.markdown(r"""
+                **Schritt 4: Rückwärtseinsetzen (von unten nach oben auflösen)**  
+                Wir übersetzen die Matrix zurück in Gleichungen und lösen sie auf:
+                """)
+
+                st.markdown(r"""
+                * Aus Zeile III'': $-780511{,}2 \cdot I_c = -558600 \implies \mathbf{I_c \approx -1{,}9\text{ A}}$
+                * Einsetzen in Zeile II': $691{,}88 \cdot I_b - 6860 \cdot (-1{,}9) = -3990 \implies 691{,}88 \cdot I_b + 13034 = -3990 \implies \mathbf{I_b \approx -3{,}5\text{ A}}$
+                * Einsetzen in Zeile I: $4{,}9 \cdot I_a + 2{,}8 \cdot (-3{,}5) = -15 \implies 4{,}9 \cdot I_a - 9{,}8 = -15 \implies \mathbf{I_a \approx -5{,}0\text{ A}}$
+                """)
 
                 st.success("**Endergebnis des Gauß-Verfahrens:**\n* $I_a = -5{,}0\text{ A}$\n* $I_b = -3{,}5\text{ A}$\n* $I_c = -1{,}9\text{ A}$")
-                st.info("Tipp: Negative Stromwerte bedeuten lediglich, dass der tatsächliche Strom in die entgegengesetzte Richtung fließt.")
+                st.info("Tipp: Negative Stromwerte bedeuten lediglich, dass der tatsächliche Strom in die entgegengesetzte Richtung fließt als ursprünglich angenommen.")
 
             # Inner expander 2: Additionsverfahren
             with st.expander("Option B: Additionsverfahren (Subtraktionsmethode)", expanded=False):
