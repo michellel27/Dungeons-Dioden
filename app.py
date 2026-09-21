@@ -1,6 +1,136 @@
 import streamlit as st
 
 import streamlit as st
+def render_ueberlagerungssatz():
+    st.markdown("### **Überlagerungssatz von Helmholtz (Superpositionsprinzip) im Detail**")
+    
+    # Haupt-Expander für das gesamte Thema
+    with st.expander("Inhalt, Theorie, Herleitung & Live-Beispiel anzeigen", expanded=False):
+        
+        st.markdown(f"*Kategorie:* <span style='color: #b19cd9; font-weight: bold; background-color: rgba(177, 156, 217, 0.15); padding: 2px 8px; border-radius: 4px;'>Analytische Netzwerksverfahren</span>", unsafe_allow_html=True)
+        st.markdown("")
+
+        # 1. Unterpunkt: Wann anwenden & Woran erkennen
+        with st.expander("Wann anwenden & Woran erkennt man das?", expanded=False):
+            st.markdown(r"""
+            **Woran erkennt man das?**
+            Du erkennst Schaltungen für den Überlagerungssatz daran, dass in einem linearen Netzwerk **mehrere voneinander unabhängige Quellen** (z.B. mehrere Spannungsquellen oder eine Spannungs- und eine Stromquelle) gleichzeitig wirken.
+            
+            **Wann wendet man es an?**
+            Das Verfahren wird dann eingesetzt, wenn man den Strom oder die Spannung in einem bestimmten Zweig eines Multi-Quellen-Netzwerks berechnen möchte, ohne gleich das gesamte komplexe Gleichungssystem für das Gesamtemblem aufstellen zu müssen. Man zerlegt das Problem in kleinere, kinderleicht zu lösende Teilprobleme.
+            """)
+
+        # 2. Unterpunkt: Hintergrund, Entstehung & Warum es funktioniert
+        with st.expander("Hintergrund, Entstehung & Warum es funktioniert", expanded=False):
+            st.markdown(r"""
+            **Hintergrund & Entstehung:**
+            Der Satz wurde von dem deutschen Physiker Hermann von Helmholtz formuliert. Er basiert auf der **Linearität** elektrischer Netzwerke (Ohmsches Gesetz: $U \sim I$).
+            
+            **Warum funktioniert das Verfahren? (Das physikalische Prinzip):**
+            Da Schaltungen aus linearen Bauteilen (Widerständen) bestehen, ist die Gesamtwirkung aller Quellen gleich der Summe der Einzeltwirkungen. Man betrachtet nacheinander jede Quelle isoliert: Alle anderen Spannungsquellen werden dabei durch einen **Kurzschluss** ($U = 0$, idealer Draht) und alle anderen Stromquellen durch einen **Leerlauf** ($I = 0$, Unterbrechung) ersetzt. Am Ende überlagert (addiert) man die Teilströme bzw. Teilspannungen vorzeichenrichtig.
+            """)
+
+        # 3. Unterpunkt: Theorie & Vorgehensweise
+        with st.expander("Theorie & Vorgehensweise", expanded=False):
+            st.markdown(r"""
+            **Die 3 Schritte des Superpositionsprinzips:**
+            1. **Quellen isolieren:** Bis auf eine Quelle werden alle anderen unabhängigen Quellen in ihrer Wirkung deaktiviert (Spannungsquelle = Kurzschluss, Stromquelle = Leerlauf).
+            2. **Teilwerte berechnen:** Man berechnet den Strom oder die Spannung im gewünschten Zweig für diese *eine* aktive Quelle ($I', I'', \dots$).
+            3. **Überlagerung (Superposition):** Man wiederholt dies für jede weitere Quelle und addiert alle Teilbeiträge algebraisch (unter Beachtung der Richtung/Vorzeichen) zum Gesamtergebnis.
+            """)
+            
+            st.markdown("**Mathematische Überlagerung:**")
+            st.latex(r"I_{\text{gesamt}} = I' + I'' + I''' + \dots")
+
+        # 4. Unterpunkt: Ausführliches Rechenbeispiel (mit Formeln & Zahlen)
+        with st.expander("Klassisches Rechenbeispiel (Schritt für Schritt erklärt)", expanded=False):
+            st.markdown(r"""
+            **Gegebene Werte aus der Beispielaufgabe:**
+            * Spannungsquelle 1: $U_1 = 20\text{ V}$
+            * Spannungsquelle 2: $U_2 = 10\text{ V}$
+            * Widerstände: $R_1 = 10\text{ }\Omega$, $R_2 = 20\text{ }\Omega$, $R_3 = 30\text{ }\Omega$ (Lastwiderstand)
+            
+            Gesucht ist der Gesamttrom $I_3$ durch den Lastwiderstand $R_3$.
+            """)
+            
+            st.markdown("---")
+            st.markdown("**Schritt 1: Erste Quelle ($U_1$) aktivieren, zweite Quelle ($U_2$) kurzschließen**")
+            st.markdown("Wir ersetzen $U_2$ durch einen Kurzschluss (Draht). Der Gesamtwiderstand, den $U_1$ sieht, setzt sich aus $R_1$ und der Parallelschaltung von $R_2$ und $R_3$ zusammen:")
+            st.latex(r"R_{ges1} = R_1 + (R_2 \parallel R_3) = 10 + \frac{20 \cdot 30}{20 + 30} = 10 + 12 = 22\text{ }\Omega")
+            st.markdown("Der Hauptstrom von $U_1$ beträgt somit:")
+            st.latex(r"I_{ges1} = \frac{U_1}{R_{ges1}} = \frac{20\text{ V}}{22\text{ }\Omega} \approx 0{,}909\text{ A}")
+            st.markdown("Über den Stromteiler errechnet sich der Teilstrom $I_3'$ durch den Widerstand $R_3$:")
+            st.latex(r"I_3' = I_{ges1} \cdot \frac{R_2}{R_2 + R_3} = 0{,}909\text{ A} \cdot \frac{20}{20 + 30} \approx 0{,}364\text{ A}")
+
+            # Tipp farblich hervorgehoben (Blau)
+            st.info("Tipp: Achte bei Teilströmen immer penibel auf die angenommene Zählrichtung. Fließt der Teilstrom in dieselbe Richtung wie der gesuchte Gesamtstrom, bekommt er ein positives Vorzeichen, andernfalls ein negatives.")
+
+            st.markdown("---")
+            st.markdown("**Schritt 2: Zweite Quelle ($U_2$) aktivieren, erste Quelle ($U_1$) kurzschließen**")
+            st.markdown("Nun umgekehrt: $U_1$ wird durch einen Kurzschluss ersetzt. Jetzt wirkt $U_2$ als aktive Quelle. Der Ersatzwiderstand aus Sicht von $U_2$ ist:")
+            st.latex(r"R_{ges2} = R_2 + (R_1 \parallel R_3) = 20 + \frac{10 \cdot 30}{10 + 30} = 20 + 7{,}5 = 27{,}5\text{ }\Omega")
+            st.latex(r"I_{ges2} = \frac{U_2}{R_{ges2}} = \frac{10\text{ V}}{27{,}5\text{ }\Omega} \approx 0{,}364\text{ A}")
+            st.markdown("Der Teilstrom $I_3''$ durch den Widerstand $R_3$ beträgt:")
+            st.latex(r"I_3'' = I_{ges2} \cdot \frac{R_1}{R_1 + R_3} = 0{,}364\text{ A} \cdot \frac{10}{10 + 30} \approx 0{,}091\text{ A}")
+
+            st.markdown("---")
+            st.markdown("**Schritt 3: Überlagerung (Addition der Teilströme)**")
+            st.markdown("Beide Teilströme fließen durch den Lastwiderstand $R_3$ in dieselbe Richtung, weshalb sie addiert werden:")
+            st.latex(r"I_{3,\text{gesamt}} = I_3' + I_3'' = 0{,}364\text{ A} + 0{,}091\text{ A} = 0{,}455\text{ A}")
+
+            # Endergebnis farblich hervorgehoben (Grün)
+            st.success(r"**Endergebnis:** Der Gesamtstrom durch den Lastwiderstand beträgt exakt **$0{,}455\text{ A}$**.")
+
+    st.markdown("---")
+
+    # Interaktiver Live-Rechner für den Überlagerungssatz
+    with st.expander("Interaktiver Live-Rechner: Superposition für zwei Spannungsquellen", expanded=False):
+        st.markdown("Berechne hier das Zusammenspiel zweier Spannungsquellen $U_1$ und $U_2$ an drei Widerständen $R_1, R_2, R_3$:")
+
+        c1, c2 = st.columns(2)
+        with c1:
+            sup_u1 = st.number_input("Spannung U1 (V):", value=20.0, step=1.0, key="sup_u1")
+            sup_r1 = st.number_input("Widerstand R1 (Ohm):", value=10.0, min_value=1.0, step=1.0, key="sup_r1")
+        with c2:
+            sup_u2 = st.number_input("Spannung U2 (V):", value=10.0, step=1.0, key="sup_u2")
+            sup_r2 = st.number_input("Widerstand R2 (Ohm):", value=20.0, min_value=1.0, step=1.0, key="sup_r2")
+        
+        sup_r3 = st.number_input("Lastwiderstand R3 (Ohm):", value=30.0, min_value=1.0, step=1.0, key="sup_r3")
+
+        # Live-Berechnung der Teilströme über Superposition
+        # Teil 1: U1 aktiv, U2 Kurzschluss
+        r_par1 = (sup_r2 * sup_r3) / (sup_r2 + sup_r3) if (sup_r2 + sup_r3) > 0 else 0
+        r_ges1 = sup_r1 + r_par1
+        i_ges1 = sup_u1 / r_ges1 if r_ges1 > 0 else 0
+        i3_strich = i_ges1 * (sup_r2 / (sup_r2 + sup_r3)) if (sup_r2 + sup_r3) > 0 else 0
+
+        # Teil 2: U2 aktiv, U1 Kurzschluss
+        r_par2 = (sup_r1 * sup_r3) / (sup_r1 + sup_r3) if (sup_r1 + sup_r3) > 0 else 0
+        r_ges2 = sup_r2 + r_par2
+        i_ges2 = sup_u2 / r_ges2 if r_ges2 > 0 else 0
+        i3_zwei_strich = i_ges2 * (sup_r1 / (sup_r1 + sup_r3)) if (sup_r1 + sup_r3) > 0 else 0
+
+        i3_total = i3_strich + i3_zwei_strich
+
+        st.markdown("---")
+        st.markdown("### **Live-Musterlösung für die Teilströme:**")
+        
+        st.markdown("**1. Teilstrom durch U1 allein ($I_3'$):**")
+        st.latex(f"I_3' = {i3_strich:.4f}\\text{{ A}}")
+
+        st.markdown("**2. Teilstrom durch U2 allein ($I_3''$):**")
+        st.latex(f"I_3'' = {i3_zwei_strich:.4f}\\text{{ A}}")
+
+        st.markdown("**3. Gesamtstrom im Lastzweig ($I_3$):**")
+        
+        # Live-Ergebnisse sauber in Grün
+        col_res1, col_res2 = st.columns(2)
+        with col_res1:
+            st.success(f"**Teilstrom I3':** `{i3_strich:.3f} A`")
+        with col_res2:
+            st.success(f"**Gesamtstrom I3:** `{i3_total:.3f} A`")
+
+    st.markdown("---")
 def render_maschenstromverfahren():
     st.markdown("### **Maschenstrom-Verfahren (Kreisstrom-Verfahren) im Detail**")
     
@@ -1309,6 +1439,7 @@ elif menue == "Verfahren":
     render_knotenpotential()
     render_maschenstromverfahren()
     render_zweipoltheorie()
+    render_ueberlagerungssatz()
 elif menue == "Mathematik":
     st.title("Mathematik für Elektrotechniker")
     st.write("Alle wichtigen mathematischen Lösungswege. Zu jedem Thema gibt es eine fiktive Beispielaufgabe aus der Elektrotechnik.")
